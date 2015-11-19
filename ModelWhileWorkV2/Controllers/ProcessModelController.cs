@@ -56,7 +56,7 @@ namespace ModelWhileWorkV2.Controllers
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(XmlSbpmEntireModel));
 
-                using (FileStream fileStream = new FileStream("Upload/prozess132.exml", FileMode.Open))
+                using (FileStream fileStream = new FileStream("prozess132.exml", FileMode.Open))
                 {
                     XmlSbpmEntireModel processModelObject = (XmlSbpmEntireModel)serializer.Deserialize(fileStream);
 
