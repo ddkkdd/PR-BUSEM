@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<EntireModel>
+	<Subject SubjectName="Employee" RealName="Employee">
+		<Element>
+			<UUID>49</UUID>
+			<name>Fill out Vacation Application Form</name><x>0.0668543</x><y>0.356036</y>
+			<angle>0.0</angle>
+		</Element>
+		<Element>
+			<UUID>52</UUID>
+			<name>Book Holidays</name><x>0.0683175</x><y>0.86796</y>
+			<angle>6.2723</angle>
+		</Element>
+		<Element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlSendElement">
+			<UUID>48</UUID>
+			<name>Send Vacation Application</name><x>0.263362</x><y>0.360171</y>
+			<angle>0.0</angle>
+			<msg>
+				<message>Vacation Application</message>
+				<recipient>Secretary</recipient>
+				<sender>Employee</sender>
+			</msg>
+		</Element>
+		<Element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlReceiveElement">
+			<UUID>1</UUID>
+			<name>Receive Confirmation</name><x>0.254615</x><y>0.78842</y>
+			<angle>0.0</angle>
+			<messages>
+				<msg>
+					<message>Confirmation</message>
+					<recipient>Employee</recipient>
+					<sender>Secretary</sender>
+				</msg>
+			</messages>
+		</Element>
+		<Connection>
+			<UUID>1</UUID>
+			<name/>
+			<directed1>false</directed1>
+			<directed2>true</directed2>
+			<endPoint1>
+				<UUID>49</UUID>
+				<name>Fill out Vacation Application Form</name><x>0.0668543</x><y>0.356036</y>
+				<angle>0.0</angle>
+			</endPoint1>
+			<endPoint2 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlSendElement">
+				<UUID>48</UUID>
+				<name>Send Vacation Application</name><x>0.263362</x><y>0.360171</y>
+				<angle>0.0</angle>
+				<msg>
+					<message>Vacation Application</message>
+					<recipient>Secretary</recipient>
+					<sender>Employee</sender>
+				</msg>
+			</endPoint2>
+		</Connection>
+		<Connection>
+			<UUID>10</UUID>
+			<name/>
+			<directed1>false</directed1>
+			<directed2>true</directed2>
+			<endPoint1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlReceiveElement">
+				<UUID>1</UUID>
+				<name>Receive Confirmation</name><x>0.254615</x><y>0.78842</y>
+				<angle>0.0</angle>
+				<messages>
+					<msg>
+						<message>Confirmation</message>
+						<recipient>Employee</recipient>
+						<sender>Secretary</sender>
+					</msg>
+				</messages>
+			</endPoint1>
+			<endPoint2>
+				<UUID>52</UUID>
+				<name>Book Holidays</name><x>0.0683175</x><y>0.86796</y>
+				<angle>6.2723</angle>
+			</endPoint2>
+			<msg>
+				<message>Confirmation</message>
+				<recipient>Employee</recipient>
+				<sender>Secretary</sender>
+			</msg>
+		</Connection>
+		<Connection>
+			<directed1>false</directed1>
+			<directed2>true</directed2>
+			<endPoint1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlSendElement">
+				<UUID>48</UUID>
+				<name>Send Vacation Application</name><x>0.263362</x><y>0.360171</y>
+				<angle>0.0</angle>
+				<msg>
+					<message>Vacation Application</message>
+					<recipient>Secretary</recipient>
+					<sender>Employee</sender>
+				</msg>
+			</endPoint1>
+			<endPoint2 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlReceiveElement">
+				<UUID>1</UUID>
+				<name>Receive Confirmation</name><x>0.254615</x><y>0.78842</y>
+				<angle>0.0</angle>
+				<messages>
+					<msg>
+						<message>Confirmation</message>
+						<recipient>Employee</recipient>
+						<sender>Secretary</sender>
+					</msg>
+				</messages>
+			</endPoint2>
+		</Connection>
+	</Subject>
+	<Subject SubjectName="Secretary" RealName="Secretary">
+		<Element>
+			<UUID>46</UUID>
+			<name>Check for Conflicts</name><x>0.45346</x><y>0.388528</y>
+			<angle>0.0</angle>
+		</Element>
+		<Element>
+			<UUID>34</UUID>
+			<name>File the Application</name><x>0.456986</x><y>0.753162</y>
+			<angle>6.2627</angle>
+		</Element>
+		<Element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlReceiveElement">
+			<UUID>530</UUID>
+			<name>Receive Vacation Application</name><x>0.263362</x><y>0.360171</y>
+			<angle>0.0</angle>
+			<messages>
+				<msg>
+					<message>Vacation Application</message>
+					<recipient>Secretary</recipient>
+					<sender>Employee</sender>
+				</msg>
+			</messages>
+		</Element>
+		<Element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlSendElement">
+			<UUID>24</UUID>
+			<name>Send Validated Vacation Application</name><x>0.657932</x><y>0.418002</y>
+			<angle>0.0</angle>
+			<msg>
+				<message>Validated Vacation Application</message>
+				<recipient>CEO</recipient>
+				<sender>Secretary</sender>
+			</msg>
+		</Element>
+		<Element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlReceiveElement">
+			<UUID>243</UUID>
+			<name>Receive Positive Answer</name><x>0.648466</x><y>0.679466</y>
+			<angle>0.0</angle>
+			<messages>
+				<msg>
+					<message>Positive Answer</message>
+					<recipient>Secretary</recipient>
+					<sender>CEO</sender>
+				</msg>
+			</messages>
+		</Element>
+		<Element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlSendElement">
+			<UUID>54</UUID>
+			<name>Send Confirmation</name><x>0.254615</x><y>0.78842</y>
+			<angle>0.0</angle>
+			<msg>
+				<message>Confirmation</message>
+				<recipient>Employee</recipient>
+				<sender>Secretary</sender>
+			</msg>
+		</Element>
+		<Connection>
+			<UUID>2</UUID>
+			<name/>
+			<directed1>false</directed1>
+			<directed2>true</directed2>
+			<endPoint1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlReceiveElement">
+				<UUID>530</UUID>
+				<name>Receive Vacation Application</name><x>0.263362</x><y>0.360171</y>
+				<angle>0.0</angle>
+				<messages>
+					<msg>
+						<message>Vacation Application</message>
+						<recipient>Secretary</recipient>
+						<sender>Employee</sender>
+					</msg>
+				</messages>
+			</endPoint1>
+			<endPoint2>
+				<UUID>46</UUID>
+				<name>Check for Conflicts</name><x>0.45346</x><y>0.388528</y>
+				<angle>0.0</angle>
+			</endPoint2>
+			<msg>
+				<message>Vacation Application</message>
+				<recipient>Secretary</recipient>
+				<sender>Employee</sender>
+			</msg>
+		</Connection>
+		<Connection>
+			<UUID>3</UUID>
+			<name/>
+			<directed1>false</directed1>
+			<directed2>true</directed2>
+			<endPoint1>
+				<UUID>46</UUID>
+				<name>Check for Conflicts</name><x>0.45346</x><y>0.388528</y>
+				<angle>0.0</angle>
+			</endPoint1>
+			<endPoint2 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlSendElement">
+				<UUID>24</UUID>
+				<name>Send Validated Vacation Application</name><x>0.657932</x><y>0.418002</y>
+				<angle>0.0</angle>
+				<msg>
+					<message>Validated Vacation Application</message>
+					<recipient>CEO</recipient>
+					<sender>Secretary</sender>
+				</msg>
+			</endPoint2>
+		</Connection>
+		<Connection>
+			<UUID>7</UUID>
+			<name/>
+			<directed1>false</directed1>
+			<directed2>true</directed2>
+			<endPoint1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlReceiveElement">
+				<UUID>243</UUID>
+				<name>Receive Positive Answer</name><x>0.648466</x><y>0.679466</y>
+				<angle>0.0</angle>
+				<messages>
+					<msg>
+						<message>Positive Answer</message>
+						<recipient>Secretary</recipient>
+						<sender>CEO</sender>
+					</msg>
+				</messages>
+			</endPoint1>
+			<endPoint2>
+				<UUID>34</UUID>
+				<name>File the Application</name><x>0.456986</x><y>0.753162</y>
+				<angle>6.2627</angle>
+			</endPoint2>
+			<msg>
+				<message>Positive Answer</message>
+				<recipient>Secretary</recipient>
+				<sender>CEO</sender>
+			</msg>
+		</Connection>
+		<Connection>
+			<UUID>9</UUID>
+			<name/>
+			<directed1>false</directed1>
+			<directed2>true</directed2>
+			<endPoint1>
+				<UUID>34</UUID>
+				<name>File the Application</name><x>0.456986</x><y>0.753162</y>
+				<angle>6.2627</angle>
+			</endPoint1>
+			<endPoint2 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlSendElement">
+				<UUID>54</UUID>
+				<name>Send Confirmation</name><x>0.254615</x><y>0.78842</y>
+				<angle>0.0</angle>
+				<msg>
+					<message>Confirmation</message>
+					<recipient>Employee</recipient>
+					<sender>Secretary</sender>
+				</msg>
+			</endPoint2>
+		</Connection>
+		<Connection>
+			<directed1>false</directed1>
+			<directed2>true</directed2>
+			<endPoint1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlSendElement">
+				<UUID>24</UUID>
+				<name>Send Validated Vacation Application</name><x>0.657932</x><y>0.418002</y>
+				<angle>0.0</angle>
+				<msg>
+					<message>Validated Vacation Application</message>
+					<recipient>CEO</recipient>
+					<sender>Secretary</sender>
+				</msg>
+			</endPoint1>
+			<endPoint2 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlReceiveElement">
+				<UUID>243</UUID>
+				<name>Receive Positive Answer</name><x>0.648466</x><y>0.679466</y>
+				<angle>0.0</angle>
+				<messages>
+					<msg>
+						<message>Positive Answer</message>
+						<recipient>Secretary</recipient>
+						<sender>CEO</sender>
+					</msg>
+				</messages>
+			</endPoint2>
+		</Connection>
+	</Subject>
+	<Subject SubjectName="CEO" RealName="CEO">
+		<Element>
+			<UUID>43</UUID>
+			<name>Decide on the Application</name><x>0.841845</x><y>0.501772</y>
+			<angle>0.0</angle>
+		</Element>
+		<Element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlReceiveElement">
+			<UUID>92</UUID>
+			<name>Receive Validated Vacation Application</name><x>0.657932</x><y>0.418002</y>
+			<angle>0.0</angle>
+			<messages>
+				<msg>
+					<message>Validated Vacation Application</message>
+					<recipient>CEO</recipient>
+					<sender>Secretary</sender>
+				</msg>
+			</messages>
+		</Element>
+		<Element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlSendElement">
+			<UUID>45</UUID>
+			<name>Send Positive Answer</name><x>0.648466</x><y>0.679466</y>
+			<angle>0.0</angle>
+			<msg>
+				<message>Positive Answer</message>
+				<recipient>Secretary</recipient>
+				<sender>CEO</sender>
+			</msg>
+		</Element>
+		<Connection>
+			<UUID>4</UUID>
+			<name/>
+			<directed1>false</directed1>
+			<directed2>true</directed2>
+			<endPoint1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlReceiveElement">
+				<UUID>92</UUID>
+				<name>Receive Validated Vacation Application</name><x>0.657932</x><y>0.418002</y>
+				<angle>0.0</angle>
+				<messages>
+					<msg>
+						<message>Validated Vacation Application</message>
+						<recipient>CEO</recipient>
+						<sender>Secretary</sender>
+					</msg>
+				</messages>
+			</endPoint1>
+			<endPoint2>
+				<UUID>43</UUID>
+				<name>Decide on the Application</name><x>0.841845</x><y>0.501772</y>
+				<angle>0.0</angle>
+			</endPoint2>
+			<msg>
+				<message>Validated Vacation Application</message>
+				<recipient>CEO</recipient>
+				<sender>Secretary</sender>
+			</msg>
+		</Connection>
+		<Connection>
+			<UUID>6</UUID>
+			<name/>
+			<directed1>false</directed1>
+			<directed2>true</directed2>
+			<endPoint1>
+				<UUID>43</UUID>
+				<name>Decide on the Application</name><x>0.841845</x><y>0.501772</y>
+				<angle>0.0</angle>
+			</endPoint1>
+			<endPoint2 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlSendElement">
+				<UUID>45</UUID>
+				<name>Send Positive Answer</name><x>0.648466</x><y>0.679466</y>
+				<angle>0.0</angle>
+				<msg>
+					<message>Positive Answer</message>
+					<recipient>Secretary</recipient>
+					<sender>CEO</sender>
+				</msg>
+			</endPoint2>
+		</Connection>
+	</Subject>
+</EntireModel>

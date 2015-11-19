@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EntireModel Version="1.3.3" ProcessName="Urlaubsantrag">
+    <Subject RealName="DefaultUser" SubjectName="DefaultUser">
+        <Element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlReceiveElement">
+            <UUID>1</UUID>
+            <name>Eingang des Urlaubsantrag</name>
+            <x>0.0</x>
+            <y>0.0</y>
+            <angle>0.0</angle>
+            <messages>
+                <msg>
+                    <message>Eingang des Urlaubsantrag</message>
+                    <recipient>DefaultUser</recipient>
+                    <sender>MitarbeiterIn</sender>
+                </msg>
+            </messages>
+        </Element>
+        <Element>
+            <UUID>2</UUID>
+            <name>Auf Terminkonflikt prüfen</name>
+            <x>0.0</x>
+            <y>100.0</y>
+            <angle>0.0</angle>
+        </Element>
+        <Element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlSendElement">
+            <UUID>3</UUID>
+            <name>Antrag an Leitung weiterleiten</name>
+            <x>0.0</x>
+            <y>200.0</y>
+            <angle>0.0</angle>
+            <msg>
+                <message>Antrag an Leitung weiterleiten</message>
+                <recipient>Abteilungsleitung</recipient>
+                <sender>DefaultUser</sender>
+            </msg>
+        </Element>
+        <Element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlReceiveElement">
+            <UUID>4</UUID>
+            <name>Entscheidung empfangen</name>
+            <x>0.0</x>
+            <y>300.0</y>
+            <angle>0.0</angle>
+            <messages>
+                <msg>
+                    <message>Entscheidung empfangen</message>
+                    <recipient>DefaultUser</recipient>
+                    <sender>Abteilungsleitung</sender>
+                </msg>
+            </messages>
+        </Element>
+        <Element>
+            <UUID>5</UUID>
+            <name>Gruppenkalender aktualisieren </name>
+            <x>0.0</x>
+            <y>400.0</y>
+            <angle>0.0</angle>
+        </Element>
+        <Element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlSendElement">
+            <UUID>6</UUID>
+            <name>über Genehmigung informieren</name>
+            <x>0.0</x>
+            <y>500.0</y>
+            <angle>0.0</angle>
+            <msg>
+                <message>über Genehmigung informieren</message>
+                <recipient>MitarbeiterIn</recipient>
+                <sender>DefaultUser</sender>
+            </msg>
+        </Element>
+        <Connection>
+            <UUID>df0f7f22-7957-4f55-94e8-3800c928ffaa</UUID>
+            <name>&lt;Name&gt;</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlReceiveElement">
+                <UUID>1</UUID>
+                <name>Eingang des Urlaubsantrag</name>
+                <x>0.0</x>
+                <y>0.0</y>
+                <angle>0.0</angle>
+                <messages/>
+            </endPoint1>
+            <endPoint2>
+                <UUID>2</UUID>
+                <name>Auf Terminkonflikt prüfen</name>
+                <x>0.0</x>
+                <y>100.0</y>
+                <angle>0.0</angle>
+            </endPoint2>
+            <msg>
+                <message>Eingang des Urlaubsantrag</message>
+                <recipient>DefaultUser</recipient>
+                <sender>MitarbeiterIn</sender>
+            </msg>
+        </Connection>
+        <Connection>
+            <UUID>0e21f9db-ebaf-4a57-beb1-98e7fc0f729e</UUID>
+            <name>Auf Terminkonflikt prüfen erledigt</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1>
+                <UUID>2</UUID>
+                <name>Auf Terminkonflikt prüfen</name>
+                <x>0.0</x>
+                <y>100.0</y>
+                <angle>0.0</angle>
+            </endPoint1>
+            <endPoint2 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlSendElement">
+                <UUID>3</UUID>
+                <name>Antrag an Leitung weiterleiten</name>
+                <x>0.0</x>
+                <y>200.0</y>
+                <angle>0.0</angle>
+                <msg>
+                    <message>Antrag an Leitung weiterleiten</message>
+                    <recipient>Abteilungsleitung</recipient>
+                    <sender>DefaultUser</sender>
+                </msg>
+            </endPoint2>
+        </Connection>
+        <Connection>
+            <UUID>8beeac42-d1ae-422c-892a-d3272993d8fb</UUID>
+            <name>&lt;Name&gt;</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlSendElement">
+                <UUID>3</UUID>
+                <name>Antrag an Leitung weiterleiten</name>
+                <x>0.0</x>
+                <y>200.0</y>
+                <angle>0.0</angle>
+            </endPoint1>
+            <endPoint2 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlReceiveElement">
+                <UUID>4</UUID>
+                <name>Entscheidung empfangen</name>
+                <x>0.0</x>
+                <y>300.0</y>
+                <angle>0.0</angle>
+                <messages>
+                    <msg>
+                        <message>Entscheidung empfangen</message>
+                        <recipient>DefaultUser</recipient>
+                        <sender>Abteilungsleitung</sender>
+                    </msg>
+                </messages>
+            </endPoint2>
+            <msg>
+                <message>Antrag an Leitung weiterleiten</message>
+                <recipient>Abteilungsleitung</recipient>
+                <sender>DefaultUser</sender>
+            </msg>
+        </Connection>
+        <Connection>
+            <UUID>f0f31737-bc07-48f7-a044-a92100275d6c</UUID>
+            <name>&lt;Name&gt;</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlReceiveElement">
+                <UUID>4</UUID>
+                <name>Entscheidung empfangen</name>
+                <x>0.0</x>
+                <y>300.0</y>
+                <angle>0.0</angle>
+                <messages/>
+            </endPoint1>
+            <endPoint2>
+                <UUID>5</UUID>
+                <name>Gruppenkalender aktualisieren </name>
+                <x>0.0</x>
+                <y>400.0</y>
+                <angle>0.0</angle>
+            </endPoint2>
+            <msg>
+                <message>Entscheidung empfangen</message>
+                <recipient>DefaultUser</recipient>
+                <sender>Abteilungsleitung</sender>
+            </msg>
+        </Connection>
+        <Connection>
+            <UUID>2008807f-e0ff-48fd-9198-89d0fb1e4714</UUID>
+            <name>Gruppenkalender aktualisieren  erledigt</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1>
+                <UUID>5</UUID>
+                <name>Gruppenkalender aktualisieren </name>
+                <x>0.0</x>
+                <y>400.0</y>
+                <angle>0.0</angle>
+            </endPoint1>
+            <endPoint2 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlSendElement">
+                <UUID>6</UUID>
+                <name>über Genehmigung informieren</name>
+                <x>0.0</x>
+                <y>500.0</y>
+                <angle>0.0</angle>
+                <msg>
+                    <message>über Genehmigung informieren</message>
+                    <recipient>MitarbeiterIn</recipient>
+                    <sender>DefaultUser</sender>
+                </msg>
+            </endPoint2>
+        </Connection>
+    </Subject>
+</EntireModel>
