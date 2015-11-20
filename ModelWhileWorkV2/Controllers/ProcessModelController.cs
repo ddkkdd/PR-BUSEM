@@ -7,20 +7,25 @@ using System.Web.Http;
 using ModelWhileWorkV2.Models;
 using System.Xml.Serialization;
 using System.IO;
+using System.Threading.Tasks;
+using System.Web;
 
 namespace ModelWhileWorkV2.Controllers
 {
     public class ProcessModelController : ApiController
     {
-        private static string filepath = "C:/Users/Daniel/documents/visual studio 2013/Projects/ModelWhileWorkV2/ModelWhileWorkV2/App_Data/prozess132.exml";
-        //private static string filepath = "~/App_Data/prozess132.exml"
+        private static string xmlFilePath = "C:/Users/Daniel/documents/visual studio 2013/Projects/ModelWhileWorkV2/ModelWhileWorkV2/App_Data/prozess132.exml";
+        //private static string xmlFilePath = "~/App_Data/prozess132.exml";
+        private static string uploadFolderPath = "~/App_Data/Uploads/";
 
+
+        //Returns Model File As Json
         public IHttpActionResult GetModel()
         {
             try
             {                
                 XmlSerializer serializer = new XmlSerializer(typeof(XmlSbpmEntireModel));
-                using (FileStream fileStream = new FileStream(filepath, FileMode.Open))
+                using (FileStream fileStream = new FileStream(xmlFilePath, FileMode.Open))
                 {
                     XmlSbpmEntireModel processModelObject = (XmlSbpmEntireModel)serializer.Deserialize(fileStream);
 
@@ -31,6 +36,30 @@ namespace ModelWhileWorkV2.Controllers
             {
                 return InternalServerError(ex);
             }
+        }
+
+        //Upload Model File
+        public HttpStatusCode PostModel()
+        {
+            try
+            {
+                var httpRequest = HttpContext.Current.Request;
+                if (httpRequest.Files.Count > 0)
+                {
+                    foreach (string file in httpRequest.Files)
+                    {
+                        var postedFile = httpRequest.Files[file];
+                        var filePath = HttpContext.Current.Server.MapPath(uploadFolderPath + postedFile.FileName);
+                        postedFile.SaveAs(filePath);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return HttpStatusCode.InternalServerError;
+            }
+
+            return HttpStatusCode.Created;
         }
     }
 }
