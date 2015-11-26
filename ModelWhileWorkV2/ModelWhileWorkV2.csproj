@@ -255,6 +255,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <BrowseToURL>~/App_Data/prozess132.exml</BrowseToURL>
     </Content>
+    <None Include="Models\metasonictouch.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Models\metasonictouch_extended.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

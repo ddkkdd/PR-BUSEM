@@ -5,6 +5,7 @@ using System.Web;
 
 namespace ModelWhileWorkV2.Models
 {
+
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
     [System.SerializableAttribute()]
@@ -205,6 +206,7 @@ namespace ModelWhileWorkV2.Models
     }
 
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(XmlCoreConnectionExtended))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(XmlCoreConnection))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(XmlSbpmConnection))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(XmlSbpmModelingElement))]
@@ -313,6 +315,143 @@ namespace ModelWhileWorkV2.Models
             set
             {
                 this.senderField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class XmlCoreConnectionExtended : XmlSbpmModelingObject
+    {
+
+        private bool directed1Field;
+
+        private bool directed2Field;
+
+        private bool directed3Field;
+
+        private bool directed4Field;
+
+        private XmlSbpmModelingElement endPoint1Field;
+
+        private XmlSbpmModelingElement endPoint2Field;
+
+        private XmlSbpmModelingElement endPoint3Field;
+
+        private XmlSbpmModelingElement endPoint4Field;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public bool directed1
+        {
+            get
+            {
+                return this.directed1Field;
+            }
+            set
+            {
+                this.directed1Field = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public bool directed2
+        {
+            get
+            {
+                return this.directed2Field;
+            }
+            set
+            {
+                this.directed2Field = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public bool directed3
+        {
+            get
+            {
+                return this.directed3Field;
+            }
+            set
+            {
+                this.directed3Field = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public bool directed4
+        {
+            get
+            {
+                return this.directed4Field;
+            }
+            set
+            {
+                this.directed4Field = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public XmlSbpmModelingElement endPoint1
+        {
+            get
+            {
+                return this.endPoint1Field;
+            }
+            set
+            {
+                this.endPoint1Field = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public XmlSbpmModelingElement endPoint2
+        {
+            get
+            {
+                return this.endPoint2Field;
+            }
+            set
+            {
+                this.endPoint2Field = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public XmlSbpmModelingElement endPoint3
+        {
+            get
+            {
+                return this.endPoint3Field;
+            }
+            set
+            {
+                this.endPoint3Field = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public XmlSbpmModelingElement endPoint4
+        {
+            get
+            {
+                return this.endPoint4Field;
+            }
+            set
+            {
+                this.endPoint4Field = value;
             }
         }
     }
@@ -466,4 +605,5 @@ namespace ModelWhileWorkV2.Models
             }
         }
     }
+
 }

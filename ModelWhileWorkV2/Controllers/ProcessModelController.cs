@@ -14,18 +14,18 @@ namespace ModelWhileWorkV2.Controllers
 {
     public class ProcessModelController : ApiController
     {
-        private static string xmlFilePath = "C:/Users/Daniel/documents/visual studio 2013/Projects/ModelWhileWorkV2/ModelWhileWorkV2/App_Data/prozess132.exml";
+        private static string xmlFilePath = "C:/Users/Daniel/documents/visual studio 2013/Projects/ModelWhileWorkV2/ModelWhileWorkV2/App_Data/";//prozess132.exml";
         //private static string xmlFilePath = "~/App_Data/prozess132.exml";
         private static string uploadFolderPath = "~/App_Data/Uploads/";
 
 
         //Returns Model File As Json
-        public IHttpActionResult GetModel()
+        public IHttpActionResult GetModel(string modelName)
         {
             try
             {                
                 XmlSerializer serializer = new XmlSerializer(typeof(XmlSbpmEntireModel));
-                using (FileStream fileStream = new FileStream(xmlFilePath, FileMode.Open))
+                using (FileStream fileStream = new FileStream(xmlFilePath+modelName, FileMode.Open))
                 {
                     XmlSbpmEntireModel processModelObject = (XmlSbpmEntireModel)serializer.Deserialize(fileStream);
 

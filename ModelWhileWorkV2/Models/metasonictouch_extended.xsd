@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:simpleType name="RealName">
+    <xs:restriction base="xs:string">
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="XmlSbpmModelingElement">
+    <xs:complexContent>
+      <xs:extension base="XmlSbpmModelingObject">
+        <xs:sequence>
+          <xs:element name="x" type="xs:float" />
+          <xs:element name="y" type="xs:float" />
+          <xs:element name="angle" type="xs:float" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="XmlSbpmModelingObject" abstract="true">
+    <xs:sequence>
+      <xs:element name="UUID" type="xs:string" minOccurs="1" />
+      <xs:element name="name" type="xs:string" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="XmlCoreConnection">
+    <xs:complexContent>
+      <xs:extension base="XmlSbpmModelingObject">
+        <xs:sequence>
+          <xs:element name="directed1" type="xs:boolean" />
+          <xs:element name="directed2" type="xs:boolean" />
+          <xs:element name="endPoint1" type="XmlSbpmModelingElement"
+						minOccurs="1" />
+          <xs:element name="endPoint2" type="XmlSbpmModelingElement"
+						minOccurs="1" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="XmlSendElement">
+    <xs:complexContent>
+      <xs:extension base="XmlSbpmModelingElement">
+        <xs:sequence>
+          <xs:element name="msg" type="XmlSbpmXmppMessage"
+						minOccurs="0" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="XmlSbpmXmppMessage">
+    <xs:complexContent>
+      <xs:extension base="XmlCoreXmppMessage">
+        <xs:sequence>
+          <xs:element name="recipient" type="xs:string" minOccurs="0" />
+          <xs:element name="sender" type="xs:string" minOccurs="0" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="XmlCoreXmppMessage">
+    <xs:sequence>
+      <xs:element name="message" type="xs:string" minOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="XmlReceiveElement">
+    <xs:complexContent>
+      <xs:extension base="XmlSbpmModelingElement">
+        <xs:sequence>
+          <xs:element name="messages" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="msg" type="XmlSbpmXmppMessage"
+									minOccurs="1" maxOccurs="unbounded" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="XmlSbpmConnection">
+    <xs:complexContent>
+      <xs:extension base="XmlCoreConnection">
+        <xs:sequence>
+          <xs:element name="msg" type="XmlSbpmXmppMessage"
+						minOccurs="0" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="XmlCoreConnectionExtended">
+    <xs:complexContent>
+      <xs:extension base="XmlSbpmModelingObject">
+        <xs:sequence minOccurs="1">
+          <xs:element name="directed1" type="xs:boolean" />
+          <xs:element name="directed2" type="xs:boolean" />
+          <xs:element name="directed3" type="xs:boolean" />
+          <xs:element name="directed4" type="xs:boolean" />
+          <xs:element name="endPoint1" type="XmlSbpmModelingElement"
+						minOccurs="1" />
+          <xs:element name="endPoint2" type="XmlSbpmModelingElement"
+						minOccurs="1" />
+          <xs:element name="endPoint3" type="XmlSbpmModelingElement"
+						minOccurs="1" />
+          <xs:element name="endPoint4" type="XmlSbpmModelingElement"
+						minOccurs="1" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="XmlSbpmEntireModelSubject">
+    <xs:sequence>
+      <xs:element name="Element" type="XmlSbpmModelingElement"
+				minOccurs="0" maxOccurs="unbounded">
+      </xs:element>
+      <xs:element name="Connection" type="XmlSbpmConnection"
+				minOccurs="0" maxOccurs="unbounded">
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="SubjectName" type="xs:string" use="required"></xs:attribute>
+    <xs:attribute name="RealName" type="xs:string" use="optional"></xs:attribute>
+  </xs:complexType>
+
+
+
+  <xs:complexType name="XmlSbpmEntireModel">
+    <xs:sequence>
+      <xs:element name="Subject" type="XmlSbpmEntireModelSubject"
+				minOccurs="1" maxOccurs="unbounded"></xs:element>
+    </xs:sequence>
+    <xs:attribute name="ProcessName" type="xs:string" default=""/>
+    <xs:attribute name="Version" type="xs:string" default="" />
+  </xs:complexType>
+
+  <xs:element name="EntireModel" type="XmlSbpmEntireModel"></xs:element>
+
+  <xs:element name="Subject" type="XmlSbpmEntireModelSubject"></xs:element>
+</xs:schema>
