@@ -39,7 +39,7 @@ namespace ModelWhileWorkV2.Controllers
         }
 
         //Upload Model File
-        public HttpStatusCode PostModel()
+        public IHttpActionResult PostModel()
         {
             try
             {
@@ -54,12 +54,12 @@ namespace ModelWhileWorkV2.Controllers
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return HttpStatusCode.InternalServerError;
+                return InternalServerError (ex);
             }
 
-            return HttpStatusCode.Created;
+            return Ok();
         }
     }
 }
