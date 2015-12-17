@@ -144,6 +144,18 @@ namespace ConsoleApplication1
                 this.realNameField = value;
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            var subject = obj as XmlSbpmEntireModelSubject;
+
+            if (subject == null)
+            {
+                return false;
+            }
+
+            return (this.RealName.Equals(subject.RealName) && this.SubjectName.Equals(subject.SubjectName));
+        }
     }
 
     /// <remarks/>

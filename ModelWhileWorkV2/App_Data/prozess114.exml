@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?><EntireModel Version="1.3.3" ProcessName="rechnungspruefung">
+    <Subject RealName="DefaultUser" SubjectName="DefaultUser">
+        <Element>
+            <UUID>1</UUID>
+            <name>Rechnung kommt</name>
+            <x>0.0</x>
+            <y>0.0</y>
+            <angle>0.0</angle>
+        </Element>
+        <Element>
+            <UUID>2</UUID>
+            <name>Rechnung prüfen und kontieren</name>
+            <x>0.0</x>
+            <y>100.0</y>
+            <angle>0.0</angle>
+        </Element>
+        <Element>
+            <UUID>3</UUID>
+            <name>Rechnung scannen</name>
+            <x>0.0</x>
+            <y>200.0</y>
+            <angle>0.0</angle>
+        </Element>
+        <Element>
+            <UUID>4</UUID>
+            <name>Scan in Dokumentenablage</name>
+            <x>0.0</x>
+            <y>300.0</y>
+            <angle>0.0</angle>
+        </Element>
+        <Element>
+            <UUID>5</UUID>
+            <name>Fortlaufende Eingangsnummer vergeben</name>
+            <x>0.0</x>
+            <y>400.0</y>
+            <angle>0.0</angle>
+        </Element>
+        <Element>
+            <UUID>6</UUID>
+            <name>scan umbenennen in Eingangsnummer</name>
+            <x>0.0</x>
+            <y>500.0</y>
+            <angle>0.0</angle>
+        </Element>
+        <Element>
+            <UUID>7</UUID>
+            <name>Rechnung freigeben</name>
+            <x>0.0</x>
+            <y>600.0</y>
+            <angle>0.0</angle>
+        </Element>
+        <Element>
+            <UUID>8</UUID>
+            <name>Rechnung in Scanview erfassen</name>
+            <x>0.0</x>
+            <y>700.0</y>
+            <angle>0.0</angle>
+        </Element>
+        <Element>
+            <UUID>9</UUID>
+            <name>Rechnung ablegen</name>
+            <x>0.0</x>
+            <y>800.0</y>
+            <angle>0.0</angle>
+        </Element>
+        <Connection>
+            <UUID>239899a3-163e-40ae-86dc-0c0dc469a62f</UUID>
+            <name>Rechnung kommt erledigt</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1>
+                <UUID>1</UUID>
+                <name>Rechnung kommt</name>
+                <x>0.0</x>
+                <y>0.0</y>
+                <angle>0.0</angle>
+            </endPoint1>
+            <endPoint2>
+                <UUID>2</UUID>
+                <name>Rechnung prüfen und kontieren</name>
+                <x>0.0</x>
+                <y>100.0</y>
+                <angle>0.0</angle>
+            </endPoint2>
+        </Connection>
+        <Connection>
+            <UUID>6bab017f-b09d-4413-a6e6-3d0d00b62e2d</UUID>
+            <name>Rechnung prüfen und kontieren erledigt</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1>
+                <UUID>2</UUID>
+                <name>Rechnung prüfen und kontieren</name>
+                <x>0.0</x>
+                <y>100.0</y>
+                <angle>0.0</angle>
+            </endPoint1>
+            <endPoint2>
+                <UUID>3</UUID>
+                <name>Rechnung scannen</name>
+                <x>0.0</x>
+                <y>200.0</y>
+                <angle>0.0</angle>
+            </endPoint2>
+        </Connection>
+        <Connection>
+            <UUID>6d0f65b7-47c9-4613-9775-d5d382932727</UUID>
+            <name>Rechnung scannen erledigt</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1>
+                <UUID>3</UUID>
+                <name>Rechnung scannen</name>
+                <x>0.0</x>
+                <y>200.0</y>
+                <angle>0.0</angle>
+            </endPoint1>
+            <endPoint2>
+                <UUID>4</UUID>
+                <name>Scan in Dokumentenablage</name>
+                <x>0.0</x>
+                <y>300.0</y>
+                <angle>0.0</angle>
+            </endPoint2>
+        </Connection>
+        <Connection>
+            <UUID>a0d0710b-0520-4ba3-b0c7-6c9a78c95a3f</UUID>
+            <name>Scan in Dokumentenablage erledigt</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1>
+                <UUID>4</UUID>
+                <name>Scan in Dokumentenablage</name>
+                <x>0.0</x>
+                <y>300.0</y>
+                <angle>0.0</angle>
+            </endPoint1>
+            <endPoint2>
+                <UUID>5</UUID>
+                <name>Fortlaufende Eingangsnummer vergeben</name>
+                <x>0.0</x>
+                <y>400.0</y>
+                <angle>0.0</angle>
+            </endPoint2>
+        </Connection>
+        <Connection>
+            <UUID>df546e4e-5f02-478d-8b9a-f1746596882c</UUID>
+            <name>Fortlaufende Eingangsnummer vergeben erledigt</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1>
+                <UUID>5</UUID>
+                <name>Fortlaufende Eingangsnummer vergeben</name>
+                <x>0.0</x>
+                <y>400.0</y>
+                <angle>0.0</angle>
+            </endPoint1>
+            <endPoint2>
+                <UUID>6</UUID>
+                <name>scan umbenennen in Eingangsnummer</name>
+                <x>0.0</x>
+                <y>500.0</y>
+                <angle>0.0</angle>
+            </endPoint2>
+        </Connection>
+        <Connection>
+            <UUID>69dddf6c-5028-4fae-9bfe-2dadd304c173</UUID>
+            <name>scan umbenennen in Eingangsnummer erledigt</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1>
+                <UUID>6</UUID>
+                <name>scan umbenennen in Eingangsnummer</name>
+                <x>0.0</x>
+                <y>500.0</y>
+                <angle>0.0</angle>
+            </endPoint1>
+            <endPoint2>
+                <UUID>7</UUID>
+                <name>Rechnung freigeben</name>
+                <x>0.0</x>
+                <y>600.0</y>
+                <angle>0.0</angle>
+            </endPoint2>
+        </Connection>
+        <Connection>
+            <UUID>b24f025c-db40-4e00-b150-7a62049a1f73</UUID>
+            <name>Rechnung freigeben erledigt</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1>
+                <UUID>7</UUID>
+                <name>Rechnung freigeben</name>
+                <x>0.0</x>
+                <y>600.0</y>
+                <angle>0.0</angle>
+            </endPoint1>
+            <endPoint2>
+                <UUID>8</UUID>
+                <name>Rechnung in Scanview erfassen</name>
+                <x>0.0</x>
+                <y>700.0</y>
+                <angle>0.0</angle>
+            </endPoint2>
+        </Connection>
+        <Connection>
+            <UUID>4371a558-0600-45a0-ba79-626d6d1da364</UUID>
+            <name>Rechnung in Scanview erfassen erledigt</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1>
+                <UUID>8</UUID>
+                <name>Rechnung in Scanview erfassen</name>
+                <x>0.0</x>
+                <y>700.0</y>
+                <angle>0.0</angle>
+            </endPoint1>
+            <endPoint2>
+                <UUID>9</UUID>
+                <name>Rechnung ablegen</name>
+                <x>0.0</x>
+                <y>800.0</y>
+                <angle>0.0</angle>
+            </endPoint2>
+        </Connection>
+    </Subject>
+</EntireModel>

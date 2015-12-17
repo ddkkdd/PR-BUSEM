@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?><EntireModel Version="1.3.3" ProcessName="rechnungspruefung1">
+    <Subject RealName="DefaultUser" SubjectName="DefaultUser">
+        <Element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlReceiveElement">
+            <UUID>1</UUID>
+            <name>Rechnung</name>
+            <x>0.0</x>
+            <y>0.0</y>
+            <angle>0.0</angle>
+            <messages>
+                <msg>
+                    <message>Rechnung</message>
+                    <recipient>DefaultUser</recipient>
+                    <sender>Vom Lieferanten</sender>
+                </msg>
+            </messages>
+        </Element>
+        <Element>
+            <UUID>2</UUID>
+            <name>Eingangsstempel</name>
+            <x>0.0</x>
+            <y>100.0</y>
+            <angle>0.0</angle>
+        </Element>
+        <Element>
+            <UUID>3</UUID>
+            <name>Rechnung prüfen</name>
+            <x>0.0</x>
+            <y>200.0</y>
+            <angle>0.0</angle>
+        </Element>
+        <Element>
+            <UUID>4</UUID>
+            <name>Kontieren der Rechnung</name>
+            <x>0.0</x>
+            <y>300.0</y>
+            <angle>0.0</angle>
+        </Element>
+        <Element>
+            <UUID>5</UUID>
+            <name>Sannen der Rechnung</name>
+            <x>0.0</x>
+            <y>400.0</y>
+            <angle>0.0</angle>
+        </Element>
+        <Element>
+            <UUID>6</UUID>
+            <name>Scannablage in Dateisystem</name>
+            <x>0.0</x>
+            <y>500.0</y>
+            <angle>0.0</angle>
+        </Element>
+        <Element>
+            <UUID>7</UUID>
+            <name>Erfassung im Rechnungseingangsbuch</name>
+            <x>0.0</x>
+            <y>600.0</y>
+            <angle>0.0</angle>
+        </Element>
+        <Element>
+            <UUID>8</UUID>
+            <name>Fortlaufende Eingangsnummer vergeben und erfassen</name>
+            <x>0.0</x>
+            <y>700.0</y>
+            <angle>0.0</angle>
+        </Element>
+        <Element>
+            <UUID>9</UUID>
+            <name>Datei umbennen in laufende Rechnungsnummer</name>
+            <x>0.0</x>
+            <y>800.0</y>
+            <angle>0.0</angle>
+        </Element>
+        <Element>
+            <UUID>10</UUID>
+            <name>als erledigt markiert</name>
+            <x>0.0</x>
+            <y>900.0</y>
+            <angle>0.0</angle>
+        </Element>
+        <Element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlSendElement">
+            <UUID>11</UUID>
+            <name>Rechnung zum Prüfen</name>
+            <x>0.0</x>
+            <y>1000.0</y>
+            <angle>0.0</angle>
+            <msg>
+                <message>Rechnung zum Prüfen</message>
+                <recipient>Thomas Ertlmaier</recipient>
+                <sender>DefaultUser</sender>
+            </msg>
+        </Element>
+        <Element>
+            <UUID>12</UUID>
+            <name>Rechnung erfassen in Scanview</name>
+            <x>0.0</x>
+            <y>1100.0</y>
+            <angle>0.0</angle>
+        </Element>
+        <Element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlReceiveElement">
+            <UUID>13</UUID>
+            <name>Freigabe erhalten</name>
+            <x>0.0</x>
+            <y>1200.0</y>
+            <angle>0.0</angle>
+            <messages>
+                <msg>
+                    <message>Freigabe erhalten</message>
+                    <recipient>DefaultUser</recipient>
+                    <sender>T. Ertlmaier</sender>
+                </msg>
+            </messages>
+        </Element>
+        <Element>
+            <UUID>14</UUID>
+            <name>Freigabe im Eingangsbuch vermerken</name>
+            <x>0.0</x>
+            <y>1300.0</y>
+            <angle>0.0</angle>
+        </Element>
+        <Element>
+            <UUID>15</UUID>
+            <name>Freigabe ausdrucken und an Rechnung hängen</name>
+            <x>0.0</x>
+            <y>1400.0</y>
+            <angle>0.0</angle>
+        </Element>
+        <Element>
+            <UUID>16</UUID>
+            <name>Freigabe in Scanview erfassen</name>
+            <x>0.0</x>
+            <y>1500.0</y>
+            <angle>0.0</angle>
+        </Element>
+        <Element>
+            <UUID>17</UUID>
+            <name>Rechnung ablegen</name>
+            <x>0.0</x>
+            <y>1600.0</y>
+            <angle>0.0</angle>
+        </Element>
+        <Connection>
+            <UUID>ab321d3e-c7c6-4307-87d1-6c9313cd6be1</UUID>
+            <name>&lt;Name&gt;</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlReceiveElement">
+                <UUID>1</UUID>
+                <name>Rechnung</name>
+                <x>0.0</x>
+                <y>0.0</y>
+                <angle>0.0</angle>
+                <messages/>
+            </endPoint1>
+            <endPoint2>
+                <UUID>2</UUID>
+                <name>Eingangsstempel</name>
+                <x>0.0</x>
+                <y>100.0</y>
+                <angle>0.0</angle>
+            </endPoint2>
+            <msg>
+                <message>Rechnung</message>
+                <recipient>DefaultUser</recipient>
+                <sender>Vom Lieferanten</sender>
+            </msg>
+        </Connection>
+        <Connection>
+            <UUID>cde99ab4-8216-4871-8fc6-877b5352ae73</UUID>
+            <name>Eingangsstempel erledigt</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1>
+                <UUID>2</UUID>
+                <name>Eingangsstempel</name>
+                <x>0.0</x>
+                <y>100.0</y>
+                <angle>0.0</angle>
+            </endPoint1>
+            <endPoint2>
+                <UUID>3</UUID>
+                <name>Rechnung prüfen</name>
+                <x>0.0</x>
+                <y>200.0</y>
+                <angle>0.0</angle>
+            </endPoint2>
+        </Connection>
+        <Connection>
+            <UUID>23a52f46-33da-4c84-a726-a6c42f8d350b</UUID>
+            <name>Rechnung prüfen erledigt</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1>
+                <UUID>3</UUID>
+                <name>Rechnung prüfen</name>
+                <x>0.0</x>
+                <y>200.0</y>
+                <angle>0.0</angle>
+            </endPoint1>
+            <endPoint2>
+                <UUID>4</UUID>
+                <name>Kontieren der Rechnung</name>
+                <x>0.0</x>
+                <y>300.0</y>
+                <angle>0.0</angle>
+            </endPoint2>
+        </Connection>
+        <Connection>
+            <UUID>f7b4f581-d775-4445-9fb3-a144de88165f</UUID>
+            <name>Kontieren der Rechnung erledigt</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1>
+                <UUID>4</UUID>
+                <name>Kontieren der Rechnung</name>
+                <x>0.0</x>
+                <y>300.0</y>
+                <angle>0.0</angle>
+            </endPoint1>
+            <endPoint2>
+                <UUID>5</UUID>
+                <name>Sannen der Rechnung</name>
+                <x>0.0</x>
+                <y>400.0</y>
+                <angle>0.0</angle>
+            </endPoint2>
+        </Connection>
+        <Connection>
+            <UUID>cf27ad36-b7f6-4a7e-8c10-5ae41d370702</UUID>
+            <name>Sannen der Rechnung erledigt</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1>
+                <UUID>5</UUID>
+                <name>Sannen der Rechnung</name>
+                <x>0.0</x>
+                <y>400.0</y>
+                <angle>0.0</angle>
+            </endPoint1>
+            <endPoint2>
+                <UUID>6</UUID>
+                <name>Scannablage in Dateisystem</name>
+                <x>0.0</x>
+                <y>500.0</y>
+                <angle>0.0</angle>
+            </endPoint2>
+        </Connection>
+        <Connection>
+            <UUID>9dca28f2-9ab2-49e6-b83c-543160eaef49</UUID>
+            <name>Scannablage in Dateisystem erledigt</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1>
+                <UUID>6</UUID>
+                <name>Scannablage in Dateisystem</name>
+                <x>0.0</x>
+                <y>500.0</y>
+                <angle>0.0</angle>
+            </endPoint1>
+            <endPoint2>
+                <UUID>7</UUID>
+                <name>Erfassung im Rechnungseingangsbuch</name>
+                <x>0.0</x>
+                <y>600.0</y>
+                <angle>0.0</angle>
+            </endPoint2>
+        </Connection>
+        <Connection>
+            <UUID>29d092a8-87c6-4966-af30-a415ab8c11f0</UUID>
+            <name>Erfassung im Rechnungseingangsbuch erledigt</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1>
+                <UUID>7</UUID>
+                <name>Erfassung im Rechnungseingangsbuch</name>
+                <x>0.0</x>
+                <y>600.0</y>
+                <angle>0.0</angle>
+            </endPoint1>
+            <endPoint2>
+                <UUID>8</UUID>
+                <name>Fortlaufende Eingangsnummer vergeben und erfassen</name>
+                <x>0.0</x>
+                <y>700.0</y>
+                <angle>0.0</angle>
+            </endPoint2>
+        </Connection>
+        <Connection>
+            <UUID>42c0589b-6f2b-4029-8168-d04d9020b18a</UUID>
+            <name>Fortlaufende Eingangsnummer vergeben und erfassen erledigt</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1>
+                <UUID>8</UUID>
+                <name>Fortlaufende Eingangsnummer vergeben und erfassen</name>
+                <x>0.0</x>
+                <y>700.0</y>
+                <angle>0.0</angle>
+            </endPoint1>
+            <endPoint2>
+                <UUID>9</UUID>
+                <name>Datei umbennen in laufende Rechnungsnummer</name>
+                <x>0.0</x>
+                <y>800.0</y>
+                <angle>0.0</angle>
+            </endPoint2>
+        </Connection>
+        <Connection>
+            <UUID>73faafc0-607c-412c-8c7e-c68a46228e20</UUID>
+            <name>Datei umbennen in laufende Rechnungsnummer erledigt</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1>
+                <UUID>9</UUID>
+                <name>Datei umbennen in laufende Rechnungsnummer</name>
+                <x>0.0</x>
+                <y>800.0</y>
+                <angle>0.0</angle>
+            </endPoint1>
+            <endPoint2>
+                <UUID>10</UUID>
+                <name>als erledigt markiert</name>
+                <x>0.0</x>
+                <y>900.0</y>
+                <angle>0.0</angle>
+            </endPoint2>
+        </Connection>
+        <Connection>
+            <UUID>acc1f2c7-88be-4383-a93c-63159533bb54</UUID>
+            <name>als erledigt markiert erledigt</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1>
+                <UUID>10</UUID>
+                <name>als erledigt markiert</name>
+                <x>0.0</x>
+                <y>900.0</y>
+                <angle>0.0</angle>
+            </endPoint1>
+            <endPoint2 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlSendElement">
+                <UUID>11</UUID>
+                <name>Rechnung zum Prüfen</name>
+                <x>0.0</x>
+                <y>1000.0</y>
+                <angle>0.0</angle>
+                <msg>
+                    <message>Rechnung zum Prüfen</message>
+                    <recipient>Thomas Ertlmaier</recipient>
+                    <sender>DefaultUser</sender>
+                </msg>
+            </endPoint2>
+        </Connection>
+        <Connection>
+            <UUID>6934c97b-4151-4148-933f-d40aafbb8338</UUID>
+            <name>&lt;Name&gt;</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlSendElement">
+                <UUID>11</UUID>
+                <name>Rechnung zum Prüfen</name>
+                <x>0.0</x>
+                <y>1000.0</y>
+                <angle>0.0</angle>
+            </endPoint1>
+            <endPoint2>
+                <UUID>12</UUID>
+                <name>Rechnung erfassen in Scanview</name>
+                <x>0.0</x>
+                <y>1100.0</y>
+                <angle>0.0</angle>
+            </endPoint2>
+            <msg>
+                <message>Rechnung zum Prüfen</message>
+                <recipient>Thomas Ertlmaier</recipient>
+                <sender>DefaultUser</sender>
+            </msg>
+        </Connection>
+        <Connection>
+            <UUID>70b0b81a-7b8a-49ac-ab12-45c549f89ec2</UUID>
+            <name>Rechnung erfassen in Scanview erledigt</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1>
+                <UUID>12</UUID>
+                <name>Rechnung erfassen in Scanview</name>
+                <x>0.0</x>
+                <y>1100.0</y>
+                <angle>0.0</angle>
+            </endPoint1>
+            <endPoint2 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlReceiveElement">
+                <UUID>13</UUID>
+                <name>Freigabe erhalten</name>
+                <x>0.0</x>
+                <y>1200.0</y>
+                <angle>0.0</angle>
+                <messages>
+                    <msg>
+                        <message>Freigabe erhalten</message>
+                        <recipient>DefaultUser</recipient>
+                        <sender>T. Ertlmaier</sender>
+                    </msg>
+                </messages>
+            </endPoint2>
+        </Connection>
+        <Connection>
+            <UUID>a801705e-3a37-48a7-bdf2-eded58f75506</UUID>
+            <name>&lt;Name&gt;</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="XmlReceiveElement">
+                <UUID>13</UUID>
+                <name>Freigabe erhalten</name>
+                <x>0.0</x>
+                <y>1200.0</y>
+                <angle>0.0</angle>
+                <messages/>
+            </endPoint1>
+            <endPoint2>
+                <UUID>14</UUID>
+                <name>Freigabe im Eingangsbuch vermerken</name>
+                <x>0.0</x>
+                <y>1300.0</y>
+                <angle>0.0</angle>
+            </endPoint2>
+            <msg>
+                <message>Freigabe erhalten</message>
+                <recipient>DefaultUser</recipient>
+                <sender>T. Ertlmaier</sender>
+            </msg>
+        </Connection>
+        <Connection>
+            <UUID>1d2900ce-53a3-4d33-aaf9-82d8dd5b0054</UUID>
+            <name>Freigabe im Eingangsbuch vermerken erledigt</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1>
+                <UUID>14</UUID>
+                <name>Freigabe im Eingangsbuch vermerken</name>
+                <x>0.0</x>
+                <y>1300.0</y>
+                <angle>0.0</angle>
+            </endPoint1>
+            <endPoint2>
+                <UUID>15</UUID>
+                <name>Freigabe ausdrucken und an Rechnung hängen</name>
+                <x>0.0</x>
+                <y>1400.0</y>
+                <angle>0.0</angle>
+            </endPoint2>
+        </Connection>
+        <Connection>
+            <UUID>de520b98-0e24-44f0-bf13-cedb855a1770</UUID>
+            <name>Freigabe ausdrucken und an Rechnung hängen erledigt</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1>
+                <UUID>15</UUID>
+                <name>Freigabe ausdrucken und an Rechnung hängen</name>
+                <x>0.0</x>
+                <y>1400.0</y>
+                <angle>0.0</angle>
+            </endPoint1>
+            <endPoint2>
+                <UUID>16</UUID>
+                <name>Freigabe in Scanview erfassen</name>
+                <x>0.0</x>
+                <y>1500.0</y>
+                <angle>0.0</angle>
+            </endPoint2>
+        </Connection>
+        <Connection>
+            <UUID>dd7f8bfa-430c-4b56-95f2-cc65d2e8a16a</UUID>
+            <name>Freigabe in Scanview erfassen erledigt</name>
+            <directed1>false</directed1>
+            <directed2>true</directed2>
+            <endPoint1>
+                <UUID>16</UUID>
+                <name>Freigabe in Scanview erfassen</name>
+                <x>0.0</x>
+                <y>1500.0</y>
+                <angle>0.0</angle>
+            </endPoint1>
+            <endPoint2>
+                <UUID>17</UUID>
+                <name>Rechnung ablegen</name>
+                <x>0.0</x>
+                <y>1600.0</y>
+                <angle>0.0</angle>
+            </endPoint2>
+        </Connection>
+    </Subject>
+</EntireModel>
