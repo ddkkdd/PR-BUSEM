@@ -12,7 +12,7 @@ namespace ConsoleApplication1
     {
         private static string modelName = Path.xmlFilePath + Path.modelName3;
 
-        public static void printEntireModel()
+        private static void printEntireModel()
         {
             XmlSbpmEntireModel processModelObject = null;
             
@@ -25,6 +25,7 @@ namespace ConsoleApplication1
                     processModelObject = (XmlSbpmEntireModel)serializer.Deserialize(fileStream);
                 }
 
+                Console.Clear();
                 Console.WriteLine("Process Name: " + processModelObject.ProcessName);
 
                 for (int i = 0; i < processModelObject.Subject.Length; i++)
@@ -62,8 +63,9 @@ namespace ConsoleApplication1
             }
         }
 
-        public static void printSubjects(List<List<XmlSbpmEntireModelSubject>> subjectsModel)
+        private static void printSubjects(List<List<XmlSbpmEntireModelSubject>> subjectsModel)
         {
+            Console.Clear();
             foreach (List<XmlSbpmEntireModelSubject> subList in subjectsModel)
             {
                 Console.WriteLine("\nFolgende Subjecte stellen die gleiche Peron dar ");
@@ -74,8 +76,9 @@ namespace ConsoleApplication1
             }
         }
 
-        public static string printSubjectsAndAskForCommonName(List<XmlSbpmEntireModelSubject> subjectList)
+        private static string printSubjectsAndAskForCommonName(List<XmlSbpmEntireModelSubject> subjectList)
         {
+            Console.Clear();
             Console.WriteLine("Gemeinsamen Namen für folgende Subjekte eingeben: ");
 
             int i = 1;
@@ -166,7 +169,7 @@ namespace ConsoleApplication1
             return null;
         }
 
-        public static List<List<int>> buildGroups(List<List<int>> differentSubjects, List<int> groupList)
+        private static List<List<int>> buildGroups(List<List<int>> differentSubjects, List<int> groupList)
         {
             if (groupList == null || groupList.Count == 0)
             {
@@ -180,7 +183,7 @@ namespace ConsoleApplication1
             return differentSubjects;
         }
 
-        public static List<List<XmlSbpmEntireModelSubject>> replaceIdWithObjects(List<List<int>> differentSubjects, XmlSbpmEntireModelSubject[] subjects)
+        private static List<List<XmlSbpmEntireModelSubject>> replaceIdWithObjects(List<List<int>> differentSubjects, XmlSbpmEntireModelSubject[] subjects)
         {
             if (differentSubjects != null && subjects != null)
             {
@@ -209,6 +212,7 @@ namespace ConsoleApplication1
         {
             List<XmlSbpmEntireModelSubject> commonNameSubjects = new List<XmlSbpmEntireModelSubject>();
             List<List<XmlSbpmEntireModelSubject>> listCommonNameSubjects = new List<List<XmlSbpmEntireModelSubject>>();
+            List<string> oldNames = new List<string>();
 
             foreach (List<XmlSbpmEntireModelSubject> list in subjectsModel)
             {
@@ -225,13 +229,12 @@ namespace ConsoleApplication1
                         if (commonName.Equals(""))
                         {
                             commonName = list[0].SubjectName;
-                        }
-
-                        mergedSubject.SubjectName = commonName;
-                        mergedSubject.RealName = commonName;
+                        }                      
 
                         foreach (XmlSbpmEntireModelSubject subject in list)
                         {
+                            oldNames.Add(subject.SubjectName);
+
                             if (subject.Connection != null)
                             {
                                 foreach (XmlSbpmConnection con in subject.Connection)
@@ -251,11 +254,15 @@ namespace ConsoleApplication1
                             }
                         }
                     }
+                    mergedSubject.SubjectName = commonName;
+                    mergedSubject.RealName = commonName;
                     mergedSubject.Connection = connectionsList.ToArray();
                     mergedSubject.Element = elementsList.ToArray();
 
                     commonNameSubjects.Add(mergedSubject);
                     listCommonNameSubjects.Add(commonNameSubjects);
+
+                    listCommonNameSubjects = replaceOldNamesWithCommonName(listCommonNameSubjects, oldNames, commonName);
                 }
                 else
                 {
@@ -264,6 +271,137 @@ namespace ConsoleApplication1
             }
 
             return listCommonNameSubjects;
+        }
+
+        private static List<List<XmlSbpmEntireModelSubject>> replaceOldNamesWithCommonName(List<List<XmlSbpmEntireModelSubject>> model, List<string> oldNames, string commonName)
+        {
+            //ELEMENT
+            foreach (List<XmlSbpmEntireModelSubject> list in model)
+            {
+                foreach (XmlSbpmEntireModelSubject subject in list)
+                {
+                    for (int i = 0; i < subject.Element.Length; i++ )
+                    {
+                        if (subject.Element[i].GetType().Equals(typeof(XmlSendElement)))
+                        {
+                            var elem = subject.Element[i] as XmlSendElement;
+
+                            if (oldNames.Contains(elem.msg.sender))
+                            {
+                                elem.msg.sender = commonName;
+                                subject.Element[i] = elem;
+                            }
+
+                            if (oldNames.Contains(elem.msg.recipient))
+                            {
+                                elem.msg.recipient = commonName;
+                                subject.Element[i] = elem;
+                            }
+                        }
+
+                        if (subject.Element[i].GetType().Equals(typeof(XmlReceiveElement)))
+                        {
+                            var elem = subject.Element[i] as XmlReceiveElement;
+
+                            for (int j=0; j<elem.messages.Length; j++)
+                            {
+                                var message = elem.messages[j] as XmlSbpmXmppMessage;
+
+                                if (oldNames.Contains(message.recipient))
+                                {
+                                    message.recipient = commonName;
+                                    elem.messages[j] = message;
+                                }
+
+                                if (oldNames.Contains(message.sender))
+                                {
+                                    message.sender = commonName;
+                                    elem.messages[j] = message;
+                                }
+                            }
+                            subject.Element[i] = elem;
+                        }
+                    }
+
+                    //CONNECTION
+                    foreach (XmlSbpmConnection connection in subject.Connection)
+                    {
+                        if (connection.endPoint1.GetType().Equals(typeof(XmlSendElement)))
+                        {
+                            XmlSendElement elem = (XmlSendElement)connection.endPoint1;
+                            if (oldNames.Contains(elem.msg.recipient))
+                            {
+                                elem.msg.recipient = commonName;
+                            }
+                            
+                            if (oldNames.Contains(elem.msg.sender))
+                            {
+                                elem.msg.sender = commonName;
+                            }
+
+                            connection.endPoint1 = elem;
+                        }
+
+                        if (connection.endPoint1.GetType().Equals(typeof(XmlReceiveElement)))
+                        {
+                            XmlReceiveElement elem = (XmlReceiveElement)connection.endPoint1;
+                            
+                            foreach (XmlSbpmXmppMessage message in elem.messages)
+                            {
+                                if (oldNames.Contains(message.recipient))
+                                {
+                                    message.recipient = commonName;
+                                }
+
+                                if (oldNames.Contains(message.sender))
+                                {
+                                    message.sender = commonName;
+                                }
+                            }
+
+                            connection.endPoint1 = elem;
+                        }
+
+                        if (connection.endPoint2.GetType().Equals(typeof(XmlSendElement)))
+                        {
+                            XmlSendElement elem = (XmlSendElement)connection.endPoint2;
+                            if (oldNames.Contains(elem.msg.recipient))
+                            {
+                                elem.msg.recipient = commonName;
+                            }
+
+                            if (oldNames.Contains(elem.msg.sender))
+                            {
+                                elem.msg.sender = commonName;
+                            }
+
+                            connection.endPoint2 = elem;
+                        }
+
+                        if (connection.endPoint2.GetType().Equals(typeof(XmlReceiveElement)))
+                        {
+                            XmlReceiveElement elem = (XmlReceiveElement)connection.endPoint2;
+
+                            foreach (XmlSbpmXmppMessage message in elem.messages)
+                            {
+                                if (oldNames.Contains(message.recipient))
+                                {
+                                    message.recipient = commonName;
+                                }
+
+                                if (oldNames.Contains(message.sender))
+                                {
+                                    message.sender = commonName;
+                                }
+                            }
+
+                            connection.endPoint2 = elem;
+                        }
+                    }
+                }
+            }
+        
+            return model;
         }
 
         public static void exportModel(List<List<XmlSbpmEntireModelSubject>> subjectsModel)
@@ -284,8 +422,8 @@ namespace ConsoleApplication1
                     }
                 }
 
-                entireModel.ProcessName = filename;
-                entireModel.Version = "1.0.0";
+                //entireModel.ProcessName = filename;
+                //entireModel.Version = "1.0.0";
                 entireModel.Subject = subjectList.ToArray();
 
                 XmlSerializer serializer = new XmlSerializer(typeof(XmlSbpmEntireModel));

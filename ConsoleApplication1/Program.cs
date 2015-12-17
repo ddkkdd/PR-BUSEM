@@ -15,9 +15,9 @@ namespace ConsoleApplication1
         static void Main(string[] args)
         {
             subjectsModel1 = Subject.compareSubjectsWithtinModelAskForCommonSubjects();
-            Subject.printSubjects(subjectsModel1);
             subjectsModel1 = Subject.findCommonNameForSubjects(subjectsModel1);
             Subject.exportModel(subjectsModel1);
+
 
             Console.WriteLine("Press Any Key To Exit");
             Console.ReadKey();
