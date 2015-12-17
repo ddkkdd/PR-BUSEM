@@ -266,5 +266,38 @@ namespace ConsoleApplication1
             return listCommonNameSubjects;
         }
 
+        public static void exportModel(List<List<XmlSbpmEntireModelSubject>> subjectsModel)
+        {
+            try
+            {
+                XmlSbpmEntireModel entireModel = new XmlSbpmEntireModel();
+                List<XmlSbpmEntireModelSubject> subjectList = new List<XmlSbpmEntireModelSubject>();
+
+                Console.WriteLine("MODEL XML-EXPORT\n\nGeben Sie einen Filenamen ein: ");
+                string filename = Console.ReadLine();
+
+                foreach (List<XmlSbpmEntireModelSubject> list in subjectsModel)
+                {
+                    foreach (XmlSbpmEntireModelSubject subject in list)
+                    {
+                        subjectList.Add(subject);
+                    }
+                }
+
+                entireModel.ProcessName = filename;
+                entireModel.Version = "1.0.0";
+                entireModel.Subject = subjectList.ToArray();
+
+                XmlSerializer serializer = new XmlSerializer(typeof(XmlSbpmEntireModel));
+                using (StreamWriter fileWriter = new StreamWriter(Path.xmlFilePath + filename + ".exml"))
+                {
+                    serializer.Serialize(fileWriter, entireModel);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("EXPORT ERROR "+ex.StackTrace);
+            }
+        }
     }
 }
