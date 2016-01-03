@@ -21,6 +21,7 @@ namespace ConsoleApplication1
             XmlSbpmEntireModelSubject model = subjectsModel1.ElementAt(0).ElementAt(0) as XmlSbpmEntireModelSubject;
             XmlSbpmModelingElement obj = new XmlSbpmModelingElement();
             obj.UUID = "0";
+
             Object.printElements(Object.getDirectSuccessor(model, obj));
 
             Console.WriteLine("Press Any Key To Exit");

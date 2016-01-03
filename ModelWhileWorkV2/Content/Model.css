@@ -1,0 +1,27 @@
+﻿#canvas {
+        padding: 20px;
+        width: 80%;
+        height: 300px;
+        border: 1px solid gray;
+    }
+
+.rectangleGreen {
+    height: 80px;
+    width: 80px;
+    border: 1px solid green;
+    float: left;
+}
+
+.rectangleRed {
+    height: 80px;
+    width: 80px;
+    border: 1px solid red;
+    float: left;
+}
+
+.rectangleYellow {
+    height: 80px;
+    width: 80px;
+    border: 1px solid yellow;
+    float: left;
+}
