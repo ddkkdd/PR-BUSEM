@@ -3,6 +3,7 @@
         width: 80%;
         height: 300px;
         border: 1px solid gray;
+        position: relative;
     }
 
 .rectangleGreen {
@@ -10,6 +11,7 @@
     width: 80px;
     border: 1px solid green;
     float: left;
+    position: relative;
 }
 
 .rectangleRed {
@@ -17,6 +19,7 @@
     width: 80px;
     border: 1px solid red;
     float: left;
+    position: relative;
 }
 
 .rectangleYellow {
@@ -24,4 +27,27 @@
     width: 80px;
     border: 1px solid yellow;
     float: left;
+    position: relative;
+}
+
+.window { z-index:20; }
+.jsplumb-connector { z-index:4; }
+.jsplumb-endpoint { z-index:5; }
+.jsplumb-overlay { z-index:6; }
+
+.jsplumb-drag-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;    
+}
+
+.myLine path{
+    stroke:green;
+}
+
+.myRect circle{
+    stroke: aquamarine;
 }

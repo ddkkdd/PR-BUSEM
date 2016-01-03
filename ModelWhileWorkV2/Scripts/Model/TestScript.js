@@ -1,14 +1,12 @@
 ﻿jsPlumb.ready(Init);
 
 function Init() {
-    jsPlumb.connect({
-        source: "element1",
-        target: "element2",
-        endpoint: "Rectangle"
-    });
+    
+    var model = jsPlumb.getInstance();
+    
+    model.draggable("element1");
+    model.draggable("element2");
+    model.draggable("element3");
 
-    jsPlumb.connect({
-        source: "element1",
-        target: "element3",
-    });
+    model.makeSource($('.'));
 }

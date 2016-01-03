@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿@*<!DOCTYPE html>
 <html>
 <head>
     <link href="~/Content/Model.css" rel="stylesheet" type="text/css" />
@@ -7,12 +7,10 @@
     <title>ModelWhileWork</title>
 </head>
 <body>
-    <h1>ModelWhileWork</h1>
-
     <div id="canvas" onload="">
         <div id="element1" class="rectangleGreen"></div>
-        <div id="element2" class="rectangleRed" style="margin-left:50px;"></div>
-        <div id="element3" class="rectangleYellow" style="margin-left:100px;"></div>
+        <div id="element2" class="rectangleRed"></div>
+        <div id="element3" class="rectangleYellow"></div>
     </div> 
 
     <script src="~/Scripts/jquery-1.10.2.js"></script>
@@ -20,5 +18,81 @@
     <script src="~/Scripts/jsPlumb-2.0.5.js"></script>
 
     <script src="~/Scripts/Model/TestScript.js"></script>
+</body>
+</html>*@
+
+<html>
+<head>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jsPlumb-2.0.5.js"></script>
+
+    <style type="text/css">
+        .item {
+            border: 1px solid black;
+            background-color: #ddddff;
+            width: 100px;
+            height: 100px;
+        }
+
+        #test {
+            position: absolute;
+            left: 100px;
+            top: 100px;
+        }
+
+        #state2 {
+            position: absolute;
+            left: 250px;
+            top: 100px;
+        }
+
+        #state3 {
+            position: absolute;
+            left: 100px;
+            top: 250px;
+        }
+
+        #stateText {
+            border: 2px dashed #D1C7AC;
+	        width: 100px;
+            height: 30px;
+        }
+    </style>
+
+    <title>Getting started with jsPlumb</title>
+</head>
+
+<body>
+    <div id="test" class="item">
+        <div id="state1">
+            <label id="stateText">Hallo Welt</label>
+        </div>
+    </div>
+    <div id="state2" class="item"></div>
+    <div id="state3" class="item"></div>
+
+    <script type="text/javascript">
+        jsPlumb.ready(function () {
+            jsPlumb.makeSource($('.item'), {
+                connector: 'StateMachine',
+                anchor: 'Bottom'
+            });
+            jsPlumb.makeTarget($('.item'), {
+                anchor: 'Top'
+            });
+            jsPlumb.draggable($('.item'));
+            jsPlumb.makeAnchor();
+            jsPlumb.connect({
+                source: "state3",
+                target: "state1"
+            });
+            jsPlumb.connect({
+                source: "state3",
+                target: "state2"
+            });
+        });
+    </script>
+
 </body>
 </html>
