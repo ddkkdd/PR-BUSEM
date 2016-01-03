@@ -10,6 +10,7 @@ namespace ConsoleApplication1
     {
         private static string modelName = Path.xmlFilePath + Path.modelName3;
 
+        #region Public Methods
         public static List<XmlSbpmModelingElement> getDirectSuccessor(XmlSbpmEntireModelSubject model, XmlSbpmModelingElement selectedObject)
         {
             List<XmlSbpmModelingElement> successingObjects = new List<XmlSbpmModelingElement>();
@@ -25,7 +26,23 @@ namespace ConsoleApplication1
 
             return successingObjects;
         }
+        public static void printElements (List<XmlSbpmModelingElement> elements)
+        {
+            Console.WriteLine("Successing Elements");
 
+            foreach (XmlSbpmModelingElement elem in elements)
+            {
+                Console.WriteLine("UUID: " + elem.UUID);
+                Console.WriteLine("Name: "+elem.name);
+                Console.WriteLine("Angle: " + elem.angle);
+                Console.WriteLine("X: " + elem.x);
+                Console.WriteLine("Y: " + elem.y);
+                Console.WriteLine();
+            }
+        }
+        #endregion 
+
+        #region Private Methods
         //Returns all connections which refer to the selcted elements either way
         private static List<XmlSbpmConnection> searchConnectionsForElement(XmlSbpmEntireModelSubject model, XmlSbpmModelingElement selectedObject)
         {
@@ -50,8 +67,8 @@ namespace ConsoleApplication1
             {
                 foreach (XmlSbpmModelingElement element in model.Element)
                 {
-                    if (element.UUID.Equals(con.endPoint1.UUID) && 
-                        !element.UUID.Equals(selectedObject.UUID) 
+                    if (element.UUID.Equals(con.endPoint1.UUID) &&
+                        !element.UUID.Equals(selectedObject.UUID)
                         ||
                         element.UUID.Equals(con.endPoint2.UUID) &&
                         !element.UUID.Equals(selectedObject.UUID))
@@ -60,23 +77,10 @@ namespace ConsoleApplication1
                     }
                 }
             }
-            
+
             return elements;
         }
 
-        public static void printElements (List<XmlSbpmModelingElement> elements)
-        {
-            Console.WriteLine("Successing Elements");
-
-            foreach (XmlSbpmModelingElement elem in elements)
-            {
-                Console.WriteLine("UUID: " + elem.UUID);
-                Console.WriteLine("Name: "+elem.name);
-                Console.WriteLine("Angle: " + elem.angle);
-                Console.WriteLine("X: " + elem.x);
-                Console.WriteLine("Y: " + elem.y);
-                Console.WriteLine();
-            }
-        }
+        #endregion
     }
 }
