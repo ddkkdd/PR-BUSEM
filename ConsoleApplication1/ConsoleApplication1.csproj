@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Object.cs" />
     <Compile Include="Path.cs" />
     <Compile Include="ProcessModel.cs" />
     <Compile Include="Program.cs" />
