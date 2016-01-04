@@ -1,12 +1,17 @@
-﻿jsPlumb.ready(Init);
+﻿jsPlumb.ready(buildModel);
 
-function Init() {
-    
-    var model = jsPlumb.getInstance();
-    
-    model.draggable("element1");
-    model.draggable("element2");
-    model.draggable("element3");
+function buildModel() {
+    var elements = document.getElementsByClassName("item");
+    var elemArr = jQuery.makeArray(elements);
 
-    model.makeSource($('.'));
+    var common = {
+        connector: ["Straight"],
+        anchor: ["Top", "Bottom"],
+        endpoint: "Dot"
+    };
+
+    jsPlumb.connect({
+        source: "bLager",
+        target: "bGenehmiger"
+    }, common);
 }
