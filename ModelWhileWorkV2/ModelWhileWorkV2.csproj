@@ -280,7 +280,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jsPlumb-2.0.5.js" />
     <Content Include="Scripts\Model\GetModel.js" />
-    <Content Include="Scripts\Model\TestScript.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />

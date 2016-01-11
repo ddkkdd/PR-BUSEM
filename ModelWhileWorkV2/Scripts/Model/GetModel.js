@@ -1,6 +1,8 @@
 ﻿var url = 'http://localhost:53410/api/ProcessModel?modelName=bbestell-6.exml';
 //var url = 'http://127.0.0.1:8080/api/ProcessModel?modelName=bbestell-6.exml';
 var selectedSubject = "blager";
+var offset = 1000;
+var divide = 2;
 
 $(document).ready(loadModel());
 
@@ -10,8 +12,6 @@ function loadModel() {
         type: "GET",
         contentType: 'application/json; charset=utf-8',
         success: function (modelJSON) {
-            //console.log(modelJSON);
-
             $.each(modelJSON, function (objIndex, object) {
                 $.each(object, function (subjectFieldIndex, subjectField) {
                     if (subjectField.subjectNameField == selectedSubject)
@@ -36,7 +36,7 @@ function generateElements(subjectField)
     $.each(subjectField.elementField, function (elementIndex, element) {
         if (element.nameField != "") //Element is a activity
         {
-            newDiv = createNewActivityElement(element);
+            newDiv = createNewTaskElement(element);
             canvasDiv.appendChild(newDiv);
         }
 
@@ -57,16 +57,28 @@ function generateElements(subjectField)
             }
         }
     });
+
+    jsPlumb.ready(function() {
+        connectTwoElements("Lagerbestand prüfen", " Lagerbestandsabfrag")
+        connectTwoElements("Lagerbestand prüfen", "Ware nicht lagernd")
+        connectTwoElements(" Lagerbestandsabfrag", "Ware zustellen")
+    }
+    );
 }
 
-function createNewActivityElement (object)
+function createNewTaskElement (object)
 {
+    x = object.xField * offset / divide;
+    y = object.yField * offset / (divide * 2);
+    
     newDiv = document.createElement("div");
-    newDiv.className = "item";
+    newDiv.className = "task";
     newDiv.id = object.nameField;
+    newDiv.style.left = x+"px";
+    newDiv.style.top = y+"px";
 
     newSpan = document.createElement("span");
-    newSpan.className = "span1";
+    newSpan.className = "nameSpan";
     newSpan.textContent = object.nameField;
 
     newExtraSpan = document.createElement("span");
@@ -74,31 +86,36 @@ function createNewActivityElement (object)
 
     newDiv.appendChild(newSpan);
     newDiv.appendChild(newExtraSpan);
-
+    
     return newDiv;
 }
 
 function createNewSendElement (object)
 {
+    x = object.xField * offset / divide;
+    y = object.yField * offset / (divide * 2);
+
     newDiv = document.createElement("div");
-    newDiv.className = "item";
+    newDiv.className = "send";
     newDiv.id = object.msgField.messageField;
+    newDiv.style.left = x + "px";
+    newDiv.style.top = y + "px";
     
     newSpanName = document.createElement("span");
-    newSpanName.className = "name";
+    newSpanName.className = "nameSpan";
     newSpanName.textContent = object.msgField.messageField;
 
     newSpanRec = document.createElement("span");
-    newSpanRec.className = "recipient";
-    newSpanRec.textContent = object.msgField.recipientField;
+    newSpanRec.className = "recipientSpan";
+    newSpanRec.textContent = "EMPFÄNGER: "+object.msgField.recipientField;
 
     newSpanSend = document.createElement("span");
-    newSpanSend.className = "sender";
-    newSpanSend.textContent = object.msgField.senderField;
+    newSpanSend.className = "senderSpan";
+    newSpanSend.textContent = "SENDER: "+object.msgField.senderField;
 
     newExtraSpan = document.createElement("span");
     newExtraSpan.className = "extraSpan";
-
+    
     newDiv.appendChild(newSpanName);
     newDiv.appendChild(newSpanRec);
     newDiv.appendChild(newSpanSend);
@@ -109,21 +126,26 @@ function createNewSendElement (object)
 
 function createNewRecieveElement (object)
 {
+    x = object.xField * offset / divide;
+    y = object.yField * offset / (divide*2);
+
     newDiv = document.createElement("div");
-    newDiv.className = "item";
+    newDiv.className = "recieve";
     newDiv.id = object.messageField;
+    newDiv.style.left = x + "px";
+    newDiv.style.top = y + "px";
 
     newSpanName = document.createElement("span");
-    newSpanName.className = "name";
+    newSpanName.className = "nameSpan";
     newSpanName.textContent = object.messageField;
 
     newSpanRec = document.createElement("span");
-    newSpanRec.className = "recipient";
-    newSpanRec.textContent = object.recipientField;
+    newSpanRec.className = "recipientSpan";
+    newSpanRec.textContent = "EMPFÄNGER: "+object.recipientField;
 
     newSpanSend = document.createElement("span");
-    newSpanSend.className = "sender";
-    newSpanSend.textContent = object.senderField;
+    newSpanSend.className = "senderSpan";
+    newSpanSend.textContent = "SENDER: "+object.senderField;
 
     newExtraSpan = document.createElement("span");
     newExtraSpan.className = "extraSpan";
@@ -134,4 +156,23 @@ function createNewRecieveElement (object)
     newDiv.appendChild(newExtraSpan);
     
     return newDiv;
+}
+
+function connectTwoElements(sourceId, targetId) {
+    var sourceElem = document.getElementById(sourceId);
+    var targetElem = document.getElementById(targetId);
+
+    var common = {
+        connector: ["Straight"],
+        anchor: ["Top", "Bottom"],
+        endpoint: "Dot"
+    };
+
+    jsPlumb.connect({
+        source: sourceElem,
+        target: targetElem
+    }, common);
+
+    jsPlumb.draggable(sourceElem);
+    jsPlumb.draggable(targetElem);
 }

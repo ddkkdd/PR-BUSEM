@@ -42,7 +42,7 @@
 	right: 5px;
 	width:1em;
 	height:1em;
-	background-color:orange;
+	background-color:white;
 	cursor:pointer;
 	box-shadow: 0px 0px 2px black;
 	-webkit-transition:-webkit-box-shadow 0.25s ease-in;
@@ -50,15 +50,43 @@
 	transition:box-shadow 0.25s ease-in;
 }
 
+.nameSpan {
+    display: inline;
+    position:relative;
+    float:none;
+    font-weight: bold;
+}
+
+.recipientSpan{
+    display: inline;
+    position:relative;
+    float:none;
+}
+
+.recipientSpan:before{
+    content:"\a\a";
+    white-space: pre;
+}
+
+.senderSpan{
+    display: inline;
+    position:relative;
+    float:none;   
+}
+
+.senderSpan:before{
+    content:"\a\a";
+    white-space: pre;
+}
+
 #canvas {
   height: 800px;
   position:relative;
 }
 
-.canvas .item { 
+.canvas .task { 
     padding:16px;
 	position:relative;
-    float: left;
 	border: 1px solid black;
 	z-index:4;
 	border-radius:1em;
@@ -72,7 +100,57 @@
 	opacity:0.8;
 	filter:alpha(opacity=80);
 	cursor:move;
-	background-color:white;
+	background-color:yellow;
+	font-size:11px;
+	-webkit-transition:background-color 0.25s ease-in;
+	-moz-transition:background-color 0.25s ease-in;
+	transition:background-color 0.25s ease-in;
+    width: 200px;
+    height: 100px;
+}
+
+.canvas .recieve { 
+    padding:16px;
+	position:relative;
+	border: 1px solid black;
+	z-index:4;
+	border-radius:1em;
+	border:1px solid #2e6f9a;
+	box-shadow: 2px 2px 19px #e0e0e0;
+	-o-box-shadow: 2px 2px 19px #e0e0e0;
+	-webkit-box-shadow: 2px 2px 19px #e0e0e0;
+	-moz-box-shadow: 2px 2px 19px #e0e0e0;
+	-moz-border-radius:8px;
+	border-radius:8px;
+	opacity:0.8;
+	filter:alpha(opacity=80);
+	cursor:move;
+	background-color:green;
+	font-size:11px;
+	-webkit-transition:background-color 0.25s ease-in;
+	-moz-transition:background-color 0.25s ease-in;
+	transition:background-color 0.25s ease-in;
+    width: 200px;
+    height: 100px;
+}
+
+.canvas .send { 
+    padding:16px;
+	position:relative;
+	border: 1px solid black;
+	z-index:4;
+	border-radius:1em;
+	border:1px solid #2e6f9a;
+	box-shadow: 2px 2px 19px #e0e0e0;
+	-o-box-shadow: 2px 2px 19px #e0e0e0;
+	-webkit-box-shadow: 2px 2px 19px #e0e0e0;
+	-moz-box-shadow: 2px 2px 19px #e0e0e0;
+	-moz-border-radius:8px;
+	border-radius:8px;
+	opacity:0.8;
+	filter:alpha(opacity=80);
+	cursor:move;
+	background-color:red;
 	font-size:11px;
 	-webkit-transition:background-color 0.25s ease-in;
 	-moz-transition:background-color 0.25s ease-in;
