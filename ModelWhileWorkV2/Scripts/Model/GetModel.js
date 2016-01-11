@@ -1,4 +1,5 @@
 ﻿var url = 'http://localhost:53410/api/ProcessModel?modelName=bbestell-6.exml';
+//var url = 'http://127.0.0.1:8080/api/ProcessModel?modelName=bbestell-6.exml';
 
 $(document).ready(loadModel());
 
@@ -8,6 +9,7 @@ function loadModel() {
         type: "GET",
         contentType: 'application/json; charset=utf-8',
         success: function (modelJSON) {
+            console.log("TEST");
             console.log(modelJSON);
 
             var canvas = $("#canvas");
@@ -19,6 +21,7 @@ function loadModel() {
                     newDivSubject.textContent = subjectField.realNameField;
                     newDivSubject.className = "item";
                     newDivSubject.id = subjectField.realNameField;
+                    //newDivSubject.draggable = true;
 
                     //console.log(subjectField.realNameField);
 

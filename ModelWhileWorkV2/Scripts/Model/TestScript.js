@@ -6,7 +6,7 @@ function buildModel() {
 
     var common = {
         connector: ["Straight"],
-        anchor: ["Top", "Bottom"],
+        anchor: ["Left", "Right"],
         endpoint: "Dot"
     };
 
@@ -14,4 +14,7 @@ function buildModel() {
         source: "bLager",
         target: "bGenehmiger"
     }, common);
+
+    jsPlumb.draggable("bLager");
+    jsPlumb.draggable("bGenehmiger");
 }
