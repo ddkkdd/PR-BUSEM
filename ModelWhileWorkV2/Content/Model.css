@@ -9,9 +9,9 @@
 .item {
     height: 80px;
     width: 80px;
-    border: 1px solid green;
-    float: left;
+    float: none;
     position: relative;
+    border: 1px solid black;
 }
 
 .window { z-index:20; }
@@ -29,7 +29,7 @@
 }
 
 .myLine path{
-    stroke:green;
+    stroke:black;
 }
 
 .myRect circle{

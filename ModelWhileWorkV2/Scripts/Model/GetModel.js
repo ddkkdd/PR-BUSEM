@@ -36,11 +36,8 @@ function generateElements(subjectField)
     $.each(subjectField.elementField, function (elementIndex, element) {
         if (element.nameField != "") //Element is a activity
         {
-            newDivSubject = document.createElement("div");
-            newDivSubject.textContent = element.nameField;
-            newDivSubject.className = "item";
-            newDivSubject.id = element.nameField;
-            canvasDiv.appendChild(newDivSubject);
+            newDiv = createNewActivityElement(element);
+            canvasDiv.appendChild(newDiv);
         }
 
         if (element.nameField == "") //element is a Message
@@ -48,22 +45,93 @@ function generateElements(subjectField)
             
             if (element.msgField != null) //element is a Send Message
             {
-                newDivSubject = document.createElement("div");
-                newDivSubject.textContent = element.msgField.messageField;
-                newDivSubject.className = "item";
-                newDivSubject.id = element.msgField.messageField;
-                canvasDiv.appendChild(newDivSubject);
+                newDiv = createNewSendElement(element);
+                canvasDiv.appendChild(newDiv);
             }else //element is a Recieve Message
             {
                 $.each(element.messagesField, function(key, message)
                 {
-                    newDivSubject = document.createElement("div");
-                    newDivSubject.textContent = message.messageField;
-                    newDivSubject.className = "item";
-                    newDivSubject.id = message.messageField;
-                    canvasDiv.appendChild(newDivSubject);
+                    newDiv = createNewRecieveElement(message);
+                    canvasDiv.appendChild(newDiv);
                 });
             }
         }
     });
+}
+
+function createNewActivityElement (object)
+{
+    newDiv = document.createElement("div");
+    newDiv.className = "item";
+    newDiv.id = object.nameField;
+
+    newSpan = document.createElement("span");
+    newSpan.className = "span1";
+    newSpan.textContent = object.nameField;
+
+    newExtraSpan = document.createElement("span");
+    newExtraSpan.className = "extraSpan";
+
+    newDiv.appendChild(newSpan);
+    newDiv.appendChild(newExtraSpan);
+
+    return newDiv;
+}
+
+function createNewSendElement (object)
+{
+    newDiv = document.createElement("div");
+    newDiv.className = "item";
+    newDiv.id = object.msgField.messageField;
+    
+    newSpanName = document.createElement("span");
+    newSpanName.className = "name";
+    newSpanName.textContent = object.msgField.messageField;
+
+    newSpanRec = document.createElement("span");
+    newSpanRec.className = "recipient";
+    newSpanRec.textContent = object.msgField.recipientField;
+
+    newSpanSend = document.createElement("span");
+    newSpanSend.className = "sender";
+    newSpanSend.textContent = object.msgField.senderField;
+
+    newExtraSpan = document.createElement("span");
+    newExtraSpan.className = "extraSpan";
+
+    newDiv.appendChild(newSpanName);
+    newDiv.appendChild(newSpanRec);
+    newDiv.appendChild(newSpanSend);
+    newDiv.appendChild(newExtraSpan);
+    
+    return newDiv;
+}
+
+function createNewRecieveElement (object)
+{
+    newDiv = document.createElement("div");
+    newDiv.className = "item";
+    newDiv.id = object.messageField;
+
+    newSpanName = document.createElement("span");
+    newSpanName.className = "name";
+    newSpanName.textContent = object.messageField;
+
+    newSpanRec = document.createElement("span");
+    newSpanRec.className = "recipient";
+    newSpanRec.textContent = object.recipientField;
+
+    newSpanSend = document.createElement("span");
+    newSpanSend.className = "sender";
+    newSpanSend.textContent = object.senderField;
+
+    newExtraSpan = document.createElement("span");
+    newExtraSpan.className = "extraSpan";
+
+    newDiv.appendChild(newSpanName);
+    newDiv.appendChild(newSpanRec);
+    newDiv.appendChild(newSpanSend);
+    newDiv.appendChild(newExtraSpan);
+    
+    return newDiv;
 }
