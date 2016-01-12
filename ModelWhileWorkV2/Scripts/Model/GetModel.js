@@ -156,6 +156,7 @@ function generateElementsConnection(model)
 {
     var sourceId = "";
     var targetId = "";
+    var label = "";
 
     //console.log(model);
 
@@ -163,12 +164,12 @@ function generateElementsConnection(model)
         //find source
         sourceId = connection.endPoint2Field.uUIDField;
         targetId = connection.endPoint1Field.uUIDField;
-
-        connectTwoElements(sourceId, targetId);
+        label = connection.nameField;
+        connectTwoElements(sourceId, targetId, label);
     });
 }
 
-function connectTwoElements(sourceId, targetId) {
+function connectTwoElements(sourceId, targetId, label) {
     var sourceElem = document.getElementById(sourceId);
     var targetElem = document.getElementById(targetId);
 
@@ -180,7 +181,13 @@ function connectTwoElements(sourceId, targetId) {
 
     jsPlumb.connect({
         source: sourceElem,
-        target: targetElem
+        target: targetElem,
+        label: label,
+        paintStyle: { strokeStyle: "lightgrey", lineWidth: 3 },
+        endpointStyle: { fillStyle: "lightgrey", outlineColor: "black" },
+        overlays: [
+            ["Arrow", { width: 20, length: 15, location: 0.90 }]
+        ]
     }, common);
 
     jsPlumb.draggable(sourceElem);

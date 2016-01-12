@@ -97,8 +97,8 @@
 	-moz-box-shadow: 2px 2px 19px #e0e0e0;
 	-moz-border-radius:8px;
 	border-radius:8px;
-	opacity:0.8;
-	filter:alpha(opacity=80);
+	/*opacity:0.8;
+	filter:alpha(opacity=80);*/
 	cursor:move;
 	background-color:yellow;
 	font-size:11px;
@@ -122,8 +122,6 @@
 	-moz-box-shadow: 2px 2px 19px #e0e0e0;
 	-moz-border-radius:8px;
 	border-radius:8px;
-	opacity:0.8;
-	filter:alpha(opacity=80);
 	cursor:move;
 	background-color:green;
 	font-size:11px;
@@ -147,8 +145,6 @@
 	-moz-box-shadow: 2px 2px 19px #e0e0e0;
 	-moz-border-radius:8px;
 	border-radius:8px;
-	opacity:0.8;
-	filter:alpha(opacity=80);
 	cursor:move;
 	background-color:red;
 	font-size:11px;
