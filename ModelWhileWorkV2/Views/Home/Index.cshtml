@@ -7,12 +7,70 @@
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jsPlumb-2.0.5.js"></script>
     <script src="~/Scripts/Model/GetModel.js"></script>
-    <!--<script src="~/Scripts/Model/TestScript.js"></script>
-        -->
+    
+    <script>
+        //$(document).ready(function()
+        //{
+        //    $("selectionLabel").hide();
+        //    $("selection").hide();
+        //});   
+
+        var fileName = "";
+        var subject = ""
+
+        function getFileName() {
+            var tmpName = document.getElementById("file");
+            fileName = tmpName.value.replace(/^.*[\\\/]/, '');
+
+            fillSelection(fileName);
+        }
+
+        function getSubject()
+        {
+            subject = $("#selection option:selected").text();
+            alert(subject + " : Do gehts weiter");
+        }
+    </script>
+
+    <script>
+        function fillSelection(fileName) {
+            if (fileName != "") {
+                jQuery.ajax({
+                    url: "http://localhost:53410/api/ProcessModel?modelName=" + fileName,
+                    type: "GET",
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (modelJSON) {
+                        var selectElem = document.getElementById('selection');
+
+                        $.each(modelJSON, function (objIndex, object) {
+                            var i = 0;
+
+                            $.each(object, function (subjectFieldIndex, subjectField) {
+                                var option = document.createElement("option");
+                                console.log(subjectField.subjectNameField);
+                                option.text = subjectField.subjectNameField;
+                                option.value = subjectField.subjectNameField;
+                                selectElem.options[i] = option;
+
+                                i = i + 1;
+                            });
+                        });
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                    },
+
+                    timeout: 120000,
+                });
+            }
+        }     
+    </script>
     <title>ModelWhileWork</title>
 </head>
 <body>
-    <div id="canvas"></div>   
+    <div id="canvas">
+        <input type="file" id="file" onchange="getFileName()"/>
+        <label id="selectionLabel">Subjekt auswählen</label><select id="selection" onchange="getSubject()"></select>
+    </div>   
     
 </body>
 </html>

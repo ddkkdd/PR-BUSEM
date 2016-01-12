@@ -1,11 +1,16 @@
-﻿var url = 'http://localhost:53410/api/ProcessModel?modelName=bbestell-6.exml';
-//var url = 'http://127.0.0.1:8080/api/ProcessModel?modelName=bbestell-6.exml';
-var selectedSubject = "blager";
+﻿var url = 'http://localhost:53410/api/ProcessModel?modelName=';
+var selectedSubject = "DefaultUser";
+
 var offset = 1000;
 var divide = 2;
 
-$(document).ready(loadModel());
+function init(fileName, subjectName)
+{
+    url = url + fileName;
+    selectedSubject = subjectName;
 
+    $(document).ready(loadModel());
+}
 function loadModel() {
     jQuery.ajax({
         url: url,
@@ -59,9 +64,19 @@ function generateElements(subjectField)
 
 function createNewTaskElement (object)
 {
-    x = object.xField * offset / divide;
-    y = object.yField * offset / (divide * 2);
+    x = object.xField
+    y = object.yField
     
+    if (x < 1 && x != 0)
+    {
+        x = x * offset / divide;
+    }
+
+    if (y < 1 && y != 0)
+    {
+        y = y * offset / (divide * 2);
+    }
+
     newDiv = document.createElement("div");
     newDiv.className = "task";
     newDiv.id = object.uUIDField;
@@ -83,8 +98,16 @@ function createNewTaskElement (object)
 
 function createNewSendElement (object)
 {
-    x = object.xField * offset / divide;
-    y = object.yField * offset / (divide * 2);
+    x = object.xField
+    y = object.yField
+
+    if (x < 1 && x != 0) {
+        x = x * offset / divide;
+    }
+
+    if (y < 1 && y != 0) {
+        y = y * offset / (divide * 2);
+    }
 
     newDiv = document.createElement("div");
     newDiv.className = "send";
@@ -117,8 +140,16 @@ function createNewSendElement (object)
 
 function createNewRecieveElement (object)
 {
-    x = object.xField * offset / divide;
-    y = object.yField * offset / (divide * 2);
+    x = object.xField
+    y = object.yField
+
+    if (x < 1 && x != 0) {
+        x = x * offset / divide;
+    }
+
+    if (y < 1 && y != 0) {
+        y = y * offset / (divide * 2);
+    }
 
     newDiv = document.createElement("div");
     newDiv.className = "recieve";
@@ -157,14 +188,21 @@ function generateElementsConnection(model)
     var sourceId = "";
     var targetId = "";
     var label = "";
-
-    //console.log(model);
-
+    console.log(model);
     $.each(model.connectionField, function (connectionIndex, connection) {     
-        //find source
-        sourceId = connection.endPoint2Field.uUIDField;
-        targetId = connection.endPoint1Field.uUIDField;
+        if (connection.directed1Field && !connection.directed2Field)
+        {
+            sourceId = connection.endPoint2Field.uUIDField;
+            targetId = connection.endPoint1Field.uUIDField;
+        }
+
+        if (!connection.directed1Field && connection.directed2Field) {
+            sourceId = connection.endPoint1Field.uUIDField;
+            targetId = connection.endPoint2Field.uUIDField;
+        }
+        
         label = connection.nameField;
+
         connectTwoElements(sourceId, targetId, label);
     });
 }
