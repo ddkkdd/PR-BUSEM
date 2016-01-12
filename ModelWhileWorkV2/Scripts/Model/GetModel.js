@@ -17,6 +17,7 @@ function loadModel() {
                     if (subjectField.subjectNameField == selectedSubject)
                     {
                         generateElements(subjectField);
+                        generateElementsConnection(subjectField);
                     }
                 });
             });
@@ -49,21 +50,11 @@ function generateElements(subjectField)
                 canvasDiv.appendChild(newDiv);
             }else //element is a Recieve Message
             {
-                $.each(element.messagesField, function(key, message)
-                {
-                    newDiv = createNewRecieveElement(message);
-                    canvasDiv.appendChild(newDiv);
-                });
+                newDiv = createNewRecieveElement(element);
+                canvasDiv.appendChild(newDiv);
             }
         }
     });
-
-    jsPlumb.ready(function() {
-        connectTwoElements("Lagerbestand prüfen", " Lagerbestandsabfrag")
-        connectTwoElements("Lagerbestand prüfen", "Ware nicht lagernd")
-        connectTwoElements(" Lagerbestandsabfrag", "Ware zustellen")
-    }
-    );
 }
 
 function createNewTaskElement (object)
@@ -73,10 +64,10 @@ function createNewTaskElement (object)
     
     newDiv = document.createElement("div");
     newDiv.className = "task";
-    newDiv.id = object.nameField;
+    newDiv.id = object.uUIDField;
     newDiv.style.left = x+"px";
     newDiv.style.top = y+"px";
-
+    
     newSpan = document.createElement("span");
     newSpan.className = "nameSpan";
     newSpan.textContent = object.nameField;
@@ -97,7 +88,7 @@ function createNewSendElement (object)
 
     newDiv = document.createElement("div");
     newDiv.className = "send";
-    newDiv.id = object.msgField.messageField;
+    newDiv.id = object.uUIDField;
     newDiv.style.left = x + "px";
     newDiv.style.top = y + "px";
     
@@ -105,20 +96,20 @@ function createNewSendElement (object)
     newSpanName.className = "nameSpan";
     newSpanName.textContent = object.msgField.messageField;
 
-    newSpanRec = document.createElement("span");
-    newSpanRec.className = "recipientSpan";
-    newSpanRec.textContent = "EMPFÄNGER: "+object.msgField.recipientField;
-
     newSpanSend = document.createElement("span");
     newSpanSend.className = "senderSpan";
-    newSpanSend.textContent = "SENDER: "+object.msgField.senderField;
+    newSpanSend.textContent = "SENDER: " + object.msgField.senderField;
+
+    newSpanRec = document.createElement("span");
+    newSpanRec.className = "recipientSpan";
+    newSpanRec.textContent = "EMPFÄNGER: "+object.msgField.recipientField; 
 
     newExtraSpan = document.createElement("span");
     newExtraSpan.className = "extraSpan";
     
     newDiv.appendChild(newSpanName);
-    newDiv.appendChild(newSpanRec);
     newDiv.appendChild(newSpanSend);
+    newDiv.appendChild(newSpanRec);
     newDiv.appendChild(newExtraSpan);
     
     return newDiv;
@@ -127,35 +118,54 @@ function createNewSendElement (object)
 function createNewRecieveElement (object)
 {
     x = object.xField * offset / divide;
-    y = object.yField * offset / (divide*2);
+    y = object.yField * offset / (divide * 2);
 
     newDiv = document.createElement("div");
     newDiv.className = "recieve";
-    newDiv.id = object.messageField;
+    newDiv.id = object.uUIDField;
     newDiv.style.left = x + "px";
     newDiv.style.top = y + "px";
 
-    newSpanName = document.createElement("span");
-    newSpanName.className = "nameSpan";
-    newSpanName.textContent = object.messageField;
+    $.each(object.messagesField, function (msgIdx, msg)
+    {
+        newSpanName = document.createElement("span");
+        newSpanName.className = "nameSpan";
+        newSpanName.textContent = msg.messageField;
 
-    newSpanRec = document.createElement("span");
-    newSpanRec.className = "recipientSpan";
-    newSpanRec.textContent = "EMPFÄNGER: "+object.recipientField;
+        newSpanRec = document.createElement("span");
+        newSpanRec.className = "recipientSpan";
+        newSpanRec.textContent = "EMPFÄNGER: " + msg.recipientField;
 
-    newSpanSend = document.createElement("span");
-    newSpanSend.className = "senderSpan";
-    newSpanSend.textContent = "SENDER: "+object.senderField;
+        newSpanSend = document.createElement("span");
+        newSpanSend.className = "senderSpan";
+        newSpanSend.textContent = "SENDER: " + msg.senderField;
 
-    newExtraSpan = document.createElement("span");
-    newExtraSpan.className = "extraSpan";
+        newExtraSpan = document.createElement("span");
+        newExtraSpan.className = "extraSpan";
 
-    newDiv.appendChild(newSpanName);
-    newDiv.appendChild(newSpanRec);
-    newDiv.appendChild(newSpanSend);
-    newDiv.appendChild(newExtraSpan);
-    
+        newDiv.appendChild(newSpanName);
+        newDiv.appendChild(newSpanRec);
+        newDiv.appendChild(newSpanSend);
+        newDiv.appendChild(newExtraSpan);
+    });
+
     return newDiv;
+}
+
+function generateElementsConnection(model)
+{
+    var sourceId = "";
+    var targetId = "";
+
+    //console.log(model);
+
+    $.each(model.connectionField, function (connectionIndex, connection) {     
+        //find source
+        sourceId = connection.endPoint2Field.uUIDField;
+        targetId = connection.endPoint1Field.uUIDField;
+
+        connectTwoElements(sourceId, targetId);
+    });
 }
 
 function connectTwoElements(sourceId, targetId) {
