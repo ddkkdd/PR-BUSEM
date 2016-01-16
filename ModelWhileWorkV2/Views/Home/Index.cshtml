@@ -18,29 +18,29 @@
         var fileName = "";
         var subject = ""
 
-        function getFileName() {
-            var tmpName = document.getElementById("file");
+        function getFileName(canvasNr) {
+            var tmpName = document.getElementById("file"+canvasNr);
             fileName = tmpName.value.replace(/^.*[\\\/]/, '');
 
-            fillSelection(fileName);
+            fillSelection(fileName, canvasNr);
         }
 
-        function getSubject()
+        function getSubject(canvasNr)
         {
-            subject = $("#selection option:selected").text();
-            alert(subject + " : Do gehts weiter");
+            subject = $("#selection"+canvasNr+" option:selected").text();
+            alert(subject + " : Do gehts weiter"+canvasNr);
         }
     </script>
 
     <script>
-        function fillSelection(fileName) {
+        function fillSelection(fileName, canvasNr) {
             if (fileName != "") {
                 jQuery.ajax({
                     url: "http://localhost:53410/api/ProcessModel?modelName=" + fileName,
                     type: "GET",
                     contentType: 'application/json; charset=utf-8',
                     success: function (modelJSON) {
-                        var selectElem = document.getElementById('selection');
+                        var selectElem = document.getElementById('selection'+canvasNr);
 
                         $.each(modelJSON, function (objIndex, object) {
                             var i = 0;
@@ -67,10 +67,17 @@
     <title>ModelWhileWork</title>
 </head>
 <body>
-    <div id="canvas">
-        <input type="file" id="file" onchange="getFileName()"/>
-        <label id="selectionLabel">Subjekt auswählen</label><select id="selection" onchange="getSubject()"></select>
+    <div id="model1canvas">
+        <input type="file" id="file1" onchange="getFileName(1)"/>
+        <label id="selectionLabel1">Subjekt auswählen</label><select id="selection1" onchange="getSubject(1)"></select>
     </div>   
-    
+    <div id="model2canvas">
+        <input type="file" id="file2" onchange="getFileName(2)" />
+        <label id="selectionLabel2">Subjekt auswählen</label><select id="selection2" onchange="getSubject(2)"></select>
+    </div>  
+    <div id="model3canvas">
+        <input type="file" id="file3" onchange="getFileName(3)" />
+        <label id="selectionLabel3">Subjekt auswählen</label><select id="selection3" onchange="getSubject(3)"></select>
+    </div>  
 </body>
 </html>

@@ -9,7 +9,7 @@ function init(fileName, subjectName)
     url = url + fileName;
     selectedSubject = subjectName;
 
-    $(document).ready(loadModel());
+    //$(document).ready(loadModel());
 }
 function loadModel() {
     jQuery.ajax({

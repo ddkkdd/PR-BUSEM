@@ -79,7 +79,17 @@
     white-space: pre;
 }
 
-#canvas {
+#modle1canvas {
+  height: 800px;
+  position:relative;
+}
+
+#modle2canvas {
+  height: 800px;
+  position:relative;
+}
+
+#modle3canvas {
   height: 800px;
   position:relative;
 }
