@@ -1,32 +1,4 @@
-﻿/*#canvas {
-        padding: 20px;
-        width: 80%;
-        height: 300px;
-        border: 1px solid gray;
-        position: relative;
-    }
-
-.item {
-    height: 80px;
-    width: 80px;
-    float: none;
-    position: relative;
-    border: 1px solid black;
-}
-
-.window { z-index:20; }
-.jsplumb-connector { z-index:4; }
-.jsplumb-endpoint { z-index:5; }
-.jsplumb-overlay { z-index:6; }
-
-.jsplumb-drag-select {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;    
-}*/
+﻿
 
 .myLine path{
     stroke:black;
@@ -79,19 +51,34 @@
     white-space: pre;
 }
 
-#modle1canvas {
-  height: 800px;
+#model1canvas {
+  height: 900px;
+  width: 33%;
   position:relative;
+  float:left;
+  border-left-style: dotted;
 }
 
-#modle2canvas {
-  height: 800px;
+#model2canvas {
+  height: 900px;
+  width: 33%;
   position:relative;
+  float:left;
+  border-right-style: dotted;
+  border-left-style: dotted;
 }
 
-#modle3canvas {
-  height: 800px;
+#model3canvas {
+  height: 900px;
+  width: 33%;
   position:relative;
+  float:left;
+  border-right-style: dotted;
+}
+
+#canvas{
+    width: auto;
+    height: auto;
 }
 
 .canvas .task { 
@@ -117,6 +104,8 @@
 	transition:background-color 0.25s ease-in;
     width: 200px;
     height: 100px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .canvas .recieve { 
@@ -140,6 +129,8 @@
 	transition:background-color 0.25s ease-in;
     width: 200px;
     height: 100px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .canvas .send { 
@@ -163,4 +154,6 @@
 	transition:background-color 0.25s ease-in;
     width: 200px;
     height: 100px;
+    margin-left: auto;
+    margin-right: auto;
 }

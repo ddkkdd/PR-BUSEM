@@ -1,28 +1,30 @@
-﻿var url = 'http://localhost:53410/api/ProcessModel?modelName=';
+﻿var constUrl = 'http://localhost:53410/api/ProcessModel?modelName=';
 var selectedSubject = "DefaultUser";
 
 var offset = 1000;
 var divide = 2;
 
-function init(fileName, subjectName)
+function init(fileName, subjectName, modelNr)
 {
-    url = url + fileName;
+    url = constUrl + fileName;
     selectedSubject = subjectName;
 
-    //$(document).ready(loadModel());
+    $(document).ready(loadModel(modelNr));
 }
-function loadModel() {
+
+function loadModel(modelNr) {
     jQuery.ajax({
         url: url,
         type: "GET",
         contentType: 'application/json; charset=utf-8',
         success: function (modelJSON) {
-            $.each(modelJSON, function (objIndex, object) {
-                $.each(object, function (subjectFieldIndex, subjectField) {
-                    if (subjectField.subjectNameField == selectedSubject)
+            $.each(modelJSON, function (objIndex, objectArray) {
+                
+                $.each(objectArray, function (objIndex, object) {
+                    if (object.subjectNameField == selectedSubject)
                     {
-                        generateElements(subjectField);
-                        generateElementsConnection(subjectField);
+                        generateElements(object, modelNr);
+                        generateElementsConnection(object, modelNr);
                     }
                 });
             });
@@ -34,35 +36,36 @@ function loadModel() {
     });
 }
 
-function generateElements(subjectField)
+function generateElements(subjectField, canvasNr)
 {
-    var canvas = $("#canvas");
-    canvasDiv = document.getElementById("canvas");
+    canvasDiv = document.getElementById("model"+canvasNr+"canvas");
 
     $.each(subjectField.elementField, function (elementIndex, element) {
-        if (element.nameField != "") //Element is a activity
+        
+        if (!element.hasOwnProperty("msgField") && !element.hasOwnProperty("messagesField")) //element is an activity
         {
-            newDiv = createNewTaskElement(element);
+            newDiv = createNewTaskElement(element, canvasNr);
             canvasDiv.appendChild(newDiv);
+            return;
         }
 
-        if (element.nameField == "") //element is a Message
+        if (element.hasOwnProperty("msgField")) //element is a Send Message
         {
-            
-            if (element.msgField != null) //element is a Send Message
-            {
-                newDiv = createNewSendElement(element);
-                canvasDiv.appendChild(newDiv);
-            }else //element is a Recieve Message
-            {
-                newDiv = createNewRecieveElement(element);
-                canvasDiv.appendChild(newDiv);
-            }
+            newDiv = createNewSendElement(element, canvasNr);
+            canvasDiv.appendChild(newDiv);
+            return;
         }
+
+        if (element.hasOwnProperty("messagesField")) //element is a Recieve Message
+        {
+            newDiv = createNewRecieveElement(element, canvasNr);
+            canvasDiv.appendChild(newDiv);
+            return;
+        }        
     });
 }
 
-function createNewTaskElement (object)
+function createNewTaskElement (object, canvasNr)
 {
     x = object.xField
     y = object.yField
@@ -79,7 +82,7 @@ function createNewTaskElement (object)
 
     newDiv = document.createElement("div");
     newDiv.className = "task";
-    newDiv.id = object.uUIDField;
+    newDiv.id = canvasNr+":"+object.uUIDField;
     newDiv.style.left = x+"px";
     newDiv.style.top = y+"px";
     
@@ -96,7 +99,7 @@ function createNewTaskElement (object)
     return newDiv;
 }
 
-function createNewSendElement (object)
+function createNewSendElement (object, canvasNr)
 {
     x = object.xField
     y = object.yField
@@ -111,7 +114,7 @@ function createNewSendElement (object)
 
     newDiv = document.createElement("div");
     newDiv.className = "send";
-    newDiv.id = object.uUIDField;
+    newDiv.id = canvasNr + ":" + object.uUIDField;
     newDiv.style.left = x + "px";
     newDiv.style.top = y + "px";
     
@@ -138,7 +141,7 @@ function createNewSendElement (object)
     return newDiv;
 }
 
-function createNewRecieveElement (object)
+function createNewRecieveElement (object, canvasNr)
 {
     x = object.xField
     y = object.yField
@@ -153,7 +156,7 @@ function createNewRecieveElement (object)
 
     newDiv = document.createElement("div");
     newDiv.className = "recieve";
-    newDiv.id = object.uUIDField;
+    newDiv.id = canvasNr + ":" + object.uUIDField;
     newDiv.style.left = x + "px";
     newDiv.style.top = y + "px";
 
@@ -183,22 +186,22 @@ function createNewRecieveElement (object)
     return newDiv;
 }
 
-function generateElementsConnection(model)
+function generateElementsConnection(model, canvasNr)
 {
     var sourceId = "";
     var targetId = "";
     var label = "";
-    console.log(model);
+
     $.each(model.connectionField, function (connectionIndex, connection) {     
         if (connection.directed1Field && !connection.directed2Field)
         {
-            sourceId = connection.endPoint2Field.uUIDField;
-            targetId = connection.endPoint1Field.uUIDField;
+            sourceId = canvasNr+":"+connection.endPoint2Field.uUIDField;
+            targetId = canvasNr + ":" + connection.endPoint1Field.uUIDField;
         }
 
         if (!connection.directed1Field && connection.directed2Field) {
-            sourceId = connection.endPoint1Field.uUIDField;
-            targetId = connection.endPoint2Field.uUIDField;
+            sourceId = canvasNr + ":" + connection.endPoint1Field.uUIDField;
+            targetId = canvasNr + ":" + connection.endPoint2Field.uUIDField;
         }
         
         label = connection.nameField;

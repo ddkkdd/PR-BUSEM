@@ -9,26 +9,25 @@
     <script src="~/Scripts/Model/GetModel.js"></script>
     
     <script>
-        //$(document).ready(function()
-        //{
-        //    $("selectionLabel").hide();
-        //    $("selection").hide();
-        //});   
-
         var fileName = "";
-        var subject = ""
+        var subject = "";
 
         function getFileName(canvasNr) {
             var tmpName = document.getElementById("file"+canvasNr);
             fileName = tmpName.value.replace(/^.*[\\\/]/, '');
 
-            fillSelection(fileName, canvasNr);
+            if (fileName != "")
+            {
+                fillSelection(fileName, canvasNr);
+            }else
+            {
+                emptySelection(canvasNr);
+            }            
         }
 
         function getSubject(canvasNr)
         {
             subject = $("#selection"+canvasNr+" option:selected").text();
-            alert(subject + " : Do gehts weiter"+canvasNr);
         }
     </script>
 
@@ -40,18 +39,14 @@
                     type: "GET",
                     contentType: 'application/json; charset=utf-8',
                     success: function (modelJSON) {
-                        var selectElem = document.getElementById('selection'+canvasNr);
-
+                        var selectElem = document.getElementById('selection' + canvasNr);
                         $.each(modelJSON, function (objIndex, object) {
                             var i = 0;
-
                             $.each(object, function (subjectFieldIndex, subjectField) {
                                 var option = document.createElement("option");
-                                console.log(subjectField.subjectNameField);
                                 option.text = subjectField.subjectNameField;
                                 option.value = subjectField.subjectNameField;
                                 selectElem.options[i] = option;
-
                                 i = i + 1;
                             });
                         });
@@ -62,22 +57,45 @@
                     timeout: 120000,
                 });
             }
-        }     
+        }
+
+        function emptySelection(canvasNr)
+        {
+            var selectElem = document.getElementById('selection' + canvasNr);
+            var length = selectElem.options.length;
+
+            for (i = 0; i < length; i++) {
+                selectElem.options[i] = null;
+            }
+        }
+    </script>
+    
+    <script>
+        function btnLoadModel(modelNr)
+        {
+            getSubject(modelNr);
+            init(fileName, selectedSubject, modelNr);
+        }
     </script>
     <title>ModelWhileWork</title>
 </head>
 <body>
-    <div id="model1canvas">
-        <input type="file" id="file1" onchange="getFileName(1)"/>
-        <label id="selectionLabel1">Subjekt auswählen</label><select id="selection1" onchange="getSubject(1)"></select>
-    </div>   
-    <div id="model2canvas">
-        <input type="file" id="file2" onchange="getFileName(2)" />
-        <label id="selectionLabel2">Subjekt auswählen</label><select id="selection2" onchange="getSubject(2)"></select>
-    </div>  
-    <div id="model3canvas">
-        <input type="file" id="file3" onchange="getFileName(3)" />
-        <label id="selectionLabel3">Subjekt auswählen</label><select id="selection3" onchange="getSubject(3)"></select>
-    </div>  
+    <div id="canvas">
+        <div id="model1canvas">
+            <input type="file" id="file1" onchange="getFileName(1)" />
+            <label id="selectionLabel1">Subjekt auswählen</label><select id="selection1" onchange="getSubject(1)"></select>
+            <button id="loadModel1" onclick="btnLoadModel(1)">Modell laden</button>
+        </div>
+        <div id="model2canvas">
+            <input type="file" id="file2" onchange="getFileName(2)" />
+            <label id="selectionLabel2">Subjekt auswählen</label><select id="selection2" onchange="getSubject(2)"></select>
+            <button id="loadModel2" onclick="btnLoadModel(2)">Modell laden</button>
+        </div>
+        <div id="model3canvas">
+            <input type="file" id="file3" onchange="getFileName(3)" />
+            <label id="selectionLabel3">Subjekt auswählen</label><select id="selection3" onchange="getSubject(3)"></select>
+            <button id="loadModel3" onclick="btnLoadModel(3)">Modell laden</button>
+        </div>
+    </div>
 </body>
 </html>
