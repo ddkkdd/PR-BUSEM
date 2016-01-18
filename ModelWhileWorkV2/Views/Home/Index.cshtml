@@ -74,28 +74,45 @@
         function btnLoadModel(modelNr)
         {
             getSubject(modelNr);
+            deleteElements(modelNr);
             init(fileName, selectedSubject, modelNr);
+        }
+    </script>
+    <script>
+        function btnSubject(modelNr)
+        {
+            subjectsDialog(modelNr);
         }
     </script>
     <title>ModelWhileWork</title>
 </head>
 <body>
-    <div id="canvas">
-        <div id="model1canvas">
-            <input type="file" id="file1" onchange="getFileName(1)" />
-            <label id="selectionLabel1">Subjekt auswählen</label><select id="selection1" onchange="getSubject(1)"></select>
-            <button id="loadModel1" onclick="btnLoadModel(1)">Modell laden</button>
+        <div id="canvas">
+            <div id="model1canvas">
+                <input type="file" id="file1" onchange="getFileName(1)" />
+                <label id="selectionLabel1">Subjekt auswählen</label><select id="selection1" onchange="getSubject(1)"></select>
+                <button id="loadModel1" onclick="btnLoadModel(1)">Modell laden</button>
+                <br />
+                <button id="subjectMerge1" onclick="btnSubject(1)">Subjektabgleich</button>
+                <br />
+            </div>
+            <div id="model2canvas">
+                <input type="file" id="file2" onchange="getFileName(2)" />
+                <label id="selectionLabel2">Subjekt auswählen</label><select id="selection2" onchange="getSubject(2)"></select>
+                <button id="loadModel2" onclick="btnLoadModel(2)">Modell laden</button>
+                <br />
+                <button id="subjectMerge2" onclick="btnSubject(2)">Subjektabgleich</button>
+                <br />
+            </div>
+            <div id="model3canvas">
+            </div>
+
+            <dialog id="subjectsDialog">
+                <span id="sbjDiaH2"></span>
+                <div id="shjDiaSubjects"></div>
+                <button id="sbjDiaOK">OK</button>
+                <button id="sbjDiaCancel">Cancel</button>
+            </dialog>
         </div>
-        <div id="model2canvas">
-            <input type="file" id="file2" onchange="getFileName(2)" />
-            <label id="selectionLabel2">Subjekt auswählen</label><select id="selection2" onchange="getSubject(2)"></select>
-            <button id="loadModel2" onclick="btnLoadModel(2)">Modell laden</button>
-        </div>
-        <div id="model3canvas">
-            <input type="file" id="file3" onchange="getFileName(3)" />
-            <label id="selectionLabel3">Subjekt auswählen</label><select id="selection3" onchange="getSubject(3)"></select>
-            <button id="loadModel3" onclick="btnLoadModel(3)">Modell laden</button>
-        </div>
-    </div>
 </body>
 </html>

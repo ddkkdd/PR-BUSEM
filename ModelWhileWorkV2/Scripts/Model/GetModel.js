@@ -4,6 +4,14 @@ var selectedSubject = "DefaultUser";
 var offset = 1000;
 var divide = 2;
 
+var model1 = null;
+var model2 = null;
+var model3 = null;
+
+var subjects1 = [];
+var subjects2 = [];
+var subjects3 = [];
+
 function init(fileName, subjectName, modelNr)
 {
     url = constUrl + fileName;
@@ -28,6 +36,21 @@ function loadModel(modelNr) {
                     }
                 });
             });
+
+            if (modelNr == 1)
+            {
+                model1 = modelJSON;
+            }
+            if (model2 == 2)
+            {
+                model2 = modelJSON;
+            }else
+            {
+                model3 = modelJSON;
+            }
+
+            console.log(subjects1);
+            console.log(subjects2);
         },
         error: function (jqXHR, textStatus, errorThrown) {
         },
@@ -125,10 +148,12 @@ function createNewSendElement (object, canvasNr)
     newSpanSend = document.createElement("span");
     newSpanSend.className = "senderSpan";
     newSpanSend.textContent = "SENDER: " + object.msgField.senderField;
+    addSubjectToArray(object.msgField.senderField, canvasNr);
 
     newSpanRec = document.createElement("span");
     newSpanRec.className = "recipientSpan";
-    newSpanRec.textContent = "EMPFÄNGER: "+object.msgField.recipientField; 
+    newSpanRec.textContent = "EMPFÄNGER: " + object.msgField.recipientField;
+    addSubjectToArray(object.msgField.senderField, canvasNr);
 
     newExtraSpan = document.createElement("span");
     newExtraSpan.className = "extraSpan";
@@ -169,10 +194,12 @@ function createNewRecieveElement (object, canvasNr)
         newSpanRec = document.createElement("span");
         newSpanRec.className = "recipientSpan";
         newSpanRec.textContent = "EMPFÄNGER: " + msg.recipientField;
+        addSubjectToArray(msg.recipientField, canvasNr);
 
         newSpanSend = document.createElement("span");
         newSpanSend.className = "senderSpan";
         newSpanSend.textContent = "SENDER: " + msg.senderField;
+        addSubjectToArray(msg.senderField, canvasNr);
 
         newExtraSpan = document.createElement("span");
         newExtraSpan.className = "extraSpan";
@@ -206,19 +233,30 @@ function generateElementsConnection(model, canvasNr)
         
         label = connection.nameField;
 
-        connectTwoElements(sourceId, targetId, label);
+        connectTwoElements(sourceId, targetId, label, canvasNr);
     });
 }
 
-function connectTwoElements(sourceId, targetId, label) {
+function connectTwoElements(sourceId, targetId, label, canvasNr) {
+    var offset = -290;
+
     var sourceElem = document.getElementById(sourceId);
     var targetElem = document.getElementById(targetId);
 
     var common = {
         connector: ["Straight"],
         anchor: ["Top", "Bottom"],
-        endpoint: "Dot"
+        endpoint: "Blank"
     };
+
+    if (canvasNr == 2)
+    {
+        common = {
+            connector: ["Straight"],
+            anchor: [[0, 0, 0, 0, offset, 0], [0, 0, 0, 0, offset, 0]],
+            endpoint: "Blank"
+        }
+    }
 
     jsPlumb.connect({
         source: sourceElem,
@@ -227,10 +265,80 @@ function connectTwoElements(sourceId, targetId, label) {
         paintStyle: { strokeStyle: "lightgrey", lineWidth: 3 },
         endpointStyle: { fillStyle: "lightgrey", outlineColor: "black" },
         overlays: [
-            ["Arrow", { width: 20, length: 15, location: 0.90 }]
+           ["PlainArrow", { location: 1, width: 15, length: 12 }]
         ]
     }, common);
+}
 
-    jsPlumb.draggable(sourceElem);
-    jsPlumb.draggable(targetElem);
+function deleteElements (modelNr)
+{
+    if ($("model" + modelNr + "canvas").length > 0)
+    {
+        $("model" + modelNr + "canvas").empty();
+        jsPlumb.empty("model" + modelNr + "canvas");
+        jsPlumb.repaintEverything();
+    }    
+}
+
+function addSubjectToArray (subjectName, modelNr)
+{
+    if (modelNr == 1)
+    {
+        if ($.inArray(subjectName, subjects1) == -1) {
+            subjects1.push(subjectName);
+        }
+    }
+
+    if (modelNr == 2) {
+        if ($.inArray(subjectName, subjects2) == -1) {
+            subjects2.push(subjectName);
+        }
+    }
+
+    if (modelNr == 3) {
+        if ($.inArray(subjectName, subjects3) == -1) {
+            subjects3.push(subjectName);
+        }
+    }    
+}
+
+function getSubjects(modelNr)
+{
+    if (modelNr == 1)
+    {
+        return subjects1;
+    }
+
+    if (modelNr == 2) {
+        return subjects2;
+    }
+
+    if (modelNr == 3) {
+        return subjects2;
+    }
+    
+    return null;
+}
+
+function subjectsDialog(modelNr)
+{
+    var subjects = getSubjects(modelNr);
+
+    var dialog = document.getElementById("subjectsDialog");
+    var cnlButton = document.getElementById("sbjDiaCancel");
+    cnlButton.addEventListener('click', function () { dialog.close(); });
+    var title = document.getElementById("sbjDiaH2");
+    title.textContent = "Subjects Model " + modelNr;
+
+    for (var i = 0; i < subjects.length ; i++)
+    {
+        var spanSbjName = document.createElement("span");
+        spanSbjName.textContent = subjects[i];
+        var selection = document.createElement("selection");
+
+        dialog.appendChild(spanSbjName);
+        dialog.appendChild(selection);
+    }
+    
+    dialog.show();
 }

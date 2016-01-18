@@ -52,7 +52,7 @@
 }
 
 #model1canvas {
-  height: 900px;
+  height: 3000px;
   width: 33%;
   position:relative;
   float:left;
@@ -60,7 +60,7 @@
 }
 
 #model2canvas {
-  height: 900px;
+  height: 3000px;
   width: 33%;
   position:relative;
   float:left;
@@ -69,16 +69,11 @@
 }
 
 #model3canvas {
-  height: 900px;
+  height: 3000px;
   width: 33%;
   position:relative;
-  float:left;
+  float:right;
   border-right-style: dotted;
-}
-
-#canvas{
-    width: auto;
-    height: auto;
 }
 
 .canvas .task { 
