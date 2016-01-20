@@ -412,8 +412,6 @@ function checkDialogSelection(modelNr, cntSubjects)
     // Ask for new Common Name
     for (var i = 0; i < cntSubjects; i++)
     {
-        console.log(selectionArr[i]);
-
         if (selectionArr[i] != "")
         {
             var singleSubjectsArr = selectionArr[i].split(";");
@@ -453,11 +451,51 @@ function checkDialogSelection(modelNr, cntSubjects)
 
 function replaceSubjectNames (subjects, commonName, modelNr)
 {
+    //replace Names in View
     var chkRecMsg = document.getElementsByClassName("recieve");
     var chkSendMsg = document.getElementsByClassName("send");
 
+    //check RecMsg
     for (var i=0; i<chkRecMsg.length; i++)
     {
-        console.log(chkRecMsg[i]);
+        var msgId = chkRecMsg[i].id;
+        var splitId = msgId.split(":");
+
+        if (splitId[0] == modelNr) //Element belongs to the right Model
+        {
+            for (var j=0; j<chkRecMsg[i].childNodes.length; j++)
+            {
+                if (chkRecMsg[i].childNodes[j].className == "recipientSpan")
+                {
+                    for (var k = 0; k < subjects.length; k++)
+                    {
+                        if (chkRecMsg[i].childNodes[j].textContent == "EMPFÄNGER: " + subjects[k])
+                        {
+                            console.log("OLD: " + chkRecMsg[i].childNodes[j].textContent);
+                            console.log("NEW: " + commonName);
+                            chkRecMsg[i].childNodes[j].textContent = "EMPFÄNGER: " + commonName;
+                        }
+                    }
+                }
+
+                if (chkRecMsg[i].childNodes[j].className == "senderSpan")
+                {
+                    for (var l = 0; l < subjects.length; l++)
+                    {
+                        if (chkRecMsg[i].childNodes[j].textContent == "SENDER: " + subjects[l])
+                        {
+                            console.log("OLD: " + chkRecMsg[i].childNodes[j].textContent);
+                            console.log("NEW: " + commonName);
+                            chkRecMsg[i].childNodes[j].textContent = "SENDER: " + commonName;
+                        }
+                    }
+                }
+            }
+        }
     }
+
+    //check SendMsg
+
+    //replace Names in model
+
 }
