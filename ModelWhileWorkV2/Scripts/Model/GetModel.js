@@ -406,8 +406,15 @@ function checkDialogSelection(modelNr, cntSubjects)
             selectionArr[nr]+=name.textContent+";";
         }
     }
+    
+    //empty Dialog before closing it
+    var dialogDiv = document.getElementById("shjDiaSubjects");
+    while (dialogDiv.firstChild)
+    {
+        dialogDiv.removeChild(dialogDiv.firstChild);
+    }
 
-    dialog.remove();
+    dialog.close();
     
     // Ask for new Common Name
     for (var i = 0; i < cntSubjects; i++)
@@ -471,8 +478,6 @@ function replaceSubjectNames (subjects, commonName, modelNr)
                     {
                         if (chkRecMsg[i].childNodes[j].textContent == "EMPFÄNGER: " + subjects[k])
                         {
-                            console.log("OLD: " + chkRecMsg[i].childNodes[j].textContent);
-                            console.log("NEW: " + commonName);
                             chkRecMsg[i].childNodes[j].textContent = "EMPFÄNGER: " + commonName;
                         }
                     }
@@ -484,8 +489,6 @@ function replaceSubjectNames (subjects, commonName, modelNr)
                     {
                         if (chkRecMsg[i].childNodes[j].textContent == "SENDER: " + subjects[l])
                         {
-                            console.log("OLD: " + chkRecMsg[i].childNodes[j].textContent);
-                            console.log("NEW: " + commonName);
                             chkRecMsg[i].childNodes[j].textContent = "SENDER: " + commonName;
                         }
                     }
@@ -495,7 +498,41 @@ function replaceSubjectNames (subjects, commonName, modelNr)
     }
 
     //check SendMsg
+    for(var i=0; i<chkSendMsg.length; i++)
+    {
+        var msgId = chkSendMsg[i].id;
+        var splitId = msgId.split(":");
 
+        if (splitId[0] == modelNr)
+        {
+            for (var j=0; j<chkSendMsg[i].childNodes.length; j++)
+            {
+                if (chkSendMsg[i].childNodes[j].className == "recipientSpan")
+                {
+                    for (var k=0; k<subjects.length; k++)
+                    {
+                        if (chkSendMsg[i].childNodes[j].textContent == "EMPFÄNGER: " + subjects[k])
+                        {
+                            chkSendMsg[i].childNodes[j].textContent = "EMPFÄNGER: " + commonName;
+                        }
+                    }
+                }
+
+                if (chkSendMsg[i].childNodes[j].className == "senderSpan")
+                {
+                    for (var l = 0; l < subjects.length; l++)
+                    {
+                        if (chkSendMsg[i].childNodes[j].textContent == "SENDER: " + subjects[l])
+                        {
+                            chkSendMsg[i].childNodes[j].textContent = "SENDER: " + commonName;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //TODO
     //replace Names in model
 
 }
