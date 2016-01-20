@@ -22,6 +22,8 @@
             }else
             {
                 emptySelection(canvasNr);
+                var btn = document.getElementById("subjectMerge" + canvasNr);
+                btn.style.visibility = "hidden";
             }            
         }
 
@@ -71,17 +73,20 @@
     </script>
     
     <script>
-        function btnLoadModel(modelNr)
+        function btnLoadModel(canvasNr)
         {
-            getSubject(modelNr);
-            deleteElements(modelNr);
-            init(fileName, selectedSubject, modelNr);
+            getSubject(canvasNr);
+            deleteElements(canvasNr);
+            init(fileName, selectedSubject, canvasNr);
+
+            var btn = document.getElementById("subjectMerge" + canvasNr);
+            btn.style.visibility = "visible";
         }
     </script>
     <script>
-        function btnSubject(modelNr)
+        function btnSubject(canvasNr)
         {
-            subjectsDialog(modelNr);
+            subjectsDialog(canvasNr);
         }
     </script>
     <title>ModelWhileWork</title>
@@ -93,7 +98,7 @@
                 <label id="selectionLabel1">Subjekt auswählen</label><select id="selection1" onchange="getSubject(1)"></select>
                 <button id="loadModel1" onclick="btnLoadModel(1)">Modell laden</button>
                 <br />
-                <button id="subjectMerge1" onclick="btnSubject(1)">Subjektabgleich</button>
+                <button id="subjectMerge1" onclick="btnSubject(1)" style="visibility:hidden">Subjektabgleich</button>
                 <br />
             </div>
             <div id="model2canvas">
@@ -101,15 +106,18 @@
                 <label id="selectionLabel2">Subjekt auswählen</label><select id="selection2" onchange="getSubject(2)"></select>
                 <button id="loadModel2" onclick="btnLoadModel(2)">Modell laden</button>
                 <br />
-                <button id="subjectMerge2" onclick="btnSubject(2)">Subjektabgleich</button>
+                <button id="subjectMerge2" onclick="btnSubject(2)" style="visibility:hidden">Subjektabgleich</button>
                 <br />
             </div>
             <div id="model3canvas">
             </div>
 
-            <dialog id="subjectsDialog">
-                <span id="sbjDiaH2"></span>
+            <dialog id="subjectsDialog" class="subjectsDialog">
+                <h4 id="sbjDiaH3"></h4>
+                <span style="font-style:italic">Vergeben Sie für Subjekte die die gleiche Person darstellen die gleiche Nummer</span>
+                <br /><br />
                 <div id="shjDiaSubjects"></div>
+                <br />
                 <button id="sbjDiaOK">OK</button>
                 <button id="sbjDiaCancel">Cancel</button>
             </dialog>

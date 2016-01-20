@@ -76,6 +76,28 @@
   border-right-style: dotted;
 }
 
+.dialogText{
+    display:block;
+    float: left;
+}
+
+.dialogSelect{
+    display:block;
+    float: right;
+}
+
+.subjectsDialog{
+    width: 300px;
+}
+
+.subjectsDialog::backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+}
 .canvas .task { 
     padding:16px;
 	position:relative;

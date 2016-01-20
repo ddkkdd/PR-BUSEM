@@ -323,22 +323,141 @@ function getSubjects(modelNr)
 function subjectsDialog(modelNr)
 {
     var subjects = getSubjects(modelNr);
+    var cntSubjects = subjects.length;
 
+    var heading = document.getElementById("sbjDiaH3");
+    heading.textContent = "Subject Abgleich Model " + modelNr;
+    
     var dialog = document.getElementById("subjectsDialog");
+
+    var dialogDiv = document.getElementById("shjDiaSubjects");
+    var okButton = document.getElementById("sbjDiaOK");
+    okButton.addEventListener('click', function () { checkDialogSelection(modelNr, cntSubjects); });
     var cnlButton = document.getElementById("sbjDiaCancel");
     cnlButton.addEventListener('click', function () { dialog.close(); });
-    var title = document.getElementById("sbjDiaH2");
-    title.textContent = "Subjects Model " + modelNr;
 
-    for (var i = 0; i < subjects.length ; i++)
+    //var title = document.getElementById("sbjDiaH2");
+    //title.textContent = "Subjects Model " + modelNr;
+
+    for (var i = 0; i < cntSubjects; i++)
     {
         var spanSbjName = document.createElement("span");
+        spanSbjName.id = "dialogSpan" + i;
+        spanSbjName.className = "dialogText";
         spanSbjName.textContent = subjects[i];
-        var selection = document.createElement("selection");
+        spanSbjName.style.fontWeight = "bold";
 
-        dialog.appendChild(spanSbjName);
-        dialog.appendChild(selection);
+        var select = document.createElement("select");
+        select.className = "dialogSelect";
+        select.id = "dialogSelect" + i;
+
+        var option = document.createElement("option");
+        option.value = "-";
+        option.innerHTML = "-";
+        
+        select.appendChild(option);
+
+        for (var j = 0; j < cntSubjects; j++)
+        {
+            option = document.createElement("option");
+            option.value = j + 1;
+            option.innerHTML = j + 1;
+
+            select.appendChild(option);
+        }
+
+        var br = document.createElement("br");
+        
+        dialogDiv.appendChild(spanSbjName);
+        dialogDiv.appendChild(select);
+        dialogDiv.appendChild(br);
     }
-    
+    dialogDiv.appendChild(br);
+
     dialog.show();
+}
+
+function checkDialogSelection(modelNr, cntSubjects)
+{
+    var dialog = document.getElementById("subjectsDialog");
+
+    //Initialize Array
+    var selectionArr = new Array(cntSubjects);
+    for (var i = 0; i < cntSubjects; i++)
+    {
+        selectionArr[i] = "";
+    }
+
+    //Group Subjects
+    for (var i =0; i<cntSubjects; i++)
+    {
+        var name = document.getElementById("dialogSpan"+i);
+        var select = document.getElementById("dialogSelect"+i);
+        
+        //console.log(name.textContent);
+        //console.log(select.value);
+
+        if (select.value == "-" || select.value == null)
+        {
+            continue;
+        } else
+        {
+            var nr = select.value;
+            selectionArr[nr]+=name.textContent+";";
+        }
+    }
+
+    dialog.remove();
+    
+    // Ask for new Common Name
+    for (var i = 0; i < cntSubjects; i++)
+    {
+        console.log(selectionArr[i]);
+
+        if (selectionArr[i] != "")
+        {
+            var singleSubjectsArr = selectionArr[i].split(";");
+                       
+            var text1 = "Bitte geben Sie einen neuen Namen für das Subjekt ";
+            var text2 = "Bitte geben Sie einen gemeinsamen Namen für die Subjekte ";
+            var dynText1 = "";
+            var dynText2 = "";
+
+            for (var j=0; j<singleSubjectsArr.length; j++)
+            {
+                
+                if (singleSubjectsArr.length == 1)
+                {
+                    dynText1 = singleSubjectsArr[j];
+                }
+                else
+                {
+                    dynText2 += singleSubjectsArr[j]+" ";
+                }
+            }
+
+            if (singleSubjectsArr.length == 1)
+            {
+                var text = text1 + dynText1 + " ein";
+            }
+            else
+            {
+                var text = text2 + dynText2 + " ein";
+            }
+
+            var commonName = prompt(text);
+            replaceSubjectNames(singleSubjectsArr, commonName, modelNr);
+        }
+    }
+}
+
+function replaceSubjectNames (subjects, commonName, modelNr)
+{
+    var chkRecMsg = document.getElementsByClassName("recieve");
+    var chkSendMsg = document.getElementsByClassName("send");
+
+    for (var i=0; i<chkRecMsg.length; i++)
+    {
+        console.log(chkRecMsg[i]);
+    }
 }
