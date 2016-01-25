@@ -27,30 +27,22 @@ function loadModel(modelNr) {
         contentType: 'application/json; charset=utf-8',
         success: function (modelJSON) {
             $.each(modelJSON, function (objIndex, objectArray) {
-                
                 $.each(objectArray, function (objIndex, object) {
-                    if (object.subjectNameField == selectedSubject)
-                    {
+                    if (object.subjectNameField == selectedSubject) {
                         generateElements(object, modelNr);
                         generateElementsConnection(object, modelNr);
                     }
                 });
+
+                if (modelNr == 1) {
+                    model1 = modelJSON;
+                }
+                if (model2 == 2) {
+                    model2 = modelJSON;
+                } else {
+                    model3 = modelJSON;
+                }
             });
-
-            if (modelNr == 1)
-            {
-                model1 = modelJSON;
-            }
-            if (model2 == 2)
-            {
-                model2 = modelJSON;
-            }else
-            {
-                model3 = modelJSON;
-            }
-
-            console.log(subjects1);
-            console.log(subjects2);
         },
         error: function (jqXHR, textStatus, errorThrown) {
         },
@@ -320,6 +312,23 @@ function getSubjects(modelNr)
     return null;
 }
 
+function getModel(modelNr)
+{
+    if (modelNr == 1) {
+        return model1;
+    }
+
+    if (modelNr == 2) {
+        return model2;
+    }
+
+    if (modelNr == 3) {
+        return model3;
+    }
+
+    return null;
+}
+
 function subjectsDialog(modelNr)
 {
     var subjects = getSubjects(modelNr);
@@ -532,7 +541,53 @@ function replaceSubjectNames (subjects, commonName, modelNr)
         }
     }
 
-    //TODO
     //replace Names in model
+    var model = getModel(modelNr);
 
+    if (model != null)
+    {       
+        $.each(model.subjectField, function (objIdx, object)
+        {
+            if (object.subjectNameField == selectedSubject)
+            {
+                $.each(object.elementField, function (objKey, objValue)
+                {
+                    if (objValue.hasOwnProperty("messagesField")) //Is a recieve message
+                    {
+                        $.each(objValue.messagesField, function (key, value)
+                        {
+                            for (var i = 0; i < subjects.length; i++) {
+                                
+                                if (value.recipientField == subjects[i]) {
+                                    value.recipientField = commonName;
+                                }
+
+                                if (value.senderField == subjects[i]) {
+                                    value.senderField = commonName;
+                                }
+                            }
+                            console.log(value);
+                        });
+                    }
+
+                    if (objValue.hasOwnProperty("msgField")) //Is a send message
+                    {
+                        for (var j=0; j<subjects.length; j++)
+                        {
+                            if(objValue.msgField.recipientField == subjects[j])
+                            {
+                                objValue.msgField.recipientField = commonName;
+                            }
+
+                            if (objValue.msgField.senderField == subjects[j]) {
+                                objValue.msgField.senderField = commonName;
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    console.log(model);
 }
