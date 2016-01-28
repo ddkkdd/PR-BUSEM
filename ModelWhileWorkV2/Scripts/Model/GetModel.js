@@ -215,7 +215,7 @@ function generateElementsConnection(model, canvasNr)
     $.each(model.connectionField, function (connectionIndex, connection) {     
         if (connection.directed1Field && !connection.directed2Field)
         {
-            sourceId = canvasNr+":"+connection.endPoint2Field.uUIDField;
+            sourceId = canvasNr + ":" + connection.endPoint2Field.uUIDField;
             targetId = canvasNr + ":" + connection.endPoint1Field.uUIDField;
         }
 
@@ -350,15 +350,15 @@ function subjectsDialog(modelNr)
     var subjects = getSubjects(modelNr);
     var cntSubjects = subjects.length;
 
-    var heading = document.getElementById("sbjDiaH3");
+    var heading = document.getElementById("sbjDiaH3"+modelNr);
     heading.textContent = "Subject Abgleich Model " + modelNr;
     
-    var dialog = document.getElementById("subjectsDialog");
+    var dialog = document.getElementById("subjectsDialog"+modelNr);
 
-    var dialogDiv = document.getElementById("shjDiaSubjects");
-    var okButton = document.getElementById("sbjDiaOK");
+    var dialogDiv = document.getElementById("shjDiaSubjects"+modelNr);
+    var okButton = document.getElementById("sbjDiaOK"+modelNr);
     okButton.addEventListener('click', function () { checkDialogSelection(modelNr, cntSubjects); });
-    var cnlButton = document.getElementById("sbjDiaCancel");
+    var cnlButton = document.getElementById("sbjDiaCancel"+modelNr);
     cnlButton.addEventListener('click', function () { dialog.close(); });
     
     for (var i = 0; i < cntSubjects; i++)
@@ -432,7 +432,7 @@ function checkDialogSelection(modelNr, cntSubjects)
     }
     
     //empty Dialog before closing it
-    var dialogDiv = document.getElementById("shjDiaSubjects");
+    var dialogDiv = document.getElementById("shjDiaSubjects"+modelNr);
     while (dialogDiv.firstChild)
     {
         dialogDiv.removeChild(dialogDiv.firstChild);
