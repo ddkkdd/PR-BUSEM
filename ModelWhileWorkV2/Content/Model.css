@@ -88,6 +88,7 @@
 
 .subjectsDialog{
     width: 300px;
+    z-index: 1;
 }
 
 .subjectsDialog::backdrop {
@@ -102,7 +103,6 @@
     padding:16px;
 	position:relative;
 	border: 1px solid black;
-	z-index:4;
 	border-radius:1em;
 	border:1px solid #2e6f9a;
 	box-shadow: 2px 2px 19px #e0e0e0;
@@ -129,7 +129,6 @@
     padding:16px;
 	position:relative;
 	border: 1px solid black;
-	z-index:4;
 	border-radius:1em;
 	border:1px solid #2e6f9a;
 	box-shadow: 2px 2px 19px #e0e0e0;
@@ -154,7 +153,6 @@
     padding:16px;
 	position:relative;
 	border: 1px solid black;
-	z-index:4;
 	border-radius:1em;
 	border:1px solid #2e6f9a;
 	box-shadow: 2px 2px 19px #e0e0e0;

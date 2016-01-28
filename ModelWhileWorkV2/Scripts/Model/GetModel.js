@@ -411,9 +411,6 @@ function checkDialogSelection(modelNr, cntSubjects)
         selectionArr[i] = "";
     }
 
-    console.log(dialog);
-    console.log(cntSubjects);
-
     //Group Subjects
     for (var i =0; i<cntSubjects; i++)
     {
@@ -601,6 +598,5 @@ function replaceSubjectNames (subjects, commonName, modelNr)
             }
         });
         setModel(modelNr, model);
-        console.log(model);
     }
 }
