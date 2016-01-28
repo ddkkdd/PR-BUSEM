@@ -106,11 +106,13 @@ function createNewTaskElement (object, canvasNr)
     newSpan.className = "nameSpan";
     newSpan.textContent = object.nameField;
 
-    newExtraSpan = document.createElement("span");
-    newExtraSpan.className = "extraSpan";
+    newCheckBox = document.createElement("input");
+    newCheckBox.type = "checkbox";
+    newCheckBox.className = "chkBox" + canvasNr;
+    newCheckBox.id = "chkBox:" + object.uUIDField;
 
     newDiv.appendChild(newSpan);
-    newDiv.appendChild(newExtraSpan);
+    newDiv.appendChild(newCheckBox);
     
     return newDiv;
 }
@@ -148,13 +150,15 @@ function createNewSendElement (object, canvasNr)
     newSpanRec.textContent = "EMPFÄNGER: " + object.msgField.recipientField;
     addSubjectToArray(object.msgField.senderField, canvasNr);
 
-    newExtraSpan = document.createElement("span");
-    newExtraSpan.className = "extraSpan";
+    newCheckBox = document.createElement("input");
+    newCheckBox.type = "checkbox";
+    newCheckBox.className = "chkBox" + canvasNr;
+    newCheckBox.id = "chkBox:" + object.uUIDField;
     
     newDiv.appendChild(newSpanName);
     newDiv.appendChild(newSpanSend);
     newDiv.appendChild(newSpanRec);
-    newDiv.appendChild(newExtraSpan);
+    newDiv.appendChild(newCheckBox);
     
     return newDiv;
 }
@@ -194,13 +198,15 @@ function createNewRecieveElement (object, canvasNr)
         newSpanSend.textContent = "SENDER: " + msg.senderField;
         addSubjectToArray(msg.senderField, canvasNr);
 
-        newExtraSpan = document.createElement("span");
-        newExtraSpan.className = "extraSpan";
+        newCheckBox = document.createElement("input");
+        newCheckBox.type = "checkbox";
+        newCheckBox.className = "chkBox" + canvasNr;
+        newCheckBox.id = "chkBox:" + object.uUIDField;
 
         newDiv.appendChild(newSpanName);
         newDiv.appendChild(newSpanRec);
         newDiv.appendChild(newSpanSend);
-        newDiv.appendChild(newExtraSpan);
+        newDiv.appendChild(newCheckBox);
     });
 
     return newDiv;
