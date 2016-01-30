@@ -8,41 +8,42 @@
     <script src="~/Scripts/jsPlumb-2.0.5.js"></script>
     <script src="~/Scripts/Model/GetModel.js"></script>
     <script src="~/Scripts/Model/MergeModelSteps.js"></script>
+    <script src="~/Scripts/Model/ModelExport.js"></script>
     
     <script>
         var fileName = "";
         var subject = "";
 
-        function getFileName(canvasNr) {
-            var tmpName = document.getElementById("file"+canvasNr);
+        function getFileName(modelNr) {
+            var tmpName = document.getElementById("file"+modelNr);
             fileName = tmpName.value.replace(/^.*[\\\/]/, '');
 
             if (fileName != "")
             {
-                fillSelection(fileName, canvasNr);
+                fillSelection(fileName, modelNr);
             }else
             {
-                emptySelection(canvasNr);
-                var btn = document.getElementById("subjectMerge" + canvasNr);
+                emptySelection(modelNr);
+                var btn = document.getElementById("subjectMerge" + modelNr);
                 btn.style.visibility = "hidden";
             }            
         }
 
-        function getSubject(canvasNr)
+        function getSubject(modelNr)
         {
-            subject = $("#selection"+canvasNr+" option:selected").text();
+            subject = $("#selection"+modelNr+" option:selected").text();
         }
     </script>
 
     <script>
-        function fillSelection(fileName, canvasNr) {
+        function fillSelection(fileName, modelNr) {
             if (fileName != "") {
                 jQuery.ajax({
                     url: "http://localhost:53410/api/ProcessModel?modelName=" + fileName,
                     type: "GET",
                     contentType: 'application/json; charset=utf-8',
                     success: function (modelJSON) {
-                        var selectElem = document.getElementById('selection' + canvasNr);
+                        var selectElem = document.getElementById('selection' + modelNr);
                         $.each(modelJSON, function (objIndex, object) {
                             var i = 0;
                             $.each(object, function (subjectFieldIndex, subjectField) {
@@ -62,9 +63,9 @@
             }
         }
 
-        function emptySelection(canvasNr)
+        function emptySelection(modelNr)
         {
-            var selectElem = document.getElementById('selection' + canvasNr);
+            var selectElem = document.getElementById('selection' + modelNr);
             var length = selectElem.options.length;
 
             for (i = 0; i < length; i++) {
@@ -74,26 +75,35 @@
     </script>
     
     <script>
-        function btnLoadModel(canvasNr)
+        function btnLoadModel(modelNr)
         {
-            getSubject(canvasNr);
-            deleteElements(canvasNr);
-            init(fileName, selectedSubject, canvasNr);
+            getSubject(modelNr);
+            deleteElements(modelNr);
+            init(fileName, selectedSubject, modelNr);
 
-            var btn = document.getElementById("subjectMerge" + canvasNr);
+            var btn = document.getElementById("subjectMerge" + modelNr);
             btn.style.visibility = "visible";
+
+            var btnEx = document.getElementById("exportModel" + modelNr);
+            btnEx.style.visibility = "visible";
         }
     </script>
     <script>
-        function btnSubject(canvasNr)
+        function btnSubject(modelNr)
         {
-            subjectsDialog(canvasNr);
+            subjectsDialog(modelNr);
         }
     </script>
     <script>
         function btnMergeSteps()
         {
             mergeModelSteps();
+        }
+    </script>
+    <script>
+        function modelExport(modelNr)
+        {
+            exportModel(modelNr);
         }
     </script>
     <title>ModelWhileWork</title>
@@ -108,6 +118,7 @@
                 <br />
                 <button id="subjectMerge1" onclick="btnSubject(1)" style="visibility:hidden">Subjektabgleich</button>
                 <br />
+                <button id="exportModel1" onclick="modelExport(1)" style="visibility:hidden">Export Model</button>
             </div>
             <div id="model2canvas">
                 <input type="file" id="file2" onchange="getFileName(2)" />
@@ -116,6 +127,7 @@
                 <br />
                 <button id="subjectMerge2" onclick="btnSubject(2)" style="visibility:hidden">Subjektabgleich</button>
                 <br />
+                <button id="exportModel2" onclick="modelExport(2)" style="visibility:hidden">Export Model</button>
             </div>
             <div id="model3canvas">
             </div>
@@ -135,6 +147,18 @@
                 <br />
                 <br />
                 <div id="shjDiaSubjects2"></div>
+                <br />
+                <button id="sbjDiaOK2">OK</button>
+                <button id="sbjDiaCancel2">Cancel</button>
+            </dialog>
+            <dialog id="mergeDialog" class="mergeDialog">
+                <h4>Wählen Sie eine Merge-Option</h4>
+                <br />
+                <select id="mergeSelect">
+                    <option id="mergeOption1">Auswahl aus Model 1 übernehmen</option>
+                    <option id="mergeOption2">Auswahl aus Model 2 übernehmen</option>
+                    <option id="mergeOption3">Auswahl zu einem Element zusammenführen</option>
+                </select>
                 <br />
                 <button id="sbjDiaOK2">OK</button>
                 <button id="sbjDiaCancel2">Cancel</button>

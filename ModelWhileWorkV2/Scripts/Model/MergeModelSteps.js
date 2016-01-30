@@ -16,19 +16,6 @@
     model1ElemIds = getElementIdsOfCheckBoxChecked(chkBoxesModel1checked);
     model2ElemIds = getElementIdsOfCheckBoxChecked(chkBoxesModel2checked);
     
-    var commonName = "";
-
-    if (chkBoxesModel1checked.length == 1)
-    {
-//        commonName = chkBoxesModel1checked[0].
-    }
-
-    if (chkBoxesModel2checked.length == 1) 
-    {
-    //    commonName = chkBoxesModel1checked[0].
-    }
-    console.log(model1Elements);
-    console.log(model2Elements);
 }
 
 function checkWhichCheckBoxIsChecked (chkBoxes)

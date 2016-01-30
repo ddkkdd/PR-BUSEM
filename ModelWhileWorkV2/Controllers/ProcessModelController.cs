@@ -9,6 +9,9 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Threading.Tasks;
 using System.Web;
+using System.Xml;
+using Newtonsoft.Json;
+using System.Xml.Linq;
 
 namespace ModelWhileWorkV2.Controllers
 {
@@ -52,6 +55,16 @@ namespace ModelWhileWorkV2.Controllers
                         var filePath = HttpContext.Current.Server.MapPath(uploadFolderPath + postedFile.FileName);
                         postedFile.SaveAs(filePath);
                     }
+                }
+                else if (httpRequest.InputStream.Length > 0)
+                {
+                    StreamReader stream = new StreamReader(httpRequest.InputStream);
+                    string content = stream.ReadToEnd();
+                    content = content.Replace("Field", String.Empty);
+
+                    XmlDocument doc = JsonConvert.DeserializeXmlNode(content, "EntireModel");
+                                        
+                    doc.Save(xmlFilePath+"/tmpXML.xml");
                 }
             }
             catch (Exception ex)
