@@ -44,16 +44,71 @@
     }
 
     var okButton = document.getElementById("mDiaOK");
-    okButton.addEventListener('click', function () { doTheMerge(optionSelected); });
+    okButton.addEventListener('click', function () { doTheMerge(optionSelected, model1ElemIds, model2ElemIds); });
     var cnlButton = document.getElementById("mDiaCancel");
     cnlButton.addEventListener('click', function () { dialog.close(); });
 
     dialog.show();
 }
 
-function doTheMerge(optionSelected)
+function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
 {
+    var tmpModel1 = model1;
+    var tmpModel2 = model2;
 
+    var elementsModel1 = [];
+    var elementsModel2 = [];
+
+    console.log(model1ElemIds);
+
+    if (optionSelected == 1)
+    {
+        for (var i=0; i<model1ElemIds.length; i++)
+        {
+            var element = document.getElementById("1:" + model1ElemIds[i]);
+            elementsModel1.push(element);
+        }
+
+        for (var j=0; j<model2ElemIds.length; j++)
+        {
+            var element = document.getElementById("2:" + model2ElemIds[i]);
+            elementsModel2.push(element);
+        }
+
+        console.log(elementsModel1);
+        console.log(elementsModel2);
+
+        increaseElementIds(tmpModel1);
+        increaseElementIds(tmpModel2);
+
+    }
+
+    if(optionSelected == 2)
+    {
+
+    }
+
+    if(optionSelected == 3)
+    {
+
+    }
+}
+
+function increaseElementIds(model, startId)
+{
+    console.log(model);
+    $.each(model.subjectField, function (objKey, objValue)
+    {
+        console.log(objValue);
+        $.each(objValue.elementField, function (oKey, oValue)
+        {
+            console.log(oValue);
+            if (oValue.uUIDField == startId)
+            {
+
+            }
+        });
+    });
 }
 
 function checkWhichCheckBoxIsChecked (chkBoxes)
