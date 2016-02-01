@@ -58,6 +58,9 @@ function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
     var elementsModel1 = [];
     var elementsModel2 = [];
     
+    var startElement;
+    var endElement;
+
     if (optionSelected == 1)
     {
         for (var i=0; i<model1ElemIds.length; i++)
@@ -71,6 +74,27 @@ function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
             var element = document.getElementById("2:" + model2ElemIds[i]);
             elementsModel2.push(element);
         }
+
+        startElement = model2ElemIds[0];
+        endElement = model2ElemIds[model2ElemIds.length - 1];
+
+        var elementsToDelete = endElement - startElement + 1;
+        var insertPosition = startElement;
+
+        //delete element at insertPosition
+        $.each(model.subjectField, function (objKey, objValue) {
+            $.each(objValue.elementField, function (oKey, oValue) {
+
+            });
+
+        });
+
+        //model.subjectField.elementField.splice(insertPosition, elementsToDelete,
+        //    );
+
+        //insert elements of model1
+
+        //update remaining uuids in elements and connection
 
         increaseElementIds(tmpModel2, 2);
     }
@@ -115,7 +139,7 @@ function increaseElementIds(model, startId)
                 cValue.endPoint1Field.uUIDField = (endpoint1 + 1).toString();
                 cValue.endPoint2Field.uUIDField = (endpoint2 + 1).toString();
 
-                i++
+                i++;
             }
             //var in
         });
