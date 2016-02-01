@@ -103,12 +103,25 @@
     <script>
         function modelExport(modelNr)
         {
-            exportModel(modelNr);
+            var filename = getFileName(modelNr);
+            exportModel(modelNr, filename);
         }
     </script>
     <title>ModelWhileWork</title>
 </head>
 <body>
+    <br />
+    @*<ul id="menu">
+        <li><label>Model 1</label>
+        <ul id="menuModel1">
+            <li><label>Select Model</label></li>
+            <li><label>Load Model</label></li>
+            <li><label>Merge Subjects</label></li>
+        </ul>
+        </li>
+        <li><label>Model 2</label></li>
+    </ul>*@  
+
         <div id="canvas">
             <input type="button" id="mergeSteps" onclick="btnMergeSteps()" value="MergeSteps"/>
             <div id="model1canvas">
@@ -132,16 +145,17 @@
             <div id="model3canvas">
             </div>
 
-            <dialog id="subjectsDialog1" class="subjectsDialog">
+            <dialog id="subjectsDialog1" class="myDialog">
                 <h4 id="sbjDiaH31"></h4>
                 <span style="font-style:italic">Vergeben Sie für Subjekte die die gleiche Person darstellen die gleiche Nummer</span>
-                <br /><br />
+                <br />
+                <br />
                 <div id="shjDiaSubjects1"></div>
                 <br />
                 <button id="sbjDiaOK1">OK</button>
                 <button id="sbjDiaCancel1">Cancel</button>
             </dialog>
-            <dialog id="subjectsDialog2" class="subjectsDialog">
+            <dialog id="subjectsDialog2" class="myDialog">
                 <h4 id="sbjDiaH32"></h4>
                 <span style="font-style:italic">Vergeben Sie für Subjekte die die gleiche Person darstellen die gleiche Nummer</span>
                 <br />
@@ -151,17 +165,25 @@
                 <button id="sbjDiaOK2">OK</button>
                 <button id="sbjDiaCancel2">Cancel</button>
             </dialog>
-            <dialog id="mergeDialog" class="mergeDialog">
+            <dialog id="mergeDialog" class="myDialog">
                 <h4>Wählen Sie eine Merge-Option</h4>
                 <br />
-                <select id="mergeSelect">
-                    <option id="mergeOption1">Auswahl aus Model 1 übernehmen</option>
-                    <option id="mergeOption2">Auswahl aus Model 2 übernehmen</option>
-                    <option id="mergeOption3">Auswahl zu einem Element zusammenführen</option>
-                </select>
+                    <input type="radio" name="mergeOption" value="1" checked="true">Auswahl aus Model 1 übernehmen</input>
+                    <br />
+                    <input type="radio" name="mergeOption" value="2">Auswahl aus Model 2 übernehmen</input>
+                    <br />
+                    <input type="radio" name="mergeOption" value="3">Auswahl zu einem Element zusammenführen</input>
+                    <br />
+                    <div id="mDiaOpt" style="visibility:hidden">
+                        <img id="imgTask" src="~/images/task.JPG"/> <input type="radio" name="mergeOptionTask" checked="true" value="1"/>
+                        <br />
+                        <img id="imgRecieve" src="~/images/recieve.JPG" /> <input type="radio" name="mergeOptionTask" value="2" />
+                        <br />
+                        <img id="imgSend" src="~/images/send.JPG" /> <input type="radio" name="mergeOptionTask" value="3" />
+                    </div>
                 <br />
-                <button id="sbjDiaOK2">OK</button>
-                <button id="sbjDiaCancel2">Cancel</button>
+                <button id="mDiaOK">OK</button>
+                <button id="mDiaCancel">Cancel</button>
             </dialog>
         </div>
 </body>

@@ -16,6 +16,44 @@
     model1ElemIds = getElementIdsOfCheckBoxChecked(chkBoxesModel1checked);
     model2ElemIds = getElementIdsOfCheckBoxChecked(chkBoxesModel2checked);
     
+    var dialog = document.getElementById("mergeDialog");
+
+    var optionSelected = 1;
+    var options = document.getElementsByName("mergeOption");
+    
+    for (var i = 0; i < options.length; i++) {
+        options[i].addEventListener('click', function ()
+        {
+            if (this.checked)
+            {
+                optionSelected = this.value;
+            }
+
+            var div = document.getElementById("mDiaOpt");
+
+            if (optionSelected == 3)
+            {
+                div.style.visibility = "visible";
+            }
+            else
+            {
+                div.style.visibility = "hidden";
+            }
+            console.log(optionSelected);
+        });
+    }
+
+    var okButton = document.getElementById("mDiaOK");
+    okButton.addEventListener('click', function () { doTheMerge(optionSelected); });
+    var cnlButton = document.getElementById("mDiaCancel");
+    cnlButton.addEventListener('click', function () { dialog.close(); });
+
+    dialog.show();
+}
+
+function doTheMerge(optionSelected)
+{
+
 }
 
 function checkWhichCheckBoxIsChecked (chkBoxes)

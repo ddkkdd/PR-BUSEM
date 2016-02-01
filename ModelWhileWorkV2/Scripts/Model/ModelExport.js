@@ -1,4 +1,4 @@
-﻿function exportModel(modelNr)
+﻿function exportModel(modelNr, fileName)
 {
     var model = getModel(modelNr);
     

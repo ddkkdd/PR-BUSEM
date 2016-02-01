@@ -100,12 +100,12 @@
     float: right;
 }
 
-.subjectsDialog{
+.myDialog{
     width: 300px;
     z-index: 1;
 }
 
-.subjectsDialog::backdrop {
+.myDialog::backdrop {
   position: fixed;
   top: 0;
   left: 0;
@@ -183,4 +183,24 @@
     height: 100px;
     margin-left: auto;
     margin-right: auto;
+}
+
+ul#menu {
+    padding: 0;
+}
+
+ul#menu li {
+    display: inline;
+}
+
+ul#menu li label {
+    background-color: darkgray;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 4px 4px 0 0;
+}
+
+ul#menu li label:hover {
+    background-color: orange;
 }
