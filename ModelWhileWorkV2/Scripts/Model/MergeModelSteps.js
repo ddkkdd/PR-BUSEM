@@ -39,7 +39,6 @@
             {
                 div.style.visibility = "hidden";
             }
-            console.log(optionSelected);
         });
     }
 
@@ -53,14 +52,12 @@
 
 function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
 {
-    var tmpModel1 = model1;
-    var tmpModel2 = model2;
-
+    var tmpModel1 = getModel(1);
+    var tmpModel2 = getModel(3);
+    
     var elementsModel1 = [];
     var elementsModel2 = [];
-
-    console.log(model1ElemIds);
-
+    
     if (optionSelected == 1)
     {
         for (var i=0; i<model1ElemIds.length; i++)
@@ -75,12 +72,7 @@ function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
             elementsModel2.push(element);
         }
 
-        console.log(elementsModel1);
-        console.log(elementsModel2);
-
-        increaseElementIds(tmpModel1);
-        increaseElementIds(tmpModel2);
-
+        increaseElementIds(tmpModel2, 2);
     }
 
     if(optionSelected == 2)
@@ -96,19 +88,39 @@ function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
 
 function increaseElementIds(model, startId)
 {
-    console.log(model);
+    var i = 0;
     $.each(model.subjectField, function (objKey, objValue)
     {
-        console.log(objValue);
         $.each(objValue.elementField, function (oKey, oValue)
         {
-            console.log(oValue);
-            if (oValue.uUIDField == startId)
+            var inc = startId + i;
+            if (parseInt(oValue.uUIDField, 10) == inc)
             {
+                oValue.uUIDField = (inc+1).toString();
+                i++;
+            }            
+        });
 
+        i = 0;
+
+        $.each(objValue.connectionField, function(cKey, cValue)
+        {
+            var inc = startId + i;
+            
+            var endpoint1 = parseInt(cValue.endPoint1Field.uUIDField, 10);
+            var endpoint2 = parseInt(cValue.endPoint2Field.uUIDField, 10);
+
+            if (endpoint1 == inc)
+            {
+                cValue.endPoint1Field.uUIDField = (endpoint1 + 1).toString();
+                cValue.endPoint2Field.uUIDField = (endpoint2 + 1).toString();
+
+                i++
             }
+            //var in
         });
     });
+    console.log(model);
 }
 
 function checkWhichCheckBoxIsChecked (chkBoxes)

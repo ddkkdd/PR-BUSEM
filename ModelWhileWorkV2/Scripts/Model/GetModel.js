@@ -18,10 +18,13 @@ function init(fileName, subjectName, modelNr)
     
     selectedSubject = subjectName; 
 
+    console.log("INIT " + modelNr);
+
     $(document).ready(loadModel(modelNr));
 }
 
 function loadModel(modelNr) {
+    
     jQuery.ajax({
         url: url,
         type: "GET",
@@ -35,12 +38,16 @@ function loadModel(modelNr) {
                     }
                 });
 
-                if (modelNr == 1) {
+                if (modelNr == 1)
+                {
                     model1 = modelJSON;
                 }
-                if (model2 == 2) {
+                if (modelNr == 2)
+                {
                     model2 = modelJSON;
-                } else {
+                }
+                if (modelNr == 3)
+                {
                     model3 = modelJSON;
                 }
             });

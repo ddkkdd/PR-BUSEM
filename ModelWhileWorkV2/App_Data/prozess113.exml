@@ -7,11 +7,11 @@
             <y>0.0</y>
             <angle>0.0</angle>
             <messages>
-              <msg>
-                <message>Rechnung</message>
-                <recipient>DefaultUser</recipient>
-                <sender>Vom Lieferanten</sender>
-              </msg>
+                <msg>
+                    <message>Rechnung</message>
+                    <recipient>DefaultUser</recipient>
+                    <sender>Vom Lieferanten</sender>
+                </msg>
             </messages>
         </Element>
         <Element>
