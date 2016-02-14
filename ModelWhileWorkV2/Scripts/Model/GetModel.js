@@ -17,9 +17,6 @@ function init(fileName, subjectName, modelNr)
     url = constUrl + fileName;
     
     selectedSubject = subjectName; 
-
-    console.log("INIT " + modelNr);
-
     $(document).ready(loadModel(modelNr));
 }
 
