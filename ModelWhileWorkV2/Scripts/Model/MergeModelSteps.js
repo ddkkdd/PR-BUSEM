@@ -54,32 +54,34 @@ function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
 {
     var tmpModel1 = getModel(1);
     var tmpModel2 = getModel(2);
-
     var elementsModel1 = [];
     var elementsModel2 = [];
-    
     var startElement;
     var endElement;
+    var elementsToDelete;
+    var insertPosition;
 
+    //console.log("optionSelected " + optionSelected + "\nmodel1ElemIds " + model1ElemIds + "\nmodel2ElemIds " + model2ElemIds);
+
+    for (var i = 0; i < model1ElemIds.length; i++) {
+        var element = document.getElementById("1:" + model1ElemIds[i]);
+        elementsModel1.push(element);
+    }
+
+    for (var j = 0; j < model2ElemIds.length; j++) {
+        var element2 = document.getElementById("2:" + model2ElemIds[j]);
+        elementsModel2.push(element2);
+    }
+        
+
+    //apply selection from model 1 to model 2
     if (optionSelected == 1)
     {
-        for (var i=0; i<model1ElemIds.length; i++)
-        {
-            var element = document.getElementById("1:" + model1ElemIds[i]);
-            elementsModel1.push(element);
-        }
-
-        for (var j=0; j<model2ElemIds.length; j++)
-        {
-            var element = document.getElementById("2:" + model2ElemIds[i]);
-            elementsModel2.push(element);
-        }
-
         startElement = model2ElemIds[0];
         endElement = model2ElemIds[model2ElemIds.length - 1];
 
-        var elementsToDelete = endElement - startElement + 1;
-        var insertPosition = startElement - 1;
+        elementsToDelete = endElement - startElement + 1;
+        insertPosition = startElement - 1;
 
         //delete element at insertPosition
         tmpModel2.subjectField[0].elementField.splice(insertPosition, elementsToDelete);
@@ -93,17 +95,41 @@ function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
             tmpModel2.subjectField[0].elementField.splice(insertPosition+i, 0, elementsModel1[i]);
         }
         
-
         //update remaining uuids in elements and connection
         insertPosition = insertPosition + elementsModel1.length;
         increaseElementIds(tmpModel2, insertPosition);
     }
 
+    //apply selection from model 2 to model 1
     if(optionSelected == 2)
     {
+        startElement = model1ElemIds[0];
+        endElement = model1ElemIds[model1ElemIds.length - 1];
 
+        elementsToDelete = endElement - startElement + 1;
+        insertPosition = startElement - 1;
+
+        //delete element at insertPosition
+        console.log("opt2 insertPos " + insertPosition);
+        console.log("opt2 elementsToDel " + elementsToDelete);
+        tmpModel1.subjectField[0].elementField.splice(insertPosition, elementsToDelete);
+
+        //insert elements of model2
+        console.log(elementsModel2);
+        elementsModel2 = generateModelElementsOutOfDOMElements(elementsModel2, insertPosition);
+        console.log(elementsModel2);
+
+        for (var j = 0; j< elementsModel2.length; j++)
+        {
+            tmpModel1.subjectField[0].elementField.splice(insertPosition+j, 0, elementsModel2[j]);
+        }
+
+        //update remaining uuids in elements and connection
+        insertPosition = insertPosition + elementsModel2.length;
+        increaseElementIds(tmpModel1, insertPosition);
     }
 
+    //create new step
     if(optionSelected == 3)
     {
 
