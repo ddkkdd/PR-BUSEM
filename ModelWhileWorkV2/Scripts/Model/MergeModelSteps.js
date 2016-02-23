@@ -79,7 +79,6 @@ function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
     {
         startElement = model2ElemIds[0];
         endElement = model2ElemIds[model2ElemIds.length - 1];
-
         elementsToDelete = endElement - startElement + 1;
         insertPosition = startElement - 1;
 
@@ -88,8 +87,7 @@ function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
 
         //insert elements of model1
         elementsModel1 = generateModelElementsOutOfDOMElements(elementsModel1, insertPosition);
-        console.log(elementsModel1);
-
+        
         for (var i = 0; i < elementsModel1.length; i++)
         {
             tmpModel2.subjectField[0].elementField.splice(insertPosition+i, 0, elementsModel1[i]);
@@ -105,20 +103,15 @@ function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
     {
         startElement = model1ElemIds[0];
         endElement = model1ElemIds[model1ElemIds.length - 1];
-
         elementsToDelete = endElement - startElement + 1;
         insertPosition = startElement - 1;
 
         //delete element at insertPosition
-        console.log("opt2 insertPos " + insertPosition);
-        console.log("opt2 elementsToDel " + elementsToDelete);
         tmpModel1.subjectField[0].elementField.splice(insertPosition, elementsToDelete);
 
         //insert elements of model2
-        console.log(elementsModel2);
         elementsModel2 = generateModelElementsOutOfDOMElements(elementsModel2, insertPosition);
-        console.log(elementsModel2);
-
+   
         for (var j = 0; j< elementsModel2.length; j++)
         {
             tmpModel1.subjectField[0].elementField.splice(insertPosition+j, 0, elementsModel2[j]);
@@ -127,12 +120,62 @@ function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
         //update remaining uuids in elements and connection
         insertPosition = insertPosition + elementsModel2.length;
         increaseElementIds(tmpModel1, insertPosition);
+
+        deleteModelFromDOM(2);
     }
 
     //create new step
     if(optionSelected == 3)
     {
+        var newElementSelection = document.getElementsByName("mergeOptionTask");
+        var selection = 0;
 
+        for (var i = 0; i < newElementSelection.length; i++)
+        {
+            if (newElementSelection[i].checked)
+            {
+                selection = newElementSelection[i].value;
+            }
+        }
+
+        var startElementM1 = model1ElemIds[0];
+        var startElementM2 = model2ElemIds[0];
+        var endElementM1 = model1ElemIds[model1ElemIds.length - 1];
+        var endElementM2 = model2ElemIds[model2ElemIds.length - 1];
+        var insertPositionM1 = startElementM1 -1;
+        var insertPositionM2 = startElementM2 -1;
+        var elemToDelM1 = endElementM1 - startElementM1 + 1; 
+        var elemToDelM2 = endElementM2 - startElementM2 + 1;
+        
+        if (elemToDelM1 > 0)
+        {
+            //delete element at insertPosition
+            tmpModel1.subjectField[0].elementField.splice(insertPositionM1, elemToDelM1);
+        }
+
+        if (elemToDelM2 > 0)
+        {
+            //delete element at insertPosition
+            tmpModel2.subjectField[0].elementField.splice(insertPositionM2, elemToDelM2);
+        }
+
+        //create Task Element
+        if (selection == 1)
+        {
+
+        }
+
+        //Create Recieve Element
+        if (selection == 2)
+        {
+
+        }
+
+        //Create Send Element
+        if (selection == 3)
+        {
+
+        }
     }
 }
 
@@ -171,7 +214,6 @@ function increaseElementIds(model, startId)
             //var in
         });
     });
-    console.log(model);
 }
 
 function checkWhichCheckBoxIsChecked (chkBoxes)
@@ -209,11 +251,8 @@ function getElementById(modelNr, id)
 function getElementsById(modelNr, modelElemIds)
 {
     var elements = [];
-    console.log(modelElemIds);
-
     for (var i=0; i<modelElemIds.length; i++)
     {
-        console.log(modelElemIds[i]);
         elements.push (getElementById(
                 modelNr,
                 modelElemIds[i]));
@@ -240,7 +279,27 @@ function generateModelElementsOutOfDOMElements (domElements, insertPosition)
 
         modelElem.push(object);
     }
-    console.log(modelElem);
 
     return modelElem;
+}
+
+function deleteModelFromDOM(modelNr)
+{
+    var id = "model" + modelNr + "canvas";
+    var elements = document.getElementById(id).childNodes;
+
+    var str = modelNr + ":";
+
+    console.log(elements);
+
+    for (var i = 0; i < elements.length; i++)
+    {
+        console.log("OUTER " + elements[i].id);
+        if (elements[i].tagName == "DIV")
+        {
+            console.log("INNER " + elements[i].id);
+            jsPlumb.detachAllConnections(elements[i].id);
+            document.getElementById(id).removeChild(elements[i]);
+        }
+    }
 }

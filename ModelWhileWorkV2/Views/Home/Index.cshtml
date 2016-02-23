@@ -122,28 +122,30 @@
         <li><label>Model 2</label></li>
     </ul>*@  
 
-        <div id="canvas">
-            <input type="button" id="mergeSteps" onclick="btnMergeSteps()" value="MergeSteps"/>
-            <div id="model1canvas">
-                <input type="file" id="file1" onchange="getFileName(1)" />
-                <label id="selectionLabel1">Subjekt auswählen</label><select id="selection1" onchange="getSubject(1)"></select>
-                <button id="loadModel1" onclick="btnLoadModel(1)">Modell laden</button>
-                <br />
-                <button id="subjectMerge1" onclick="btnSubject(1)" style="visibility:hidden">Subjektabgleich</button>
-                <br />
-                <button id="exportModel1" onclick="modelExport(1)" style="visibility:hidden">Export Model</button>
-            </div>
-            <div id="model2canvas">
-                <input type="file" id="file2" onchange="getFileName(2)" />
-                <label id="selectionLabel2">Subjekt auswählen</label><select id="selection2" onchange="getSubject(2)"></select>
-                <button id="loadModel2" onclick="btnLoadModel(2)">Modell laden</button>
-                <br />
-                <button id="subjectMerge2" onclick="btnSubject(2)" style="visibility:hidden">Subjektabgleich</button>
-                <br />
-                <button id="exportModel2" onclick="modelExport(2)" style="visibility:hidden">Export Model</button>
-            </div>
-            <div id="model3canvas">
-            </div>
+        <div id="canvas">             
+                <div id="model1canvas">
+                    <input type="file" id="file1" onchange="getFileName(1)" />
+                    <label id="selectionLabel1">Subjekt auswählen</label><select id="selection1" onchange="getSubject(1)"></select>
+                    <button id="loadModel1" onclick="btnLoadModel(1)">Modell laden</button>
+                    <br />
+                    <button id="subjectMerge1" onclick="btnSubject(1)" style="visibility:hidden">Subjektabgleich</button>
+                    <br />
+                    <button id="exportModel1" onclick="modelExport(1)" style="visibility:hidden">Export Model</button>
+                </div>
+                         
+                <div id="model2canvas">
+                    <input type="file" id="file2" onchange="getFileName(2)" />
+                    <label id="selectionLabel2">Subjekt auswählen</label><select id="selection2" onchange="getSubject(2)"></select>
+                    <button id="loadModel2" onclick="btnLoadModel(2)">Modell laden</button>
+                    <br />
+                    <button id="subjectMerge2" onclick="btnSubject(2)" style="visibility:hidden">Subjektabgleich</button>
+                    <br />
+                    <button id="exportModel2" onclick="modelExport(2)" style="visibility:hidden">Export Model</button>
+                </div>
+                           
+                <div id="model3canvas">
+                    <input type="button" id="mergeSteps" onclick="btnMergeSteps()" value="MergeSteps" />
+                </div>
 
             <dialog id="subjectsDialog1" class="myDialog">
                 <h4 id="sbjDiaH31"></h4>
