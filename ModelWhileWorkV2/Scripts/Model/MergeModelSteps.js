@@ -287,29 +287,12 @@ function generateModelElementsOutOfDOMElements (domElements, insertPosition)
 
 function deleteModelFromDOM(modelNr)
 {   
-    var taskElements = document.getElementsByClassName("task");
-    var recElements = document.getElementsByClassName("recieve");
-    var sendElements = document.getElementsByClassName("send");
-
-    console.log("Task " + taskElements);
-    console.log("Rec " + recElements);
-    console.log("Send " + sendElements);
-
-    deleteElement(taskElements, modelNr);
-    deleteElement(recElements, modelNr);
-    deleteElement(sendElements, modelNr);
-}
-
-function deleteElement(elementArray, modelNr)
-{
+    var taskElements = document.getElementsByTagName("div");
     var canvas = "#model" + modelNr + "canvas";
-    
-    for (var i = 0; i < elementArray.length; i++)
-    {
-        if (elementArray[i].id.startsWith(modelNr))
-        {
-            console.log("HURE " + elementArray[i].id);
-            jsPlumb.detachAllConnections(elementArray[i].id);
+
+    for (var i = 0; i < taskElements.length; i++) {
+        if (taskElements[i].id.startsWith(modelNr)) {
+            jsPlumb.detachAllConnections(taskElements[i].id);
         }
     }
     $(canvas + " div").remove();
