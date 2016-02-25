@@ -96,6 +96,8 @@ function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
         //update remaining uuids in elements and connection
         insertPosition = insertPosition + elementsModel1.length;
         increaseElementIds(tmpModel2, insertPosition);
+
+        deleteModelFromDOM(1);
     }
 
     //apply selection from model 2 to model 1
@@ -284,22 +286,31 @@ function generateModelElementsOutOfDOMElements (domElements, insertPosition)
 }
 
 function deleteModelFromDOM(modelNr)
+{   
+    var taskElements = document.getElementsByClassName("task");
+    var recElements = document.getElementsByClassName("recieve");
+    var sendElements = document.getElementsByClassName("send");
+
+    console.log("Task " + taskElements);
+    console.log("Rec " + recElements);
+    console.log("Send " + sendElements);
+
+    deleteElement(taskElements, modelNr);
+    deleteElement(recElements, modelNr);
+    deleteElement(sendElements, modelNr);
+}
+
+function deleteElement(elementArray, modelNr)
 {
-    var id = "model" + modelNr + "canvas";
-    var elements = document.getElementById(id).childNodes;
-
-    var str = modelNr + ":";
-
-    console.log(elements);
-
-    for (var i = 0; i < elements.length; i++)
+    var canvas = "#model" + modelNr + "canvas";
+    
+    for (var i = 0; i < elementArray.length; i++)
     {
-        console.log("OUTER " + elements[i].id);
-        if (elements[i].tagName == "DIV")
+        if (elementArray[i].id.startsWith(modelNr))
         {
-            console.log("INNER " + elements[i].id);
-            jsPlumb.detachAllConnections(elements[i].id);
-            document.getElementById(id).removeChild(elements[i]);
+            console.log("HURE " + elementArray[i].id);
+            jsPlumb.detachAllConnections(elementArray[i].id);
         }
     }
+    $(canvas + " div").remove();
 }
