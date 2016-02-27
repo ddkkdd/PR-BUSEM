@@ -94,8 +94,6 @@ function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
             {
                 var prevElem = elementsModel1[k];
                 var connElem = createConnectionElement(prevElem, elementsModel1[i]);
-                console.log(connElem);
-                console.log(tmpModel2);
             }
             tmpModel2.subjectField[0].elementField.splice(insertPosition+i, 0, elementsModel1[i]);
         }
@@ -103,6 +101,9 @@ function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
         //update remaining uuids in elements and connection
         insertPosition = insertPosition + elementsModel1.length;
         increaseElementIds(tmpModel2, insertPosition);
+
+        var x = regenerateConnections(tmpModel2)
+        console.log(x);
     }
 
     //apply selection from model 2 to model 1
@@ -276,16 +277,27 @@ function getElementsById(modelNr, modelElemIds)
 function generateModelElementsOutOfDOMElements (domElements, insertPosition)
 {
     var modelElem = [];
+    var yValue = 0;
+
     insertPosition++;
     for (var k=0; k<domElements.length; k++)
     {
+        if (k == 0)
+        {
+            yValue = (insertPosition - 1) * 100 ;
+        }
+        else
+        {
+            yValue = insertPosition * 100;
+        }
+
         var object = new Object();
         object = {
             angleField: 0, 
             nameField: domElements[k].textContent,
             uUIDField: (insertPosition + k).toString(),
             xField: 0,
-            yField: (insertPosition + k) * 100,
+            yField: yValue,
         };
 
         modelElem.push(object);
@@ -322,6 +334,27 @@ function deleteModelFromDOM(modelNr)
         }
     }
     $(canvas + " div").remove();
+}
+
+function regenerateConnections (model)
+{
+    connections = [];
+    var k = 0;
+
+    for (var i=0; i<model.subjectField[0].elementField.length;i++)
+    {
+        k = i - 1;
+
+        if (k >= 0)
+        {
+            var prevElem = model.subjectField[0].elementField[k];
+            var elem = model.subjectField[0].elementField[i];
+
+            var connectionElem = createConnectionElement(prevElem, elem);
+            connections.push(connectionElem);
+        }
+    }
+    return connections;
 }
 
 function generateUUID() {
