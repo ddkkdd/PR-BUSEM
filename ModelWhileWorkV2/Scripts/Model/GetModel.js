@@ -273,16 +273,6 @@ function connectTwoElements(sourceId, targetId, label, canvasNr) {
     }, common);
 }
 
-function deleteElements (modelNr)
-{
-    if ($("model" + modelNr + "canvas").length > 0)
-    {
-        $("model" + modelNr + "canvas").empty();
-        jsPlumb.empty("model" + modelNr + "canvas");
-        jsPlumb.repaintEverything();
-    }    
-}
-
 function addSubjectToArray (subjectName, modelNr)
 {
     if (modelNr == 1)

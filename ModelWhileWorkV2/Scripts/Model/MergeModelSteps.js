@@ -81,7 +81,6 @@ function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
         endElement = model2ElemIds[model2ElemIds.length - 1];
         elementsToDelete = endElement - startElement + 1;
         insertPosition = startElement - 1;
-
         //delete element at insertPosition
         tmpModel2.subjectField[0].elementField.splice(insertPosition, elementsToDelete);
 
@@ -90,14 +89,20 @@ function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
         
         for (var i = 0; i < elementsModel1.length; i++)
         {
+            var k = i - 1;
+            if (k >= 0)
+            {
+                var prevElem = elementsModel1[k];
+                var connElem = createConnectionElement(prevElem, elementsModel1[i]);
+                console.log(connElem);
+                console.log(tmpModel2);
+            }
             tmpModel2.subjectField[0].elementField.splice(insertPosition+i, 0, elementsModel1[i]);
         }
         
         //update remaining uuids in elements and connection
         insertPosition = insertPosition + elementsModel1.length;
         increaseElementIds(tmpModel2, insertPosition);
-
-        deleteModelFromDOM(1);
     }
 
     //apply selection from model 2 to model 1
@@ -122,9 +127,9 @@ function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
         //update remaining uuids in elements and connection
         insertPosition = insertPosition + elementsModel2.length;
         increaseElementIds(tmpModel1, insertPosition);
-
-        deleteModelFromDOM(2);
     }
+
+    //deleteModelFromDOM(optionSelected);
 
     //create new step
     if(optionSelected == 3)
@@ -185,6 +190,7 @@ function increaseElementIds(model, startId)
 {
     var i = 0;
     var inc = 0;
+    var first = true;
     $.each(model.subjectField, function (objKey, objValue)
     {
         $.each(objValue.elementField, function (oKey, oValue)
@@ -192,9 +198,13 @@ function increaseElementIds(model, startId)
             inc = startId + i;
             if (parseInt(oValue.uUIDField, 10) == inc)
             {
-                oValue.uUIDField = (inc + 1).toString();
-                oValue.yField = inc * 100;
-                i++;
+                if (first == false)
+                {
+                    oValue.uUIDField = (inc + 1).toString();
+                    oValue.yField = inc * 100;
+                    i++;
+                }
+                first = false;
             }            
         });
 
@@ -266,7 +276,6 @@ function getElementsById(modelNr, modelElemIds)
 function generateModelElementsOutOfDOMElements (domElements, insertPosition)
 {
     var modelElem = [];
-
     insertPosition++;
     for (var k=0; k<domElements.length; k++)
     {
@@ -276,13 +285,30 @@ function generateModelElementsOutOfDOMElements (domElements, insertPosition)
             nameField: domElements[k].textContent,
             uUIDField: (insertPosition + k).toString(),
             xField: 0,
-            yField: (insertPosition + k-1) * 100,
+            yField: (insertPosition + k) * 100,
         };
 
         modelElem.push(object);
     }
 
     return modelElem;
+}
+
+function createConnectionElement (elem1, elem2)
+{
+    var connection = new Object();
+
+    connection = {
+        directed1Field: false,
+        directed2Field: true,
+        endpoint1Field: elem1,
+        endpoint2Field: elem2,
+        msgField: null,
+        nameField: "",
+        uUIDField: generateUUID(),
+    };
+
+    return connection;
 }
 
 function deleteModelFromDOM(modelNr)
@@ -296,4 +322,19 @@ function deleteModelFromDOM(modelNr)
         }
     }
     $(canvas + " div").remove();
+}
+
+function generateUUID() {
+    var d = new Date().getTime();
+    if (window.performance && typeof window.performance.now === "function")
+    {
+        d += performance.now();
+    }
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c)
+    {
+        var r = (d + Math.random() * 16) % 16 | 0;
+        d = Math.floor(d / 16);
+        return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+    return uuid;
 }

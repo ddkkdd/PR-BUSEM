@@ -78,7 +78,7 @@
         function btnLoadModel(modelNr)
         {
             getSubject(modelNr);
-            deleteElements(modelNr);
+            getFileName(modelNr);
             init(fileName, selectedSubject, modelNr);
 
             var btn = document.getElementById("subjectMerge" + modelNr);
