@@ -95,15 +95,16 @@ function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
                 var prevElem = elementsModel1[k];
                 var connElem = createConnectionElement(prevElem, elementsModel1[i]);
             }
-            tmpModel2.subjectField[0].elementField.splice(insertPosition+i, 0, elementsModel1[i]);
+            tmpModel2.subjectField[0].elementField.splice(insertPosition + i, 0, elementsModel1[i]);
         }
         
         //update remaining uuids in elements and connection
         insertPosition = insertPosition + elementsModel1.length;
         increaseElementIds(tmpModel2, insertPosition);
+        var x = regenerateConnections(tmpModel2);
+        tmpModel2.subjectField[0].connectionField = x;
 
-        var x = regenerateConnections(tmpModel2)
-        console.log(x);
+        console.log(tmpModel2);
     }
 
     //apply selection from model 2 to model 1
@@ -207,24 +208,6 @@ function increaseElementIds(model, startId)
                 }
                 first = false;
             }            
-        });
-
-        i = 0;
-
-        $.each(objValue.connectionField, function(cKey, cValue)
-        {
-            var inc = startId + i;
-            var endpoint1 = parseInt(cValue.endPoint1Field.uUIDField, 10);
-            var endpoint2 = parseInt(cValue.endPoint2Field.uUIDField, 10);
-
-            if (endpoint1 == inc)
-            {
-                cValue.endPoint1Field.uUIDField = (endpoint1 + 1).toString();
-                cValue.endPoint2Field.uUIDField = (endpoint2 + 1).toString();
-
-                i++;
-            }
-            //var in
         });
     });
 }
