@@ -111,8 +111,15 @@
 
         function modelExport(modelNr)
         {
-            var filename = getFileName(modelNr);
-            exportModel(modelNr, filename);
+            if (modelNr == 3)
+            {
+                fileName = getFileName(1);
+            }
+            else
+            {
+                fileName = getFileName(modelNr);
+            }            
+            exportModel(modelNr, fileName);
         }
     </script>
     <title>ModelWhileWork</title>
@@ -155,6 +162,7 @@
                     <input type="button" id="mergeSteps" onclick="btnMergeSteps()" value="MergeSteps" />
                     <input type="button" id="mergeSteps" onclick="btnFinalModel()" value="Copy checked Elements" />
                     <input type="button" id="mergeSteps" onclick="btnInsertStep()" value="Insert Step" />
+                    <button id="exportModel3" onclick="modelExport(3)" style="visibility:hidden">Export Model</button>
                 </div>
 
             <dialog id="subjectsDialog1" class="myDialog">

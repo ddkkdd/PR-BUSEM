@@ -1,4 +1,4 @@
-﻿var insertPosition = 0;
+﻿var insPos = 0;
 
 function finalModel()
 {
@@ -27,9 +27,12 @@ function finalModel()
     var endElement;
     var elementsToDelete;
 
-    //emptyModel
-    tmpModel3.subjectField[0].elementField.splice(0, tmpModel3.subjectField[0].elementField.length);
-    tmpModel3.subjectField[0].connectionField.splice(0, tmpModel3.subjectField[0].connectionField.length);
+    if (insPos == 0)
+    {
+        //emptyModel
+        tmpModel3.subjectField[0].elementField.splice(0, tmpModel3.subjectField[0].elementField.length);
+        tmpModel3.subjectField[0].connectionField.splice(0, tmpModel3.subjectField[0].connectionField.length);
+    }    
     
     for (var i = 0; i < model1ElemIds.length; i++) {
         var element = document.getElementById("1:" + model1ElemIds[i]);
@@ -43,21 +46,23 @@ function finalModel()
 
     if (elementsModel1.length > 0)
     {
-        elementsModel1 = generateModelElementsOutOfDOMElements(elementsModel1, insertPosition);
+        elementsModel1 = generateModelElementsOutOfDOMElements(elementsModel1, insPos);
         
         for (var j = 0; j < elementsModel1.length; j++) {
-            tmpModel3.subjectField[0].elementField.splice(insertPosition + j, 0, elementsModel1[j]);
+            elementsModel1[j] = setYValue(elementsModel1[j]);
+            tmpModel3.subjectField[0].elementField.splice(insPos + j, 0, elementsModel1[j]);
         }
-        insertPosition = insertPosition + elementsModel1.length;
+        insPos = insPos + elementsModel1.length;
     }
 
     if (elementsModel2.length > 0)
     {
-        elementsModel2 = generateModelElementsOutOfDOMElements(elementsModel2, insertPosition);
+        elementsModel2 = generateModelElementsOutOfDOMElements(elementsModel2, insPos);
         for (var j = 0; j < elementsModel2.length; j++) {
-            tmpModel3.subjectField[0].elementField.splice(insertPosition + j, 0, elementsModel2[j]);
+            elementsModel2[j] = setYValue(elementsModel2[j]);
+            tmpModel3.subjectField[0].elementField.splice(insPos + j, 0, elementsModel2[j]);
         }
-        insertPosition = insertPosition + elementsModel2.length;
+        insPos = insPos + elementsModel2.length;
     }
 
     var connections = regenerateConnections(tmpModel3);
@@ -70,16 +75,132 @@ function finalModel()
     //repaint altered model
     generateElements(model3.subjectField[0], 3);
 
-    console.log("INSERTPOS " + insertPosition);
+    console.log("INSERTPOS " + insPos);
+
+    var btnEx = document.getElementById("exportModel3");
+    btnEx.style.visibility = "visible";
 }
 
 function InsertStep()
 {
+    var selection = 1;
     var dialog = document.getElementById("newStepDialog");
     var dialogDiv = document.getElementById("shjDiaSubjects");
     var okButton = document.getElementById("newStepDiaOK");
-    okButton.addEventListener('click', function () {  });
+    okButton.addEventListener('click', function ()
+    {
+        var options = document.getElementsByName("newStepTask");
+        for (var i = 0; i < options.length; i++) 
+        {
+            options[i].addEventListener('click', function () {
+                if (this.checked) {
+                    selection = this.value;
+                }
+            });
+        }
+        dialog.close();
+        insertElement(selection);
+    });
     var cnlButton = document.getElementById("newStepDiaCancel");
     cnlButton.addEventListener('click', function () { dialog.close(); });
     dialog.show();
+}
+
+function insertElement(selection)
+{
+    var tmpModel3 = getModel(3);
+
+    if (tmpModel3 == null) {
+        tmpModel3 = getModel(1);
+        //emptyModel
+        tmpModel3.subjectField[0].elementField.splice(0, tmpModel3.subjectField[0].elementField.length);
+        tmpModel3.subjectField[0].connectionField.splice(0, tmpModel3.subjectField[0].connectionField.length);
+    }
+
+    var taskName = "";
+    var sender = "";
+    var recipient = "";
+    var yValue = (insPos) * 100;
+    insPos++;
+
+    taskName = prompt("Bitte geben Sie eine neue Taskbezeichnug ein: ");
+    var object = new Object();
+    object = {
+        angleField: 0,
+        uUIDField: insPos,
+        nameField: taskName,
+        xField: 0,
+        yField: yValue
+    };
+
+    if (selection == 2)
+    {
+        recipient = prompt("Bitte geben Sie einen Empfänger ein: ");
+        sender = prompt("Bitte geben Sie einen Sender ein: ");
+
+        var msg = new Object();
+        msg = {
+            messageField: taskName,
+            recipientField: recipient,
+            senderField: sender
+        };
+
+        var messages = new Object();
+        messages = {
+            msgField: msg
+        };
+
+        object = {
+            angleField: 0,
+            uUIDField: insPos,
+            nameField: taskName,
+            xField: 0,
+            yField: yValue,
+            messagesField: messages 
+        };
+    }
+
+    if (selection == 3)
+    {
+        sender = prompt("Bitte geben Sie einen Sender ein: ");
+        recipient = prompt("Bitte geben Sie einen Empfänger ein: ");
+
+        var msg = new Object();
+        msg = {
+            messageField: taskName,
+            recipientField: recipient,
+            senderField: sender
+        };
+
+        object = {
+            angleField: 0,
+            uUIDField: insPos,
+            nameField: taskName,
+            xField: 0,
+            yField: yValue,
+            msgField: msg
+        };
+    }
+
+    tmpModel3.subjectField[0].elementField.splice(insPos, 0, object);
+    var connections = regenerateConnections(tmpModel3);
+    tmpModel3.subjectField[0].connectionField = connections;
+
+    model3 = tmpModel3;
+
+    //delete old model from canvas
+    deleteModelFromDOM(3);
+    //repaint altered model
+    generateElements(model3.subjectField[0], 3);
+
+    console.log(model3);
+}
+
+function setYValue(element)
+{
+    var uuid = parseInt(element.uUIDField, 10);
+    var yValue = (uuid - 1) * 100;
+    
+    element.yField = yValue;
+    return element;
 }

@@ -64,7 +64,7 @@ namespace ModelWhileWorkV2.Controllers
 
                     XmlDocument doc = JsonConvert.DeserializeXmlNode(content, "EntireModel");
                                         
-                    doc.Save(xmlFilePath+"/tmpXML.xml");
+                    doc.Save(xmlFilePath+"/tmpXML.exml");
                 }
             }
             catch (Exception ex)
