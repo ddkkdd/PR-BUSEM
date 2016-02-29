@@ -26,12 +26,12 @@ namespace ModelWhileWorkV2.Controllers
         public IHttpActionResult GetModel(string modelName)
         {
             try
-            {                
+            {
                 XmlSerializer serializer = new XmlSerializer(typeof(XmlSbpmEntireModel));
                 using (FileStream fileStream = new FileStream(xmlFilePath+modelName, FileMode.Open))
                 {
                     XmlSbpmEntireModel processModelObject = (XmlSbpmEntireModel)serializer.Deserialize(fileStream);
-
+                    
                     return Ok(processModelObject);
                 }
             }
@@ -67,9 +67,15 @@ namespace ModelWhileWorkV2.Controllers
 
                     StreamReader stream = new StreamReader(httpRequest.InputStream);
                     string content = stream.ReadToEnd();
+
                     content = content.Replace("Field", String.Empty);
-                    XmlDocument doc = JsonConvert.DeserializeXmlNode(content, "EntireModel");
-                                        
+                    content = content.Replace("subject", "Subject");
+                    content = content.Replace("element", "Element");
+                    content = content.Replace("connection", "Connection");
+                    content = content.Replace("uUID", "UUID");
+
+                    XmlDocument doc = new XmlDocument();
+                    doc = (XmlDocument)JsonConvert.DeserializeXmlNode(content, "EntireModel");
                     doc.Save(xmlFilePath+fileName);
                 }
             }
