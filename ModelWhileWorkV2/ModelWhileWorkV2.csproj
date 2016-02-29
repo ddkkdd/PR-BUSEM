@@ -289,6 +289,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\json2xml.js" />
     <Content Include="Scripts\jsPlumb-2.0.5.js" />
+    <Content Include="Scripts\Model\FinalModel.js" />
     <Content Include="Scripts\Model\GetModel.js" />
     <Content Include="Scripts\Model\MergeModelSteps.js" />
     <Content Include="Scripts\Model\ModelExport.js" />

@@ -9,6 +9,7 @@
     <script src="~/Scripts/Model/GetModel.js"></script>
     <script src="~/Scripts/Model/MergeModelSteps.js"></script>
     <script src="~/Scripts/Model/ModelExport.js"></script>
+    <script src="~/Scripts/Model/FinalModel.js"></script>
     
     <script>
         var fileName = "";
@@ -87,20 +88,27 @@
             var btnEx = document.getElementById("exportModel" + modelNr);
             btnEx.style.visibility = "visible";
         }
-    </script>
-    <script>
+
         function btnSubject(modelNr)
         {
             subjectsDialog(modelNr);
         }
-    </script>
-    <script>
+
         function btnMergeSteps()
         {
             mergeModelSteps();
         }
-    </script>
-    <script>
+
+        function btnFinalModel()
+        {
+            finalModel();
+        }
+
+        function btnInsertStep()
+        {
+            InsertStep();
+        }
+
         function modelExport(modelNr)
         {
             var filename = getFileName(modelNr);
@@ -145,6 +153,8 @@
                            
                 <div id="model3canvas">
                     <input type="button" id="mergeSteps" onclick="btnMergeSteps()" value="MergeSteps" />
+                    <input type="button" id="mergeSteps" onclick="btnFinalModel()" value="Copy checked Elements" />
+                    <input type="button" id="mergeSteps" onclick="btnInsertStep()" value="Insert Step" />
                 </div>
 
             <dialog id="subjectsDialog1" class="myDialog">
@@ -186,6 +196,20 @@
                 <br />
                 <button id="mDiaOK">OK</button>
                 <button id="mDiaCancel">Cancel</button>
+            </dialog>
+            <dialog id="newStepDialog" class="myDialog">
+                <h4>Wählen Sie ein neues Element aus</h4>
+                <br />
+                    <div id="newStepOpt">
+                        <img id="imgTask2" src="~/images/task.JPG" /> <input type="radio" name="newStepTask" checked="true" value="1" />
+                        <br />
+                        <img id="imgRecieve2" src="~/images/recieve.JPG" /> <input type="radio" name="newStepTask" value="2" />
+                        <br />
+                        <img id="imgSend2" src="~/images/send.JPG" /> <input type="radio" name="newStepTask" value="3" />
+                    </div>
+                <br />
+                <button id="newStepDiaOK">OK</button>
+                <button id="newStepDiaCancel">Cancel</button>
             </dialog>
         </div>
 </body>

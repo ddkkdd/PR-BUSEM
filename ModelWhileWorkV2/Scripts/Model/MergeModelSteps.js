@@ -61,8 +61,6 @@ function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
     var elementsToDelete;
     var insertPosition;
 
-    //console.log("optionSelected " + optionSelected + "\nmodel1ElemIds " + model1ElemIds + "\nmodel2ElemIds " + model2ElemIds);
-
     for (var i = 0; i < model1ElemIds.length; i++) {
         var element = document.getElementById("1:" + model1ElemIds[i]);
         elementsModel1.push(element);
@@ -89,22 +87,24 @@ function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
         
         for (var i = 0; i < elementsModel1.length; i++)
         {
-            var k = i - 1;
-            if (k >= 0)
-            {
-                var prevElem = elementsModel1[k];
-                var connElem = createConnectionElement(prevElem, elementsModel1[i]);
-            }
             tmpModel2.subjectField[0].elementField.splice(insertPosition + i, 0, elementsModel1[i]);
         }
         
         //update remaining uuids in elements and connection
         insertPosition = insertPosition + elementsModel1.length;
         increaseElementIds(tmpModel2, insertPosition);
-        var x = regenerateConnections(tmpModel2);
-        tmpModel2.subjectField[0].connectionField = x;
 
-        console.log(tmpModel2);
+        var connections = regenerateConnections(tmpModel2);
+        tmpModel2.subjectField[0].connectionField = connections;
+        model2 = tmpModel2;
+
+        console.log(model2);
+
+        //delete old model from canvas
+        deleteModelFromDOM(2);
+
+        //repaint altered model
+        generateElements(model2.subjectField[0], 2);
     }
 
     //apply selection from model 2 to model 1
@@ -129,10 +129,20 @@ function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
         //update remaining uuids in elements and connection
         insertPosition = insertPosition + elementsModel2.length;
         increaseElementIds(tmpModel1, insertPosition);
+
+        var connections2 = regenerateConnections(tmpModel1);
+        tmpModel1.subjectField[0].connectionField = connections;
+        model1 = tmpModel1;
+
+        console.log(model1);
+        
+        //delete old model from canvas
+        deleteModelFromDOM(1);
+
+        //repaint altered model
+        generateElements(model1.subjectField[0], 1);
     }
-
-    //deleteModelFromDOM(optionSelected);
-
+    
     //create new step
     if(optionSelected == 3)
     {
