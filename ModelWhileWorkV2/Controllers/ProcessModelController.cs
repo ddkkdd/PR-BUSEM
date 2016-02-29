@@ -58,13 +58,19 @@ namespace ModelWhileWorkV2.Controllers
                 }
                 else if (httpRequest.InputStream.Length > 0)
                 {
+                    var fileName = httpRequest.Headers["fileName"];
+                    if (fileName == null || fileName == String.Empty)
+                    {
+                        fileName = "tmpXML";
+                    }
+                    fileName = "/" + fileName + ".exml";
+
                     StreamReader stream = new StreamReader(httpRequest.InputStream);
                     string content = stream.ReadToEnd();
                     content = content.Replace("Field", String.Empty);
-
                     XmlDocument doc = JsonConvert.DeserializeXmlNode(content, "EntireModel");
                                         
-                    doc.Save(xmlFilePath+"/tmpXML.exml");
+                    doc.Save(xmlFilePath+fileName);
                 }
             }
             catch (Exception ex)

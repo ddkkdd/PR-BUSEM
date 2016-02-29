@@ -118,8 +118,10 @@
             else
             {
                 fileName = getFileName(modelNr);
-            }            
-            exportModel(modelNr, fileName);
+            }
+
+            var newFileName = prompt("Geben Sie bitte einen Dateiname ein", fileName);
+            exportModel(modelNr, newFileName);
         }
     </script>
     <title>ModelWhileWork</title>
