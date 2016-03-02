@@ -1,29 +1,15 @@
-﻿function mergeModelSteps()
-{
-    var chkBoxesModel1 = document.getElementsByClassName("chkBox1");
-    var chkBoxesModel1checked = [];
-    var model1ElemIds = [];
-    var model1Elements = [];
-    
-    var chkBoxesModel2 = document.getElementsByClassName("chkBox2");
-    var chkBoxesModel2checked = [];
-    var model2ElemIds = [];
-    var model2Elements = [];
+﻿var model1ElemIds = [];
+var model2ElemIds = [];
 
-    chkBoxesModel1checked = checkWhichCheckBoxIsChecked(chkBoxesModel1);
-    chkBoxesModel2checked = checkWhichCheckBoxIsChecked(chkBoxesModel2);
-
-    model1ElemIds = getElementIdsOfCheckBoxChecked(chkBoxesModel1checked);
-    model2ElemIds = getElementIdsOfCheckBoxChecked(chkBoxesModel2checked);
-    
+function mergeModelSteps()
+{    
     var dialog = document.getElementById("mergeDialog");
-
     var optionSelected = 1;
     var options = document.getElementsByName("mergeOption");
     
     for (var i = 0; i < options.length; i++) {
         options[i].addEventListener('click', function ()
-        {
+        {            
             if (this.checked)
             {
                 optionSelected = this.value;
@@ -42,12 +28,28 @@
         });
     }
 
+    checkSelectedElements();
     var okButton = document.getElementById("mDiaOK");
     okButton.addEventListener('click', function () { doTheMerge(optionSelected, model1ElemIds, model2ElemIds); });
     var cnlButton = document.getElementById("mDiaCancel");
     cnlButton.addEventListener('click', function () { dialog.close(); });
 
     dialog.show();
+}
+
+function checkSelectedElements()
+{
+    var chkBoxesModel1 = document.getElementsByClassName("chkBox1");
+    var chkBoxesModel1checked = [];
+
+    var chkBoxesModel2 = document.getElementsByClassName("chkBox2");
+    var chkBoxesModel2checked = [];
+
+    chkBoxesModel1checked = checkWhichCheckBoxIsChecked(chkBoxesModel1);
+    chkBoxesModel2checked = checkWhichCheckBoxIsChecked(chkBoxesModel2);
+
+    model1ElemIds = getElementIdsOfCheckBoxChecked(chkBoxesModel1checked);
+    model2ElemIds = getElementIdsOfCheckBoxChecked(chkBoxesModel2checked);
 }
 
 function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
@@ -70,7 +72,6 @@ function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
         var element2 = document.getElementById("2:" + model2ElemIds[j]);
         elementsModel2.push(element2);
     }
-        
 
     //apply selection from model 1 to model 2
     if (optionSelected == 1)
@@ -120,7 +121,6 @@ function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
 
         //insert elements of model2
         elementsModel2 = generateModelElementsOutOfDOMElements(elementsModel2, insertPosition);
-   
         for (var j = 0; j< elementsModel2.length; j++)
         {
             tmpModel1.subjectField[0].elementField.splice(insertPosition+j, 0, elementsModel2[j]);
@@ -157,45 +157,37 @@ function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
             }
         }
 
-        var startElementM1 = model1ElemIds[0];
-        var startElementM2 = model2ElemIds[0];
-        var endElementM1 = model1ElemIds[model1ElemIds.length - 1];
-        var endElementM2 = model2ElemIds[model2ElemIds.length - 1];
-        var insertPositionM1 = startElementM1 -1;
-        var insertPositionM2 = startElementM2 -1;
-        var elemToDelM1 = endElementM1 - startElementM1 + 1; 
-        var elemToDelM2 = endElementM2 - startElementM2 + 1;
-        
-        if (elemToDelM1 > 0)
+        var elemToDelM1 = model1ElemIds[0];
+        var elemToDelM2 = model2ElemIds[0];
+        var insertPosition = 0;
+
+        console.log("elemToDel1 " + elemToDelM1);
+        console.log("elemToDel2 " + elemToDelM2);
+
+        if (elemToDelM1 !== undefined)
         {
             //delete element at insertPosition
-            tmpModel1.subjectField[0].elementField.splice(insertPositionM1, elemToDelM1);
+            insertPosition = elemToDelM1 - 1;
+            tmpModel1.subjectField[0].elementField.splice(insertPosition, 1);
+            replaceElement(1, selection, insertPosition);
         }
 
-        if (elemToDelM2 > 0)
+        if (elemToDelM2 !== undefined)
         {
             //delete element at insertPosition
-            tmpModel2.subjectField[0].elementField.splice(insertPositionM2, elemToDelM2);
-        }
-
-        //create Task Element
-        if (selection == 1)
-        {
-
-        }
-
-        //Create Recieve Element
-        if (selection == 2)
-        {
-
-        }
-
-        //Create Send Element
-        if (selection == 3)
-        {
-
+            insertPosition = elemToDelM2 - 1;
+            tmpModel2.subjectField[0].elementField.splice(insertPosition, 1);
+            replaceElement(2, selection, insertPosition);
         }
     }
+
+    var dialog = document.getElementById("mergeDialog");
+    dialog.close();
+
+    model1ElemIds.splice(0, model1ElemIds.length);
+    model2ElemIds.splice(0, model2ElemIds.length);
+
+    setAllCheckBoxesUnchecked();
 }
 
 function increaseElementIds(model, startId)
@@ -329,7 +321,7 @@ function deleteModelFromDOM(modelNr)
     $(canvas + " div").remove();
 }
 
-function regenerateConnections (model)
+function regenerateConnections(model)
 {
     connections = [];
     var k = 0;
@@ -342,7 +334,6 @@ function regenerateConnections (model)
         {
             var prevElem = model.subjectField[0].elementField[k];
             var elem = model.subjectField[0].elementField[i];
-
             var connectionElem = createConnectionElement(prevElem, elem);
             connections.push(connectionElem);
         }
@@ -363,4 +354,93 @@ function generateUUID() {
         return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
     return uuid;
+}
+
+function replaceElement (mNr, selection, elementToReplaceId)
+{
+    console.log("SAU ");
+
+    var tmpModel = getModel(mNr);
+    
+    var taskName = "";
+    var sender = "";
+    var recipient = "";
+    var yValue = (elementToReplaceId) * 100;
+    elementToReplaceId++;
+
+    taskName = prompt("Bitte geben Sie eine neue Taskbezeichnug ein: ");
+    var object = new Object();
+    object = {
+        angleField: 0,
+        uUIDField: ""+elementToReplaceId,
+        nameField: taskName,
+        xField: 0,
+        yField: yValue
+    };
+
+    if (selection == 2) {
+        recipient = prompt("Bitte geben Sie einen Empfänger ein: ");
+        sender = prompt("Bitte geben Sie einen Sender ein: ");
+
+        var msg = new Object();
+        msg = {
+            messageField: taskName,
+            recipientField: recipient,
+            senderField: sender
+        };
+
+        var messages = new Object();
+        messages = {
+            msgField: msg
+        };
+
+        object = {
+            angleField: 0,
+            uUIDField: ""+elementToReplaceId,
+            nameField: taskName,
+            xField: 0,
+            yField: yValue,
+            messagesField: messages
+        };
+    }
+
+    if (selection == 3) {
+        sender = prompt("Bitte geben Sie einen Sender ein: ");
+        recipient = prompt("Bitte geben Sie einen Empfänger ein: ");
+
+        var msg = new Object();
+        msg = {
+            messageField: taskName,
+            recipientField: recipient,
+            senderField: sender
+        };
+
+        object = {
+            angleField: 0,
+            uUIDField: ""+elementToReplaceId,
+            nameField: taskName,
+            xField: 0,
+            yField: yValue,
+            msgField: msg
+        };
+    }
+
+    //delete Element at postition
+    tmpModel.subjectField[0].elementField.splice((elementToReplaceId-1), 0, object);
+
+
+    var connections = regenerateConnections(tmpModel);
+    tmpModel.subjectField[0].connectionField = connections;
+
+    //delete old model from canvas
+    deleteModelFromDOM(mNr);
+    //repaint altered model
+    generateElements(tmpModel.subjectField[0], mNr);
+
+    setModel(mNr, tmpModel);
+}
+
+function setAllCheckBoxesUnchecked()
+{
+   $("input:checkbox").prop('unchecked', $(this).prop("unchecked"));
 }
