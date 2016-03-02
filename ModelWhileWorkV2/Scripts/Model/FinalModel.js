@@ -20,7 +20,7 @@ function finalModel()
 
     var tmpModel1 = getModel(1);
     var tmpModel2 = getModel(2);
-    var tmpModel3 = getModel(1);
+    var tmpModel = getModel(1);
     var elementsModel1 = [];
     var elementsModel2 = [];
     var startElement;
@@ -30,8 +30,8 @@ function finalModel()
     if (insPos == 0)
     {
         //emptyModel
-        tmpModel3.subjectField[0].elementField.splice(0, tmpModel3.subjectField[0].elementField.length);
-        tmpModel3.subjectField[0].connectionField.splice(0, tmpModel3.subjectField[0].connectionField.length);
+        tmpModel.subjectField[0].elementField.splice(0, tmpModel.subjectField[0].elementField.length);
+        tmpModel.subjectField[0].connectionField.splice(0, tmpModel.subjectField[0].connectionField.length);
     }    
     
     for (var i = 0; i < model1ElemIds.length; i++) {
@@ -50,7 +50,7 @@ function finalModel()
         
         for (var j = 0; j < elementsModel1.length; j++) {
             elementsModel1[j] = setYValue(elementsModel1[j]);
-            tmpModel3.subjectField[0].elementField.splice(insPos + j, 0, elementsModel1[j]);
+            tmpModel.subjectField[0].elementField.splice(insPos + j, 0, elementsModel1[j]);
         }
         insPos = insPos + elementsModel1.length;
     }
@@ -60,14 +60,14 @@ function finalModel()
         elementsModel2 = generateModelElementsOutOfDOMElements(elementsModel2, insPos);
         for (var j = 0; j < elementsModel2.length; j++) {
             elementsModel2[j] = setYValue(elementsModel2[j]);
-            tmpModel3.subjectField[0].elementField.splice(insPos + j, 0, elementsModel2[j]);
+            tmpModel.subjectField[0].elementField.splice(insPos + j, 0, elementsModel2[j]);
         }
         insPos = insPos + elementsModel2.length;
     }
 
-    var connections = regenerateConnections(tmpModel3);
-    tmpModel3.subjectField[0].connectionField = connections;
-    model3 = tmpModel3;
+    var connections = regenerateConnections(tmpModel);
+    tmpModel.subjectField[0].connectionField = connections;
+    model3 = tmpModel;
 
     //delete old model from canvas
     deleteModelFromDOM(3);
@@ -99,22 +99,22 @@ function InsertStep()
             });
         }
         dialog.close();
-        insertElement(selection);
+        insertElement(selection, 3);
     });
     var cnlButton = document.getElementById("newStepDiaCancel");
     cnlButton.addEventListener('click', function () { dialog.close(); });
     dialog.show();
 }
 
-function insertElement(selection)
+function insertElement(selection, modelNr)
 {
-    var tmpModel3 = getModel(3);
+    var tmpModel = getModel(modelNr);
 
-    if (tmpModel3 == null) {
-        tmpModel3 = getModel(1);
+    if (tmpModel == null) {
+        tmpModel = getModel(1);
         //emptyModel
-        tmpModel3.subjectField[0].elementField.splice(0, tmpModel3.subjectField[0].elementField.length);
-        tmpModel3.subjectField[0].connectionField.splice(0, tmpModel3.subjectField[0].connectionField.length);
+        tmpModel.subjectField[0].elementField.splice(0, tmpModel.subjectField[0].elementField.length);
+        tmpModel.subjectField[0].connectionField.splice(0, tmpModel.subjectField[0].connectionField.length);
     }
 
     var taskName = "";
@@ -182,18 +182,17 @@ function insertElement(selection)
         };
     }
 
-    tmpModel3.subjectField[0].elementField.splice(insPos, 0, object);
-    var connections = regenerateConnections(tmpModel3);
-    tmpModel3.subjectField[0].connectionField = connections;
-
-    model3 = tmpModel3;
-
+    tmpModel.subjectField[0].elementField.splice(insPos, 0, object);
+    var connections = regenerateConnections(tmpModel);
+    tmpModel.subjectField[0].connectionField = connections;
+        
     //delete old model from canvas
-    deleteModelFromDOM(3);
+    deleteModelFromDOM(modelNr);
     //repaint altered model
-    generateElements(model3.subjectField[0], 3);
+    generateElements(tmpModel.subjectField[0], modelNr);
 
-    console.log(model3);
+    setModel(modelNr, tmpModel);
+    console.log(tmpModel);
 }
 
 function setYValue(element)
