@@ -349,7 +349,6 @@ function subjectsDialog(modelNr)
 {
     var subjects = getSubjects(modelNr);
     var cntSubjects = subjects.length;
-
     var heading = document.getElementById("sbjDiaH3"+modelNr);
     heading.textContent = "Subject Abgleich Model " + modelNr;
     
