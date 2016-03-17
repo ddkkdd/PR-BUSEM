@@ -1,4 +1,6 @@
-﻿var insPos = 0;
+﻿//contains operations for the final model
+
+var insPos = 0;
 
 function finalModel()
 {
@@ -74,9 +76,7 @@ function finalModel()
 
     //repaint altered model
     generateElements(model3.subjectField[0], 3);
-
-    console.log("INSERTPOS " + insPos);
-
+    
     var btnEx = document.getElementById("exportModel3");
     btnEx.style.visibility = "visible";
 }
@@ -192,7 +192,6 @@ function insertElement(selection, modelNr)
     generateElements(tmpModel.subjectField[0], modelNr);
 
     setModel(modelNr, tmpModel);
-    console.log(tmpModel);
 }
 
 function setYValue(element)

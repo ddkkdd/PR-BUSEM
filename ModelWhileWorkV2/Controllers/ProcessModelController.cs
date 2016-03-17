@@ -12,15 +12,16 @@ using System.Web;
 using System.Xml;
 using Newtonsoft.Json;
 using System.Xml.Linq;
+using System.Configuration;
 
 namespace ModelWhileWorkV2.Controllers
 {
     public class ProcessModelController : ApiController
     {
-        private static string xmlFilePath = "C:/Users/Daniel/documents/visual studio 2013/Projects/ModelWhileWorkV2/ModelWhileWorkV2/App_Data/";//prozess132.exml";
+        private static string xmlFilePath = ConfigurationManager.AppSettings["modelFilePath"];//"C:/Users/Daniel/documents/visual studio 2013/Projects/ModelWhileWorkV2/ModelWhileWorkV2/App_Data/";//prozess132.exml";
         //private static string xmlFilePath = "~/App_Data/prozess132.exml";
-        private static string uploadFolderPath = "~/App_Data/Uploads/";
-
+        private static string uploadFolderPath = ConfigurationManager.AppSettings["uploadFilePath"];//"~/App_Data/Uploads/";
+        
 
         //Returns Model File As Json
         public IHttpActionResult GetModel(string modelName)

@@ -1,29 +1,27 @@
-﻿var constUrl = 'http://localhost:53410/api/ProcessModel?modelName=';
+﻿var getUrl = null;
 var selectedSubject = "DefaultUser";
-
 var offset = 1000;
 var divide = 2;
-
 var model1 = null;
 var model2 = null;
 var model3 = null;
-
 var subjects1 = [];
 var subjects2 = [];
 var subjects3 = [];
 
-function init(fileName, subjectName, modelNr)
+//initializes and calls loadModel
+function init(urlModelName, fileName, subjectName, modelNr)
 {
-    url = constUrl + fileName;
-    
+    getUrl = urlModelName + fileName;
     selectedSubject = subjectName; 
     $(document).ready(loadModel(modelNr));
 }
 
+//gets selected model file from server
 function loadModel(modelNr) {
     
     jQuery.ajax({
-        url: url,
+        url: getUrl,
         type: "GET",
         contentType: 'application/json; charset=utf-8',
         success: function (modelJSON) {
@@ -56,6 +54,7 @@ function loadModel(modelNr) {
     });
 }
 
+//creates DOM elements for model steps for the specified canvas
 function generateElements(subjectField, canvasNr)
 {
     canvasDiv = document.getElementById("model"+canvasNr+"canvas");
@@ -85,6 +84,7 @@ function generateElements(subjectField, canvasNr)
     });
 }
 
+//creates task DOM element for the specified canvas
 function createNewTaskElement (object, canvasNr)
 {
     x = object.xField
@@ -121,6 +121,7 @@ function createNewTaskElement (object, canvasNr)
     return newDiv;
 }
 
+//creates send DOM element for the specified canvas
 function createNewSendElement (object, canvasNr)
 {
     x = object.xField
@@ -167,6 +168,7 @@ function createNewSendElement (object, canvasNr)
     return newDiv;
 }
 
+//creates recieve DOM element for the specified canvas
 function createNewRecieveElement (object, canvasNr)
 {
     x = object.xField
@@ -216,6 +218,7 @@ function createNewRecieveElement (object, canvasNr)
     return newDiv;
 }
 
+//generates endpoint for jsPlumb connection
 function generateElementsConnection(model, canvasNr)
 {
     var sourceId = "";
@@ -240,6 +243,7 @@ function generateElementsConnection(model, canvasNr)
     });
 }
 
+//jsPlumb connects two elements
 function connectTwoElements(sourceId, targetId, label, canvasNr) {
     var offset = -290;
 
@@ -273,6 +277,7 @@ function connectTwoElements(sourceId, targetId, label, canvasNr) {
     }, common);
 }
 
+//adds model subject to array
 function addSubjectToArray (subjectName, modelNr)
 {
     if (modelNr == 1)
@@ -295,6 +300,7 @@ function addSubjectToArray (subjectName, modelNr)
     }    
 }
 
+//gets all subjects for specified modelNr
 function getSubjects(modelNr)
 {
     if (modelNr == 1)
@@ -313,6 +319,7 @@ function getSubjects(modelNr)
     return null;
 }
 
+//return model by modelNumber
 function getModel(modelNr)
 {
     if (modelNr == 1) {
@@ -330,6 +337,7 @@ function getModel(modelNr)
     return null;
 }
 
+//sets model by modelNr
 function setModel (modelNr, model)
 {
     if (modelNr == 1) {
@@ -345,6 +353,7 @@ function setModel (modelNr, model)
     }
 }
 
+//generates dialog for subject merge
 function subjectsDialog(modelNr)
 {
     var subjects = getSubjects(modelNr);
@@ -399,6 +408,7 @@ function subjectsDialog(modelNr)
     dialog.show();
 }
 
+//checks subject merge dialog's selection
 function checkDialogSelection(modelNr, cntSubjects)
 {
     var dialog = document.getElementById("subjectsDialog"+modelNr);
@@ -475,6 +485,7 @@ function checkDialogSelection(modelNr, cntSubjects)
     }
 }
 
+//replaces the subjects names after the subject merge with new commonName
 function replaceSubjectNames (subjects, commonName, modelNr)
 {
     //replace Names in View

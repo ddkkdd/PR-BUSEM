@@ -10,11 +10,17 @@
     <script src="~/Scripts/Model/MergeModelSteps.js"></script>
     <script src="~/Scripts/Model/ModelExport.js"></script>
     <script src="~/Scripts/Model/FinalModel.js"></script>
-    
     <script>
+        var url = '@System.Configuration.ConfigurationManager.AppSettings["url"]';
+        var urlModelName = url + "?modelName=";
+    </script>
+
+    <script>
+        
         var fileName = "";
         var subject = "";
 
+        //gets the fileName of selected model
         function getFileName(modelNr) {
             var tmpName = document.getElementById("file"+modelNr);
             fileName = tmpName.value.replace(/^.*[\\\/]/, '');
@@ -30,17 +36,17 @@
             }            
         }
 
+        //get the selected subject from selection
         function getSubject(modelNr)
         {
             subject = $("#selection"+modelNr+" option:selected").text();
         }
-    </script>
 
-    <script>
+        //fill selection options for modelNr
         function fillSelection(fileName, modelNr) {
             if (fileName != "") {
                 jQuery.ajax({
-                    url: "http://localhost:53410/api/ProcessModel?modelName=" + fileName,
+                    url: urlModelName + fileName,
                     type: "GET",
                     contentType: 'application/json; charset=utf-8',
                     success: function (modelJSON) {
@@ -64,6 +70,7 @@
             }
         }
 
+        //emtpy selection options for modelNr
         function emptySelection(modelNr)
         {
             var selectElem = document.getElementById('selection' + modelNr);
@@ -73,14 +80,13 @@
                 selectElem.options[i] = null;
             }
         }
-    </script>
-    
-    <script>
+
+        //get the model from server and paint it
         function btnLoadModel(modelNr)
         {
             getSubject(modelNr);
             getFileName(modelNr);
-            init(fileName, selectedSubject, modelNr);
+            init(urlModelName, fileName, selectedSubject, modelNr);
 
             var btn = document.getElementById("subjectMerge" + modelNr);
             btn.style.visibility = "visible";
@@ -89,26 +95,31 @@
             btnEx.style.visibility = "visible";
         }
 
+        //show subject dialog
         function btnSubject(modelNr)
         {
             subjectsDialog(modelNr);
         }
 
+        //call merge steps function
         function btnMergeSteps()
         {
             mergeModelSteps();
         }
+
 
         function btnFinalModel()
         {
             finalModel();
         }
 
+        //call insert step function
         function btnInsertStep()
         {
             InsertStep();
         }
 
+        //call export model function
         function modelExport(modelNr)
         {
             if (modelNr == 3)
@@ -121,24 +132,13 @@
             }
 
             var newFileName = prompt("Geben Sie bitte einen Dateiname ein", fileName);
-            exportModel(modelNr, newFileName);
+            exportModel(url, modelNr, newFileName);
         }
     </script>
     <title>ModelWhileWork</title>
 </head>
 <body>
     <br />
-    @*<ul id="menu">
-        <li><label>Model 1</label>
-        <ul id="menuModel1">
-            <li><label>Select Model</label></li>
-            <li><label>Load Model</label></li>
-            <li><label>Merge Subjects</label></li>
-        </ul>
-        </li>
-        <li><label>Model 2</label></li>
-    </ul>*@  
-
         <div id="canvas">             
                 <div id="model1canvas">
                     <input type="file" id="file1" onchange="getFileName(1)" />
@@ -161,7 +161,7 @@
                 </div>
                            
                 <div id="model3canvas">
-                    <input type="button" id="mergeSteps" onclick="btnMergeSteps()" value="MergeSteps Options" />
+                    <input type="button" id="mergeSteps" onclick="btnMergeSteps()" value="Merge Steps Options" />
                     <input type="button" id="mergeSteps" onclick="btnFinalModel()" value="Copy checked Elements" />
                     <input type="button" id="mergeSteps" onclick="btnInsertStep()" value="Insert Step" />
                     <button id="exportModel3" onclick="modelExport(3)" style="visibility:hidden">Export Model</button>

@@ -1,9 +1,9 @@
-﻿function exportModel(modelNr, fileName)
+﻿//export Model to the model directory
+function exportModel(url, modelNr, fileName)
 {
     var model = getModel(modelNr);
-    
+    alert(url);
     xhr = new XMLHttpRequest();
-    var url = "http://localhost:53410/api/ProcessModel";
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/json");
     xhr.setRequestHeader("fileName", fileName);

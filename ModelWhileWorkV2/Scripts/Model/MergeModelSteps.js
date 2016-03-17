@@ -1,4 +1,6 @@
-﻿var model1ElemIds = [];
+﻿//contains the merge functionality 
+
+var model1ElemIds = [];
 var model2ElemIds = [];
 
 function mergeModelSteps()
@@ -37,6 +39,7 @@ function mergeModelSteps()
     dialog.show();
 }
 
+//checks which elements are selected (checked)
 function checkSelectedElements()
 {
     var chkBoxesModel1 = document.getElementsByClassName("chkBox1");
@@ -52,6 +55,7 @@ function checkSelectedElements()
     model2ElemIds = getElementIdsOfCheckBoxChecked(chkBoxesModel2checked);
 }
 
+//replaces the selected elemtens of model a with the selected elements of model b
 function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
 {
     var tmpModel1 = getModel(1);
@@ -99,8 +103,6 @@ function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
         tmpModel2.subjectField[0].connectionField = connections;
         model2 = tmpModel2;
 
-        console.log(model2);
-
         //delete old model from canvas
         deleteModelFromDOM(2);
 
@@ -133,9 +135,7 @@ function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
         var connections2 = regenerateConnections(tmpModel1);
         tmpModel1.subjectField[0].connectionField = connections;
         model1 = tmpModel1;
-
-        console.log(model1);
-        
+                
         //delete old model from canvas
         deleteModelFromDOM(1);
 
@@ -160,9 +160,6 @@ function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
         var elemToDelM1 = model1ElemIds[0];
         var elemToDelM2 = model2ElemIds[0];
         var insertPosition = 0;
-
-        console.log("elemToDel1 " + elemToDelM1);
-        console.log("elemToDel2 " + elemToDelM2);
 
         if (elemToDelM1 !== undefined)
         {
@@ -190,6 +187,8 @@ function doTheMerge(optionSelected, model1ElemIds, model2ElemIds)
     setAllCheckBoxesUnchecked();
 }
 
+//increases the elementIds for the tasks which are located behind the 
+//newly inserted elements 
 function increaseElementIds(model, startId)
 {
     var i = 0;
@@ -214,6 +213,7 @@ function increaseElementIds(model, startId)
     });
 }
 
+//gets the selected(checked) checkboxes
 function checkWhichCheckBoxIsChecked (chkBoxes)
 {
     var checked = [];
@@ -229,6 +229,7 @@ function checkWhichCheckBoxIsChecked (chkBoxes)
     return checked;
 }
 
+//return element ids of the checked DOM elements
 function getElementIdsOfCheckBoxChecked (chkBoxesChecked)
 {
     var modelIds = [];
@@ -241,11 +242,13 @@ function getElementIdsOfCheckBoxChecked (chkBoxesChecked)
     return modelIds;
 }
 
+//returns DOM element by id
 function getElementById(modelNr, id)
 {
     return document.getElementById(modelNr+":"+id);
 }
 
+//return DOM elements by id
 function getElementsById(modelNr, modelElemIds)
 {
     var elements = [];
@@ -259,6 +262,7 @@ function getElementsById(modelNr, modelElemIds)
     return elements;
 }
 
+//generates model elements out of DOM elements
 function generateModelElementsOutOfDOMElements (domElements, insertPosition)
 {
     var modelElem = [];
@@ -291,6 +295,7 @@ function generateModelElementsOutOfDOMElements (domElements, insertPosition)
     return modelElem;
 }
 
+//create connection element for model
 function createConnectionElement (elem1, elem2)
 {
     var connection = new Object();
@@ -308,6 +313,7 @@ function createConnectionElement (elem1, elem2)
     return connection;
 }
 
+//deletes model from canvas
 function deleteModelFromDOM(modelNr)
 {   
     var taskElements = document.getElementsByTagName("div");
@@ -321,6 +327,7 @@ function deleteModelFromDOM(modelNr)
     $(canvas + " div").remove();
 }
 
+//refreshes the model's connections
 function regenerateConnections(model)
 {
     connections = [];
@@ -341,6 +348,7 @@ function regenerateConnections(model)
     return connections;
 }
 
+//generate GUID for UUID Field
 function generateUUID() {
     var d = new Date().getTime();
     if (window.performance && typeof window.performance.now === "function")
@@ -356,10 +364,9 @@ function generateUUID() {
     return uuid;
 }
 
+//replaces selected element
 function replaceElement (mNr, selection, elementToReplaceId)
 {
-    console.log("SAU ");
-
     var tmpModel = getModel(mNr);
     
     var taskName = "";
@@ -440,6 +447,7 @@ function replaceElement (mNr, selection, elementToReplaceId)
     setModel(mNr, tmpModel);
 }
 
+//unchcecks all checkboxes
 function setAllCheckBoxesUnchecked()
 {
    $("input:checkbox").prop('unchecked', $(this).prop("unchecked"));
