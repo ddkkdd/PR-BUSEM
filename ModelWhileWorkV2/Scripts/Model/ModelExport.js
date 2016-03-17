@@ -2,7 +2,6 @@
 function exportModel(url, modelNr, fileName)
 {
     var model = getModel(modelNr);
-    alert(url);
     xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/json");
@@ -14,5 +13,4 @@ function exportModel(url, modelNr, fileName)
     }
     var data = JSON.stringify(model);
     xhr.send(data);
-    console.log(fileName);
 }

@@ -81,6 +81,7 @@ function finalModel()
     btnEx.style.visibility = "visible";
 }
 
+//shows new step dialog
 function InsertStep()
 {
     var selection = 1;
@@ -106,6 +107,7 @@ function InsertStep()
     dialog.show();
 }
 
+//inserts new step into model
 function insertElement(selection, modelNr)
 {
     var tmpModel = getModel(modelNr);
@@ -194,6 +196,7 @@ function insertElement(selection, modelNr)
     setModel(modelNr, tmpModel);
 }
 
+//sets the yValue for element
 function setYValue(element)
 {
     var uuid = parseInt(element.uUIDField, 10);

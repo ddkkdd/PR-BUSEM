@@ -2,7 +2,6 @@
 <html>
 <head>
     <link href="~/Content/Model.css" rel="stylesheet" type="text/css" />
-    
     <script src="~/Scripts/jquery-1.10.2.js"></script>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jsPlumb-2.0.5.js"></script>
@@ -13,6 +12,9 @@
     <script>
         var url = '@System.Configuration.ConfigurationManager.AppSettings["url"]';
         var urlModelName = url + "?modelName=";
+        var offsetConnection = '@System.Configuration.ConfigurationManager.AppSettings["offsetConnection"]';
+        var offsetElement = '@System.Configuration.ConfigurationManager.AppSettings["offsetElement"]';
+        var divide = '@System.Configuration.ConfigurationManager.AppSettings["divide"]';
     </script>
 
     <script>
@@ -86,7 +88,7 @@
         {
             getSubject(modelNr);
             getFileName(modelNr);
-            init(urlModelName, fileName, selectedSubject, modelNr);
+            init(urlModelName, fileName, selectedSubject, modelNr, offsetElement, offsetConnection, divide);
 
             var btn = document.getElementById("subjectMerge" + modelNr);
             btn.style.visibility = "visible";

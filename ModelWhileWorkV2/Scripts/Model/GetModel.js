@@ -1,7 +1,10 @@
-﻿var getUrl = null;
+﻿//loads and displays models
+
+var getUrl = null;
 var selectedSubject = "DefaultUser";
-var offset = 1000;
-var divide = 2;
+var offsetElement = null;
+var offsetConnection = null;
+var divide = null;
 var model1 = null;
 var model2 = null;
 var model3 = null;
@@ -10,10 +13,13 @@ var subjects2 = [];
 var subjects3 = [];
 
 //initializes and calls loadModel
-function init(urlModelName, fileName, subjectName, modelNr)
+function init(urlModelName, fileName, subjectName, modelNr, offsetElem, offsetConn, div)
 {
     getUrl = urlModelName + fileName;
-    selectedSubject = subjectName; 
+    selectedSubject = subjectName;
+    offsetElement = offsetElem;
+    offsetConnection = offsetConn;
+    divide = div;
     $(document).ready(loadModel(modelNr));
 }
 
@@ -92,12 +98,12 @@ function createNewTaskElement (object, canvasNr)
     
     if (x < 1 && x != 0)
     {
-        x = x * offset / divide;
+        x = x * offsetElement / divide;
     }
 
     if (y < 1 && y != 0)
     {
-        y = y * offset / (divide * 2);
+        y = y * offsetElement / (divide * 2);
     }
 
     newDiv = document.createElement("div");
@@ -128,11 +134,11 @@ function createNewSendElement (object, canvasNr)
     y = object.yField
 
     if (x < 1 && x != 0) {
-        x = x * offset / divide;
+        x = x * offsetElement / divide;
     }
 
     if (y < 1 && y != 0) {
-        y = y * offset / (divide * 2);
+        y = y * offsetElement / (divide * 2);
     }
 
     newDiv = document.createElement("div");
@@ -175,11 +181,11 @@ function createNewRecieveElement (object, canvasNr)
     y = object.yField
 
     if (x < 1 && x != 0) {
-        x = x * offset / divide;
+        x = x * offsetElement / divide;
     }
 
     if (y < 1 && y != 0) {
-        y = y * offset / (divide * 2);
+        y = y * offsetElement / (divide * 2);
     }
 
     newDiv = document.createElement("div");
@@ -245,11 +251,8 @@ function generateElementsConnection(model, canvasNr)
 
 //jsPlumb connects two elements
 function connectTwoElements(sourceId, targetId, label, canvasNr) {
-    var offset = -290;
-
     var sourceElem = document.getElementById(sourceId);
     var targetElem = document.getElementById(targetId);
-
     var common = {
         connector: ["Straight"],
         anchor: ["Top", "Bottom"],
@@ -260,7 +263,7 @@ function connectTwoElements(sourceId, targetId, label, canvasNr) {
     {
         common = {
             connector: ["Straight"],
-            anchor: [[0, 0, 0, 0, offset, 0], [0, 0, 0, 0, offset, 0]],
+            anchor: [[0, 0, 0, 0, offsetConnection, 0], [0, 0, 0, 0, offsetConnection, 0]],
             endpoint: "Blank"
         }
     }
