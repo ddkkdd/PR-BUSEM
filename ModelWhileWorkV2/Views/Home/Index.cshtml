@@ -145,9 +145,9 @@
                 <div id="model1canvas">
                     <input type="file" id="file1" onchange="getFileName(1)" />
                     <label id="selectionLabel1">Subjekt auswählen</label><select id="selection1" onchange="getSubject(1)"></select>
-                    <button id="loadModel1" onclick="btnLoadModel(1)">Modell laden</button>
+                    <button id="loadModel1" onclick="btnLoadModel(1)">Load Model</button>
                     <br />
-                    <button id="subjectMerge1" onclick="btnSubject(1)" style="visibility:hidden">Subjektabgleich</button>
+                    <button id="subjectMerge1" onclick="btnSubject(1)" style="visibility:hidden">Merge Subjects</button>
                     <br />
                     <button id="exportModel1" onclick="modelExport(1)" style="visibility:hidden">Export Model</button>
                 </div>
@@ -155,9 +155,9 @@
                 <div id="model2canvas">
                     <input type="file" id="file2" onchange="getFileName(2)" />
                     <label id="selectionLabel2">Subjekt auswählen</label><select id="selection2" onchange="getSubject(2)"></select>
-                    <button id="loadModel2" onclick="btnLoadModel(2)">Modell laden</button>
+                    <button id="loadModel2" onclick="btnLoadModel(2)">Load Model</button>
                     <br />
-                    <button id="subjectMerge2" onclick="btnSubject(2)" style="visibility:hidden">Subjektabgleich</button>
+                    <button id="subjectMerge2" onclick="btnSubject(2)" style="visibility:hidden">Merge Subjects</button>
                     <br />
                     <button id="exportModel2" onclick="modelExport(2)" style="visibility:hidden">Export Model</button>
                 </div>
@@ -171,7 +171,7 @@
 
             <dialog id="subjectsDialog1" class="myDialog">
                 <h4 id="sbjDiaH31"></h4>
-                <span style="font-style:italic">Vergeben Sie für Subjekte die die gleiche Person darstellen die gleiche Nummer</span>
+                <span style="font-style:italic">Assign the same number to subjects who represent the same person</span>
                 <br />
                 <br />
                 <div id="shjDiaSubjects1"></div>
@@ -181,7 +181,7 @@
             </dialog>
             <dialog id="subjectsDialog2" class="myDialog">
                 <h4 id="sbjDiaH32"></h4>
-                <span style="font-style:italic">Vergeben Sie für Subjekte die die gleiche Person darstellen die gleiche Nummer</span>
+                <span style="font-style:italic">Assign the same number to subjects who represent the same person</span>
                 <br />
                 <br />
                 <div id="shjDiaSubjects2"></div>
@@ -192,11 +192,11 @@
             <dialog id="mergeDialog" class="myDialog">
                 <h4>Wählen Sie eine Merge-Option</h4>
                 <br />
-                    <input type="radio" name="mergeOption" value="1" checked="true">Auswahl aus Model 1 übernehmen</input>
+                    <input type="radio" name="mergeOption" value="1" checked="true">apply selection from model 1</input>
                     <br />
-                    <input type="radio" name="mergeOption" value="2">Auswahl aus Model 2 übernehmen</input>
+                    <input type="radio" name="mergeOption" value="2">apply selection from model 2</input>
                     <br />
-                    <input type="radio" name="mergeOption" value="3">Tasktyp ändern/umbenennen</input>
+                    <input type="radio" name="mergeOption" value="3">change task typ / rename task</input>
                     <br />
                     <div id="mDiaOpt" style="visibility:hidden">
                         <img id="imgTask" src="~/images/task.JPG"/> <input type="radio" name="mergeOptionTask" checked="true" value="1"/>
